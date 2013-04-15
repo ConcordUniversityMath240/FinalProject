@@ -77,6 +77,4 @@ int main()
 	endwin();
 
 	return 0;
-
-	// GITHUB TEST - Andy
 }
