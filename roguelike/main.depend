@@ -1,0 +1,25 @@
+# depslib dependency file v1.0
+1365987068 source:c:\users\pritt\desktop\main\main.cpp
+	<curses.h>
+	<string>
+	<stdlib.h>
+
+1365986591 c:\codeblocks\pdcurs33\curses.h
+	<stdarg.h>
+	<stddef.h>
+	<stdio.h>
+	<wchar.h>
+
+1365987068 source:c:\users\pritt\documents\github\finalproject\resources\main\main.cpp
+	<curses.h>
+	<string>
+	<stdlib.h>
+
+1366153715 source:c:\users\pritt\documents\github\finalproject\roguelike\gameobject.cpp
+	<curses.h>
+	<string>
+	<stdlib.h>
+	<ctime>
+	<cstdlib>
+	<iostream>
+
