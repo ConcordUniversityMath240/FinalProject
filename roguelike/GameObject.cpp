@@ -19,6 +19,7 @@ protected: //protected for derived classes
     int locX, locY; //coordinates
 public:
     GameObject();
+    GameObject(int inx, int iny);
     ~GameObject(){}
     int getLocX();
     int getLocY();
@@ -36,8 +37,14 @@ int main ()
 
 GameObject::GameObject()
 {
-    locX = (rand()% 10)+1;
-    locY = (rand()% 10)+1;
+    locX = (rand()% 27)+2;
+    locY = (rand()% 72)+3;
+}
+
+GameObject::GameObject(int inx, int iny)
+{
+    locX = inx;
+    locY = iny;
 }
 
 int GameObject::getLocX()
