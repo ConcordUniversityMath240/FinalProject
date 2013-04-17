@@ -13,17 +13,17 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="c:/codeblocks/pdcurs33/win32" />
-					<Add directory="C:/codeblocks/pdcurs33" />
+					<Add directory="C:/CodeBlocks/pdcurs33/win32" />
+					<Add directory="C:/CodeBlocks/pdcurs33" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="C:/codeblocks/pdcurs33/win32" />
-					<Add directory="C:/codeblocks/pdcurs33/" />
+					<Add directory="C:/CodeBlocks/pdcurs33/win32" />
+					<Add directory="C:/CodeBlocks/pdcurs33" />
 				</ResourceCompiler>
 				<Linker>
-					<Add library="c:\codeblocks\pdcurs33\win32\pdcurses.a" />
-					<Add directory="C:/codeblocks/pdcurs33/win32" />
-					<Add directory="C:/codeblocks/pdcurs33/" />
+					<Add library="C:\CodeBlocks\pdcurs33\win32\pdcurses.a" />
+					<Add directory="C:/CodeBlocks/pdcurs33/win32" />
+					<Add directory="C:/CodeBlocks/pdcurs33" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -43,7 +43,10 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="GameObject.cpp" />
+		<Unit filename="game.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="map.h" />
+		<Unit filename="object.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
