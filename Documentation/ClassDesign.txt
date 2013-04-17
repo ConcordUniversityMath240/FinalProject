@@ -1,36 +1,36 @@
 Class Layout
 
 High Priority:
-Game  			    Starts/ends the game. May perform other large functions between objects.
-				        The heart of the program.
-Input				    Receives input from the player and translates it to a game function.
+Game  			Starts/ends the game. May perform other large functions between objects.
+			The heart of the program.
+Input			Receives input from the player and translates it to a game function.
 Screen/Output		Provides information to the player and controls output.
-				        This will likely be a whole lot of Curses stuff.
-Tile				    An individual space in the game world.
-				        Tiles can be a floor (not the object \/), wall, empty space, player,
-				        enemy, item, etc.
-Floor				    Floor is an object made up of Tiles. Represents one level of the
-				        dungeon. Methods will include things like display, clear, and populate.
-GameObject			Simple base class that will contain coordinates and very simple methods
-				        that apply to all game objects (remove, etc)
-Character			  Base class for player and enemies. Will ideally contain movement and
-				        attack methods that can be inherited by its children.			
-Player				  Child of Game Object/Character. It's the player, and will include attributes
-				        related to combat and leveling.
+			This will likely be a whole lot of Curses stuff.
+Tile			An individual space in the game world.
+			Tiles can be a floor (not the object \/), wall, empty space, player,
+			enemy, item, etc.
+Floor			Floor is an object made up of Tiles. Represents one level of the
+			dungeon. Methods will include things like display, clear, and populate.
+GameObject		Simple base class that will contain coordinates and very simple methods
+			that apply to all game objects (remove, etc)
+Character		Base class for player and enemies. Will ideally contain movement and
+			attack methods that can be inherited by its children.			
+Player			Child of Game Object/Character. It's the player, and will include attributes
+			related to combat and leveling.
 	
 
 
 Mid Priority:
-Enemy				    Child of Object/Character. It (might) attack the player.
-				        I don't think a boss would need to be a seperate object. It would just be
-				        an enemy with an isBoss flag set to true and higher than normal stats.
+Enemy			Child of Object/Character. It (might) attack the player.
+			I don't think a boss would need to be a seperate object. It would just be
+			an enemy with an isBoss flag set to true and higher than normal stats.
 Melee Combat		May or may not be a class of its own.
-Item				    Base class for objects the player can pick up to heal/modify stats.
-				        This could possibly be split into Armor/Weapon/Potion etc classes
-				        later.
-Inventory			  An object that Characters have that will hold Item objects. Giving 
-				        enemies an inventory would allow us later to implement a looting
-				        mechanic.
+Item			Base class for objects the player can pick up to heal/modify stats.
+			This could possibly be split into Armor/Weapon/Potion etc classes
+			later.
+Inventory		An object that Characters have that will hold Item objects. Giving 
+			enemies an inventory would allow us later to implement a looting
+			mechanic.
 Leveling
 
 
@@ -41,10 +41,19 @@ Doors
 
 
 --------------------------------------------
-The game would work as follows. Game starts, rules are displayed, and the main screen is displayed. The player can move around using WASD or arrow keys. Players can move around on floor tiles, can't move through wall tiles or enemies. If a player is next to an enemy they can press a button to attack it. Some enemies will remain stationary, some will attempt to move next to the player to attack them. Later we might implement ranged attacks for both the player and enemies. Killing an enemy rewards XP, gaining enough XP will level the player up, increasing stats, etc. This will become more advanced with a class system, etc if time permits.
+The game would work as follows. Game starts, rules are displayed, and the main screen is displayed. 
+The player can move around using WASD or arrow keys. Players can move around on floor tiles, can't 
+move through wall tiles or enemies. If a player is next to an enemy they can press a button to attack it. 
+Some enemies will remain stationary, some will attempt to move next to the player to attack them. Later we might implement ranged 
+attacks for both the player and enemies. Killing an enemy rewards XP, gaining enough XP will level the player up, increasing stats, 
+etc. This will become more advanced with a class system, etc if time permits.
 
-The player is attempting to find the stairs to move down to the next floor. This will be accomplished by standing on the stair tile and pressing a button. When the player reaches the last floor, they will find a boss which they must defeat to end the game. This is the only way besides dying to end the game.
+The player is attempting to find the stairs to move down to the next floor. This will be accomplished by standing on the stair tile 
+and pressing a button. When the player reaches the last floor, they will find a boss which they must defeat to end the game. This is 
+the only way besides dying to end the game.
 
-Time permitting it would be nice to have an inventory system with items the player picks up contained within it. These could be potions to restore health, armor to reduce damage taken, or weapons to increase health.
+Time permitting it would be nice to have an inventory system with items the player picks up contained within it. These could be 
+potions to restore health, armor to reduce damage taken, or weapons to increase health.
 
-If we accomplish all of that, we can start trying out things like magic, bows, skill moves, environmental hazards, maybe locked doors and keys. Also we could expand on the variety of enemies, etc.
+If we accomplish all of that, we can start trying out things like magic, bows, skill moves, environmental hazards, maybe locked 
+doors and keys. Also we could expand on the variety of enemies, etc.
