@@ -42,10 +42,10 @@ Doors
 
 --------------------------------------------
 The game would work as follows. Game starts, rules are displayed, and the main screen is displayed. 
-The player can move around using WASD or arrow keys. Players can move around on floor tiles, can't 
-move through wall tiles or enemies. If a player is next to an enemy they can press a button to attack it. 
-Some enemies will remain stationary, some will attempt to move next to the player to attack them. Later we might implement ranged 
-attacks for both the player and enemies. Killing an enemy rewards XP, gaining enough XP will level the player up, increasing stats, 
+The player can move around using WASD or arrow keys. Players can move around on floor tiles, can'tmove through wall 
+tiles or enemies. If a player is next to an enemy they can press a button to attack it.Some enemies will remain stationary, 
+some will attempt to move next to the player to attack them. Later we might implement ranged attacks for both the player and enemies. 
+Killing an enemy rewards XP, gaining enough XP will level the player up, increasing stats, 
 etc. This will become more advanced with a class system, etc if time permits.
 
 The player is attempting to find the stairs to move down to the next floor. This will be accomplished by standing on the stair tile 
