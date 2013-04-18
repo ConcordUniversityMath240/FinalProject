@@ -71,7 +71,7 @@ public:
         while (input != '9')
         {
             printw("%s\n", "Enter arrows to move or 9 to exit");
-            printw("%s\n", something);
+            printw("%d", something);
 
             // Testing Stuff:
             // See what the integer value for the key pressed is:
