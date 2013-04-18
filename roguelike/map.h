@@ -116,9 +116,9 @@ class Floor
 
         void initializeFloor()
         {
-            // Random number between 1 and 2.
+            // Random number between 1 and 3.
             // Update this later to be between 1 and (number of floors we decide on)
-            int random = rand() % 2 + 1;
+            int random = rand() % 3 + 1;
 
             // Choose a random text file to create the floor with.
             ifstream map1;
@@ -126,6 +126,8 @@ class Floor
                 map1.open("map1.txt");
             else if (random == 2)
                 map1.open("map2.txt");
+            else if (random == 3)
+                map1.open("map3.txt");
             map1.unsetf(ios_base::skipws);
 
             // Copy the text file's layout to the Floor's tileArray.
@@ -184,7 +186,6 @@ class Floor
             {
                 if(tileArray[x][y].hasFloor() == 1)
                 {
-                        printw("%i %i", x, y);
                         tileArray[x][y].setPlayer(1);
                         counter++;
                 }

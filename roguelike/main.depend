@@ -52,7 +52,7 @@
 1366232669 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
 	"game.h"
 
-1366235310 c:\users\admin\documents\github\finalproject\roguelike\game.h
+1366247094 c:\users\admin\documents\github\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
@@ -60,7 +60,7 @@
 	"map.h"
 	"object.h"
 
-1366232623 c:\users\admin\documents\github\finalproject\roguelike\map.h
+1366247193 c:\users\admin\documents\github\finalproject\roguelike\map.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>

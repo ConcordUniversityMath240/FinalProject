@@ -68,7 +68,7 @@ public:
 
             // Testing Stuff:
             // See what the integer value for the key pressed is:
-            printw("%i\n", input);
+            //printw("%i\n", input);
             currentFloor -> displayFloor();
             input = getch();
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
