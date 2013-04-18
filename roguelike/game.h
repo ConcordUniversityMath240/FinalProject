@@ -58,6 +58,12 @@ public:
         floor2.initializeFloor();
         floor3.initializeFloor();
         updatePlayerLocation(player1, currentFloor);
+        player1.gainExperience();
+        player1.levelUp();
+        int something = player1.Return_Level();
+
+
+
 
         char counter = '0';
 
@@ -65,6 +71,7 @@ public:
         while (input != '9')
         {
             printw("%s\n", "Enter arrows to move or 9 to exit");
+            printw("%s\n", something);
 
             // Testing Stuff:
             // See what the integer value for the key pressed is:
@@ -107,6 +114,7 @@ public:
                 }
             }
         }
+
 };
 
 #endif

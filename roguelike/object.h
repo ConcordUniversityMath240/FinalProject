@@ -65,6 +65,15 @@ class Character : public Object
 {
     protected:
         int health;
+        int attack;
+        int defense;
+        int evasion;
+        int critical;
+        int Experience_Count = 20;
+        int level;
+        int Experience;
+        int Experience_Cap;
+        float Cap_Increase;
 
     public:
 
@@ -77,7 +86,6 @@ class Character : public Object
     {
         health = input;
     }
-
     void move(char input, Floor*& floor)
     {
         // Destination X,Y
@@ -127,10 +135,55 @@ Player class
 class Player : public Character
 {
 public:
+    int test = 1;
     // Create a player with default attributes.
     Player()
     {
         health = 100;
+        attack = 5;
+        defense = 5;
+        evasion = 5;
+        critical = 5;
+        int level = 1;
+        int Experience = 0;
+        int Experience_Cap = 20;
+        float Cap_Increase = 1.2;
+
+    }
+    void gainExperience()
+    {
+        if((test = 1))
+        {
+        //When combat is done and a monster is killed
+        Experience = Experience + Experience_Count;
+        }
+    }
+    void levelUp()
+    {
+        if(Experience == Experience_Cap)
+        {
+            Experience = 0;
+            Experience_Cap = Experience_Cap * Cap_Increase;
+            attack++;
+            defense++;
+            evasion++;
+            critical++;
+            level++;
+        }
+        else if(Experience > Experience_Cap)
+        {
+            Experience = Experience - Experience_Cap;
+            Experience_Cap = Experience_Cap * Cap_Increase;
+            attack++;
+            defense++;
+            evasion++;
+            critical++;
+            level++;
+        }
+    }
+    int Return_Level()
+    {
+        return level;
     }
 };
 
