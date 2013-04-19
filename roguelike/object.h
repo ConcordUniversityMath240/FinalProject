@@ -132,6 +132,18 @@ public:
     {
         health = 100;
     }
+
+    void useStairs(Floor*& currentFloor)
+    {
+        if (currentFloor -> tileArray[currentX][currentY].hasStairs() == 1)
+        {
+            currentFloor = currentFloor -> next;
+            //printw("%i\n", currentFloor -> next);
+            printw("%s\n", "You moved down a floor.");
+        }
+        else
+          printw("%s\n", "You are not currently on any stairs...");
+    }
 };
 
 /************************************************

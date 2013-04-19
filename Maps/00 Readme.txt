@@ -4,5 +4,5 @@ $ = level boundary (put everything in here!)
 - = floor
 
 Not Yet Implemented
-S = staircase
-P = player spawn
+P = staircase
+S = player spawn

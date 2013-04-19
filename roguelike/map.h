@@ -15,11 +15,11 @@ Purpose: These classes store and print locational data.
 #include <stdlib.h>
 #include <time.h>
 
-using namespace std;
-
+const int LAST_FLOOR = 5;
 const int XSIZE = 32;
 const int YSIZE = 79;
 
+using namespace std;
 
 /************************************************
 Tile class
@@ -35,6 +35,7 @@ class Tile
         bool isWall;
         bool isFloor;
         bool isVoid;
+        bool isStairs;
     public:
         Tile()
         {
@@ -43,6 +44,7 @@ class Tile
             isWall = 0;
             isFloor = 0;
             isVoid = 0;
+            isStairs = 0;
         }
 
         bool hasPlayer()
@@ -70,6 +72,11 @@ class Tile
             return isVoid;
         }
 
+        bool hasStairs()
+        {
+            return isStairs;
+        }
+
         void setPlayer(int input)
         {
             isPlayer = input;
@@ -94,6 +101,11 @@ class Tile
         {
             isVoid = input;
         }
+
+        void setStairs(int input)
+        {
+            isStairs = input;
+        }
 };
 
 /************************************************
@@ -109,13 +121,33 @@ Member functions:
 class Floor
 {
     private:
+        int floorLevel;
     public:
         // An array of Tile objects.
         Tile tileArray[XSIZE][YSIZE];
-        char test;
+        Floor* prev;
+        Floor* next;
+
+        Floor()
+        {
+            floorLevel = 0;
+            prev = NULL;
+            next = NULL;
+        }
+
+        void setFloorLevel(int input)
+        {
+           floorLevel = input;
+        }
+
+        int getFloorLevel()
+        {
+            return floorLevel;
+        }
 
         void initializeFloor()
         {
+            char test;
             // Random number between 1 and 3.
             // Update this later to be between 1 and (number of floors we decide on)
             int random = rand() % 3 + 1;
@@ -139,11 +171,22 @@ class Floor
                         tileArray[i][j].setVoid(1);
                     else if (test == '*')
                         tileArray[i][j].setWall(1);
+                    else if (test == 'P')
+                    {
+                        tileArray[i][j].setPlayer(1);
+                        tileArray[i][j].setFloor(1);
+                    }
+                    else if (test == 'S' && floorLevel != LAST_FLOOR)
+                    {
+                        tileArray[i][j].setStairs(1);
+                        tileArray[i][j].setFloor(1);
+                    }
+                    else if (test == 'S' && floorLevel == LAST_FLOOR)
+                        tileArray[i][j].setFloor(1);
+
                     else if (test == '-')
                         tileArray[i][j].setFloor(1);
                 }
-
-
         }
 
         // Loop through the tileArray, displaying an appropriate symbol
@@ -156,6 +199,8 @@ class Floor
                 {
                     if (tileArray[i][j].hasPlayer() == 1)
                         addch('P');
+                    else if (tileArray[i][j].hasStairs() == 1)
+                        addch('S');
                     else if (tileArray[i][j].hasEnemy() == 1)
                         addch('E');
                     else if (tileArray[i][j].hasWall() == 1)
@@ -181,20 +226,20 @@ class Floor
             int x = rand() % XSIZE;
             int y = rand() % YSIZE;
 
-            // Spawn player
-            while (counter < 1)
-            {
-                if(tileArray[x][y].hasFloor() == 1)
-                {
-                        tileArray[x][y].setPlayer(1);
-                        counter++;
-                }
-                else
-                {
-                    x = rand() % XSIZE;
-                    y = rand() % YSIZE;
-                }
-            }
+            // This is where we'll spawn enemies and items later.
+//            while (counter < 1)
+//            {
+//                if(tileArray[x][y].hasFloor() == 1)
+//                {
+//                        tileArray[x][y].setEnemy(1);
+//                        counter++;
+//                }
+//                else
+//                {
+//                    x = rand() % XSIZE;
+//                    y = rand() % YSIZE;
+//                }
+//            }
 
         }
 

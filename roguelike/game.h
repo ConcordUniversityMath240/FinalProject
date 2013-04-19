@@ -26,6 +26,7 @@ Member functions:
 class Game
 {
 private:
+    Floor floorArray[LAST_FLOOR];
 
 public:
     Game()
@@ -47,19 +48,12 @@ public:
 
         // Create objects.
         Player player1;
-        Floor floor1;
-        Floor floor2;
-        Floor floor3;
-        Floor* currentFloor = &floor1;
+        Floor* currentFloor = &floorArray[0];
 
         // Initialization.
-        floor1.initializeFloor();
-        floor1.populateFloor();
-        floor2.initializeFloor();
-        floor3.initializeFloor();
+        setupFloors();
         updatePlayerLocation(player1, currentFloor);
 
-        char counter = '0';
 
         // Get Input
         while (input != '9')
@@ -68,7 +62,6 @@ public:
 
             // Testing Stuff:
             // See what the integer value for the key pressed is:
-            //printw("%i\n", input);
             currentFloor -> displayFloor();
             input = getch();
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
@@ -76,6 +69,14 @@ public:
                     player1.move(input, currentFloor);
                     erase();
                     refresh();
+                }
+
+            if(input == ' ')
+                {
+                    erase();
+                    refresh();
+                    player1.useStairs(currentFloor);
+                    updatePlayerLocation(player1, currentFloor);
                 }
         }
         endwin();
@@ -106,7 +107,22 @@ public:
                     refresh();
                 }
             }
+    }
+
+    void setupFloors()
+    {
+        for (int i = 0; i < LAST_FLOOR; i++)
+        {
+            floorArray[i].prev = &floorArray[i-1];
+            floorArray[i].next = &floorArray[i+1];
+            floorArray[i].setFloorLevel(i+1);
+            floorArray[i].initializeFloor();
+            floorArray[i].populateFloor();
         }
+
+//        floorArray[0].prev = NULL;
+//        floorArray[LAST_FLOOR].next = NULL;
+    }
 };
 
 #endif
