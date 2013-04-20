@@ -54,21 +54,21 @@ public:
         setupFloors();
         updatePlayerLocation(player1, currentFloor);
 
-
+        printw("%s\n", "Enter arrows to move or 9 to exit.");
+        printw("%s\n\n", "Press the spacebar when standing on stairs to go up or down.");
         // Get Input
         while (input != '9')
         {
-            printw("%s\n", "Enter arrows to move or 9 to exit");
-
-            // Testing Stuff:
-            // See what the integer value for the key pressed is:
+            printw("%s\n", "--------------------------------------------------------------------------------");
             currentFloor -> displayFloor();
+            printw("%s\n", "--------------------------------------------------------------------------------");
+            // Print player stats here later.
             input = getch();
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
                 {
-                    player1.move(input, currentFloor);
                     erase();
                     refresh();
+                    player1.move(input, currentFloor);
                 }
 
             if(input == ' ')
