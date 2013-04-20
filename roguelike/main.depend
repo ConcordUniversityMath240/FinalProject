@@ -2,7 +2,7 @@
 1366230005 source:c:\users\ioan\desktop\c++\main\main.cpp
 	"game.h"
 
-1182380599 c:\codeblocks\pdcurs33\curses.h
+1365986591 c:\codeblocks\pdcurs33\curses.h
 	<stdarg.h>
 	<stddef.h>
 	<stdio.h>
@@ -67,6 +67,28 @@
 	<time.h>
 
 1366237658 c:\users\admin\documents\github\finalproject\roguelike\object.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+
+1366473431 source:c:\users\pritt\documents\github\finalproject\roguelike\main.cpp
+	"game.h"
+
+1366478396 c:\users\pritt\documents\github\finalproject\roguelike\game.h
+	<curses.h>
+	<iostream>
+	<ctime>
+	<cstdlib>
+	"map.h"
+	"object.h"
+
+1366473474 c:\users\pritt\documents\github\finalproject\roguelike\map.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1366478289 c:\users\pritt\documents\github\finalproject\roguelike\object.h
 	<iostream>
 	<ctime>
 	<cstdlib>

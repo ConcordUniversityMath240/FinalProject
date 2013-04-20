@@ -72,11 +72,15 @@ public:
             currentFloor -> displayFloor();
             input = getch();
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
-                {
-                    player1.move(input, currentFloor);
-                    erase();
-                    refresh();
-                }
+            {
+                player1.move(input, currentFloor);
+                erase();
+                refresh();
+            }
+            if (input == 'f' || input == 'F')
+            {
+                player1.attack(input, currentFloor);
+            }
         }
         endwin();
     }

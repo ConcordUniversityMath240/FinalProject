@@ -116,6 +116,14 @@ class Character : public Object
         else
             printw("%s", "You walked into a wall, dumbass! \n");
     }
+
+    void attack(char input, Floor*& floor)
+    {
+        if (input == 'f' || input == 'F')
+        {
+            cout<<"ATTACK!"<<endl;
+        }
+    }
 };
 
 /************************************************
