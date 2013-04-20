@@ -135,11 +135,15 @@ public:
 
     void useStairs(Floor*& currentFloor)
     {
-        if (currentFloor -> tileArray[currentX][currentY].hasStairs() == 1)
+        if (currentFloor -> tileArray[currentX][currentY].hasDownStairs() == 1)
         {
             currentFloor = currentFloor -> next;
-            //printw("%i\n", currentFloor -> next);
             printw("%s\n", "You moved down a floor.");
+        }
+        else if (currentFloor -> tileArray[currentX][currentY].hasUpStairs() == 1)
+        {
+            currentFloor = currentFloor -> prev;
+            printw("%s\n", "You moved up a floor.");
         }
         else
           printw("%s\n", "You are not currently on any stairs...");

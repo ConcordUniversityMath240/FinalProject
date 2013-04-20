@@ -35,7 +35,8 @@ class Tile
         bool isWall;
         bool isFloor;
         bool isVoid;
-        bool isStairs;
+        bool isUpStairs;
+        bool isDownStairs;
     public:
         Tile()
         {
@@ -44,7 +45,8 @@ class Tile
             isWall = 0;
             isFloor = 0;
             isVoid = 0;
-            isStairs = 0;
+            isDownStairs = 0;
+            isUpStairs = 0;
         }
 
         bool hasPlayer()
@@ -72,9 +74,14 @@ class Tile
             return isVoid;
         }
 
-        bool hasStairs()
+        bool hasDownStairs()
         {
-            return isStairs;
+            return isDownStairs;
+        }
+
+        bool hasUpStairs()
+        {
+            return isUpStairs;
         }
 
         void setPlayer(int input)
@@ -102,9 +109,14 @@ class Tile
             isVoid = input;
         }
 
-        void setStairs(int input)
+        void setDownStairs(int input)
         {
-            isStairs = input;
+            isDownStairs = input;
+        }
+
+        void setUpStairs(int input)
+        {
+            isUpStairs = input;
         }
 };
 
@@ -176,12 +188,20 @@ class Floor
                         tileArray[i][j].setPlayer(1);
                         tileArray[i][j].setFloor(1);
                     }
-                    else if (test == 'S' && floorLevel != LAST_FLOOR)
+                    else if (test == 'D' && floorLevel != LAST_FLOOR)
                     {
-                        tileArray[i][j].setStairs(1);
+                        tileArray[i][j].setDownStairs(1);
                         tileArray[i][j].setFloor(1);
                     }
-                    else if (test == 'S' && floorLevel == LAST_FLOOR)
+                    else if (test == 'D' && floorLevel == LAST_FLOOR)
+                        tileArray[i][j].setFloor(1);
+
+                    else if (test == 'U' && floorLevel != 1)
+                    {
+                        tileArray[i][j].setUpStairs(1);
+                        tileArray[i][j].setFloor(1);
+                    }
+                    else if (test == 'U' && floorLevel == 1)
                         tileArray[i][j].setFloor(1);
 
                     else if (test == '-')
@@ -199,8 +219,10 @@ class Floor
                 {
                     if (tileArray[i][j].hasPlayer() == 1)
                         addch('P');
-                    else if (tileArray[i][j].hasStairs() == 1)
-                        addch('S');
+                    else if (tileArray[i][j].hasDownStairs() == 1)
+                        addch('D');
+                    else if (tileArray[i][j].hasUpStairs() == 1)
+                        addch('U');
                     else if (tileArray[i][j].hasEnemy() == 1)
                         addch('E');
                     else if (tileArray[i][j].hasWall() == 1)
