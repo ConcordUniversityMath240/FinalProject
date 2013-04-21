@@ -10,6 +10,8 @@ Author: jay
 
 Purpose:
 *************************************************/
+using namespace std;
+
 #ifndef INTERFACE_H
 #define INTERFACE_H
 #include <fstream>
@@ -17,13 +19,10 @@ Purpose:
 #include <stdlib.h>
 #include <time.h>
 
-
-using namespace std;
-
-
 class Interface
 {
-public :
+public:
+
     Interface() {}
     void init()
     {
@@ -37,6 +36,7 @@ public :
         init_pair (4, COLOR_WHITE, COLOR_BLACK);  //player
         attron (A_BOLD);
     }
+
     void drawOver(Player& player)
     {
         attron (COLOR_PAIR(4));
@@ -49,19 +49,20 @@ public :
         printw("\n");
         printw("MP    : -- needs added");
         printw("\n");
-        printw("all other player stuff can go up here");
+        printw("all other player stuff can go up here\n");
     }
+
     void drawHelp()
     {
         erase();
         printw("\n");
-printw(" __   __  _______  ___      _______");printw("\n");
-printw("|  | |  ||       ||   |    |       |");printw("\n");
-printw("|  |_|  ||    ___||   |    |    _  |");printw("\n");
-printw("|       ||   |___ |   |    |   |_| |");printw("\n");
-printw("|       ||    ___||   |___ |    ___|");printw("\n");
-printw("|   _   ||   |___ |       ||   |");printw("\n");
-printw("|__| |__||_______||_______||___|");     printw("\n");
+        printw(" __   __  _______  ___      _______");printw("\n");
+        printw("|  | |  ||       ||   |    |       |");printw("\n");
+        printw("|  |_|  ||    ___||   |    |    _  |");printw("\n");
+        printw("|       ||   |___ |   |    |   |_| |");printw("\n");
+        printw("|       ||    ___||   |___ |    ___|");printw("\n");
+        printw("|   _   ||   |___ |       ||   |");printw("\n");
+        printw("|__| |__||_______||_______||___|");     printw("\n");
         printw("HELP SCREEN");
         printw("\n");
         printw("Arrow Keys to move 9 to exit");
@@ -70,14 +71,11 @@ printw("|__| |__||_______||_______||___|");     printw("\n");
         printw("\n");
         getch();
     }
+
     void drawUnder()
     {
-
-
-
         printw("(h)elp add more stuff here");
     }
 };
-
 
 #endif

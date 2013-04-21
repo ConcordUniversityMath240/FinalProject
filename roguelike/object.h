@@ -218,7 +218,7 @@ public:
     {
         //assert(false); //test to see if game header is handling the attack input
 
-        printw("%s\n\n\n", "ATTACK!");
+        printw("%s\n", "ATTACK!");
         int atkUpX = currentX - 1;
         int atkUpY = currentY - 1;
         int atkLeftX = currentX;

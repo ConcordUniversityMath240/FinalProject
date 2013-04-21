@@ -44,6 +44,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="game.h" />
+		<Unit filename="interface.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="map.h" />
 		<Unit filename="object.h" />
