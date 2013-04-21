@@ -155,13 +155,25 @@ class Floor
                 for (int j = 0; j < YSIZE; j++)
                 {
                     if (tileArray[i][j].hasPlayer() == 1)
-                        addch('P');
+                        {
+                            attron (COLOR_PAIR(4));
+                            addch('P');
+                        }
                     else if (tileArray[i][j].hasEnemy() == 1)
-                        addch('E');
+                        {
+                            attron (COLOR_PAIR(3));
+                            addch('E');
+                        }
                     else if (tileArray[i][j].hasWall() == 1)
-                        addch('*');
+                        {
+                            attron (COLOR_PAIR(2));
+                            addch('*');
+                        }
                     else if (tileArray[i][j].hasFloor() == 1)
+                        {
+                        attron (COLOR_PAIR(1));
                         addch('-');
+                        }
                     else if (tileArray[i][j].hasVoid() == 1)
                         addch(' ');
                     else

@@ -13,6 +13,7 @@ Purpose:
 #include <cstdlib>
 #include "map.h"
 #include "object.h"
+#include "interface.h"
 
 using namespace std;
 
@@ -45,6 +46,11 @@ public:
         /* Don't echo() while we do getch won't work otherwise */
         noecho();
 
+        //color and interface init
+        Interface interface;
+        interface.init();
+
+
         // Create objects.
         Player player1;
         Floor floor1;
@@ -64,12 +70,13 @@ public:
         // Get Input
         while (input != '9')
         {
-            printw("%s\n", "Enter arrows to move or 9 to exit");
-
+            interface.drawOver(player1); // stuff above board
             // Testing Stuff:
             // See what the integer value for the key pressed is:
             //printw("%i\n", input);
+
             currentFloor -> displayFloor();
+            interface.drawUnder(); // draw below board
             input = getch();
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
                 {
@@ -77,6 +84,12 @@ public:
                     erase();
                     refresh();
                 }
+            if (input == 'h' || input == 'H')
+            {
+                interface.drawHelp();
+                erase();
+                refresh();
+            }
         }
         endwin();
     }
