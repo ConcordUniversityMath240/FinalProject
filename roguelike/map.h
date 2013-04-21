@@ -18,6 +18,7 @@ Purpose: These classes store and print locational data.
 const int LAST_FLOOR = 5;
 const int XSIZE = 32;
 const int YSIZE = 79;
+const int MAX_NUM_ENEMIES = 10;
 
 using namespace std;
 
@@ -218,50 +219,62 @@ class Floor
                 for (int j = 0; j < YSIZE; j++)
                 {
                     if (tileArray[i][j].hasPlayer() == 1)
-                        addch('P');
+                        {
+                            attron (COLOR_PAIR(4));
+                            addch('P');
+                        }
                     else if (tileArray[i][j].hasDownStairs() == 1)
                         addch('D');
                     else if (tileArray[i][j].hasUpStairs() == 1)
                         addch('U');
                     else if (tileArray[i][j].hasEnemy() == 1)
-                        addch('E');
+                        {
+                            attron (COLOR_PAIR(3));
+                            addch('E');
+                        }
                     else if (tileArray[i][j].hasWall() == 1)
-                        addch('*');
+                        {
+                            attron (COLOR_PAIR(2));
+                            addch('*');
+                        }
                     else if (tileArray[i][j].hasFloor() == 1)
+                        {
+                        attron (COLOR_PAIR(1));
                         addch('-');
+                        }
                     else if (tileArray[i][j].hasVoid() == 1)
                         addch(' ');
                     else
                         addch('\n');
-
                 }
             }
             addch('\n');
         }
-
         // Places the player, items, and enemies on the floor.
         void populateFloor()
         {
             int counter = 0;
 
             // x, y range between 32 and 79.
-            int x = rand() % XSIZE;
-            int y = rand() % YSIZE;
+            int x;
+            int y;
 
-            // This is where we'll spawn enemies and items later.
-//            while (counter < 1)
-//            {
-//                if(tileArray[x][y].hasFloor() == 1)
-//                {
-//                        tileArray[x][y].setEnemy(1);
-//                        counter++;
-//                }
-//                else
-//                {
-//                    x = rand() % XSIZE;
-//                    y = rand() % YSIZE;
-//                }
-//            }
+            // Spawn enemies.
+            while (counter < MAX_NUM_ENEMIES)
+            {
+                x = rand() % XSIZE;
+                y = rand() % YSIZE;
+                if(tileArray[x][y].hasFloor() == 1)
+                {
+                    tileArray[x][y].setEnemy(1);
+                    counter++;
+                }
+                else
+                {
+                    x = rand() % XSIZE;
+                    y = rand() % YSIZE;
+                }
+            }
 
         }
 
