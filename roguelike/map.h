@@ -186,8 +186,8 @@ class Floor
             {
                 if(tileArray[x][y].hasFloor() == 1)
                 {
-                        tileArray[x][y].setPlayer(1);
-                        counter++;
+                    tileArray[x][y].setPlayer(1);
+                    counter++;
                 }
                 else
                 {
@@ -195,7 +195,22 @@ class Floor
                     y = rand() % YSIZE;
                 }
             }
-
+            x = rand() % XSIZE;
+            y = rand() % YSIZE;
+            counter = 0;
+            while (counter < 1)
+            {
+                if (tileArray[x][y].hasFloor() == 1)
+                {
+                    tileArray[x][y].setEnemy(1);
+                    counter++;
+                }
+                else
+                {
+                    x = rand() % XSIZE;
+                    y = rand() % YSIZE;
+                }
+            }
         }
 
         // Return the number of enemies on the floor.

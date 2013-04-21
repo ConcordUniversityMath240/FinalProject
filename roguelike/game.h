@@ -11,8 +11,10 @@ Purpose:
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
+#include <cassert>
 #include "map.h"
 #include "object.h"
+
 
 using namespace std;
 
@@ -31,7 +33,6 @@ public:
     Game()
     {
     }
-
     // Start and run the game.
     void run()
     {
@@ -47,10 +48,12 @@ public:
 
         // Create objects.
         Player player1;
+
         Floor floor1;
         Floor floor2;
         Floor floor3;
         Floor* currentFloor = &floor1;
+
 
         // Initialization.
         floor1.initializeFloor();
@@ -73,15 +76,18 @@ public:
             input = getch();
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
             {
-                player1.move(input, currentFloor);
                 erase();
                 refresh();
+                player1.move(input, currentFloor);
             }
             if (input == 'f' || input == 'F')
             {
-                player1.attack(input, currentFloor);
+                erase();
+                refresh();
+                player1.attack(currentFloor);
             }
         }
+
         endwin();
     }
 
@@ -111,6 +117,8 @@ public:
                 }
             }
         }
+
+
 };
 
 #endif
