@@ -65,6 +65,17 @@ class Character : public Object
 {
     protected:
         int health;
+        int level;
+        int Experience;
+        int Experience_Cap;
+        float Cap_Increase;
+        int attack;
+        int defense;
+        int evasion;
+        int critical;
+
+        int Experience_Count = 20;
+
 
     public:
 
@@ -77,7 +88,6 @@ class Character : public Object
     {
         health = input;
     }
-
     void move(char input, Floor*& floor)
     {
         printw("\n\n\n");
@@ -128,10 +138,64 @@ Player class
 class Player : public Character
 {
 public:
+    int test = 1;
+
     // Create a player with default attributes.
     Player()
     {
         health = 100;
+        attack = 5;
+        defense = 5;
+        evasion = 5;
+        critical = 5;
+        level = 1;
+        Experience = 0;
+        //amount of experience from monster.
+        Experience_Cap = 20;
+        Cap_Increase = 1.2;
+
+    }
+    void gainExperience()
+    {
+        //if player kills a monster, gain exp
+        if((test == 1))
+        {
+        //When combat is done and a monster is killed
+        Experience = Experience + Experience_Count;
+        //Experience_Count is the amount of exp a monster will send
+        //to that variable when it dies.
+        }
+    }
+    void levelUp()
+    {
+        //if experience is equal to the cap
+        if(Experience == Experience_Cap)
+        {
+            //set exp to zero, inc the cap, adjust attributes
+            Experience = 0;
+            Experience_Cap = Experience_Cap * Cap_Increase;
+            attack++;
+            defense++;
+            evasion++;
+            critical++;
+            level++;
+        }
+        //if experience is greater than the cap
+        else if(Experience > Experience_Cap)
+        {
+            //experience set to rollover exp, cap increase, attributes adjusted
+            Experience = Experience - Experience_Cap;
+            Experience_Cap = Experience_Cap * Cap_Increase;
+            attack++;
+            defense++;
+            evasion++;
+            critical++;
+            level++;
+        }
+    }
+    int Return_Level()
+    {
+        return level;
     }
 
     void useStairs(Floor*& currentFloor)
