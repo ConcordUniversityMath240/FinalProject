@@ -84,51 +84,61 @@ class Character : public Object
         return health;
     }
 
-    int setHealth(int input)
+    void setHealth(int inHealth)
     {
-        health = input;
+        health = inHealth;
     }
-    void move(char input, Floor*& floor)
+
+    int getLevel()
     {
-        printw("\n\n\n");
-        // Destination X,Y
-        int destX = currentX;
-        int destY = currentY;
+        return level;
+    }
 
-        // Up
-        if (input == 3)
-        {
-            destX = currentX-1;
-            destY = currentY-1;
-        }
-        // Left
-        else if (input == 4)
-            destY = currentY-1;
-
-        // Right
-        else if (input == 5)
-            destY = currentY+1;
-
-        // Down
-        else if (input == 2)
-        {
-            destX = currentX+1;
-            destY = currentY+1;
-        }
-
-        if (floor -> tileArray[destX][destY].hasEnemy() == 1)
-            printw("%s", "An enemy blocks your path!! \n");
-        else if (floor -> tileArray[destX][destY].hasFloor() == 1)
-        {
-            floor -> tileArray[currentX][currentY].setPlayer(0);
-            floor -> tileArray[destX][destY].setPlayer(1);
-            currentX = destX;
-            currentY = destY;
-        }
-        else
-            printw("%s", "You walked into a wall, dumbass! \n");
+    void setLevel(int inLevel)
+    {
+        level = inLevel;
     }
 };
+
+/************************************************
+Item class
+
+*************************************************/
+class Item : public Object
+{
+public:
+
+};
+
+/************************************************
+Enemy class
+
+    Enemy()             Creates an enemy with 100 health.
+
+*************************************************/
+class Enemy: public Character
+{
+private:
+
+public:
+
+    Enemy()
+    {
+        health = 100;
+    }
+
+    void setHealth(int inHealth)
+    {
+        health = inHealth;
+    }
+
+    void takeDamage(int inDamage)
+    {
+        health = health - inDamage;
+    }
+
+};
+
 
 /************************************************
 Player class
@@ -215,11 +225,61 @@ public:
           printw("%s\n\n\n", "You are not currently on any stairs...");
     }
 
-    void attack(Floor*& floor)
+
+    void move(char input, Floor*& floor)
+    {
+        printw("\n\n\n");
+        // Destination X,Y
+        int destX = currentX;
+        int destY = currentY;
+
+        // Up
+        if (input == 3)
+        {
+            destX = currentX-1;
+            destY = currentY-1;
+        }
+        // Left
+        else if (input == 4)
+            destY = currentY-1;
+
+        // Right
+        else if (input == 5)
+            destY = currentY+1;
+
+        // Down
+        else if (input == 2)
+        {
+            destX = currentX+1;
+            destY = currentY+1;
+        }
+
+        if (floor -> tileArray[destX][destY].hasEnemy() == 1)
+        {
+            printw("%s", "An enemy blocks your path!! \n");
+            takeDamage(10); //this amount can definitely change later
+        }
+
+
+        else if (floor -> tileArray[destX][destY].hasFloor() == 1)
+        {
+            floor -> tileArray[currentX][currentY].setPlayer(0);
+            floor -> tileArray[destX][destY].setPlayer(1);
+            currentX = destX;
+            currentY = destY;
+        }
+        else
+        {
+            printw("%s", "You walked into a wall, dumbass! \n");
+        }
+    }
+
+
+    void attack(Floor*& floor, Enemy enemyArray[50])
     {
         //assert(false); //test to see if game header is handling the attack input
 
-        printw("%s\n", "ATTACK!");
+        int randomChance = (rand() % 10);
         int atkUpX = currentX - 1;
         int atkUpY = currentY - 1;
         int atkLeftX = currentX;
@@ -229,33 +289,123 @@ public:
         int atkDownX = currentX + 1;
         int atkDownY = currentY + 1;
 
-        //if there is an enemy adjacent to the player
-        if ((floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1) ||
-            (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1) ||
-            (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1) ||
-            (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1))
+        //if there is an enemy above the player
+        if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
         {
-            //take health from the adjacent enemy
+            //take health from enemy above player
+            for (int q = 1; q < 51; q++)
+            {
+                if ((enemyArray[q].getCurrentX() == atkUpX) &&
+                   (enemyArray[q].getCurrentY() == atkUpY))
+                {
+                    enemyArray[q].takeDamage(50);
+                    printw("You did 50 damage to the enemy! \n");
+                    if (enemyArray[q].getHealth() < 1)
+                    {
+                        printw("You killed the enemy! \n");
+                        floor -> tileArray[atkUpX][atkUpY].setEnemy(0);
+                    }
+                    else
+                    {
+                        if (randomChance > 5)
+                        {
+                            takeDamage(10);
+                            printw("The enemy attacked you back for 10 damage! \n");
+                        }
+                    }
+                }
+            }
+        }
+        // else if there is an enemy to the left of the player
+        else if (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1)
+        {
+            //take health from enemy to the left of player
+            for (int q = 1; q < 51; q++)
+            {
+                if ((enemyArray[q].getCurrentX() == atkLeftX) &&
+                   (enemyArray[q].getCurrentY() == atkLeftY))
+                {
+                    enemyArray[q].takeDamage(50);
+                    printw("You did 50 damage to the enemy! \n");
+                    if (enemyArray[q].getHealth() < 1)
+                    {
+                        printw("You killed the enemy! \n");
+                        floor -> tileArray[atkLeftX][atkLeftY].setEnemy(0);
+                    }
+                    else
+                    {
+                        if (randomChance > 5)
+                        {
+                            takeDamage(10);
+                            printw("The enemy attacked you back for 10 damage! \n");
+                        }
+                    }
+                }
+            }
+        }
+        // else if there is an enemy to the right of the player
+        else if (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1)
+        {
+            //take health from enemy to the right of the player
+            for (int q = 1; q < 51; q++)
+            {
+                if ((enemyArray[q].getCurrentX() == atkRightX) &&
+                   (enemyArray[q].getCurrentY() == atkRightY))
+                {
+                    enemyArray[q].takeDamage(50);
+                    printw("You did 50 damage to the enemy! \n");
+                    if (enemyArray[q].getHealth() < 1)
+                    {
+                        printw("You killed the enemy! \n");
+                        floor -> tileArray[atkRightX][atkRightY].setEnemy(0);
+                    }
+                    else
+                    {
+                        if (randomChance > 5)
+                        {
+                            takeDamage(10);
+                            printw("The enemy attacked you back for 10 damage! \n");
+                        }
+                    }
+                }
+            }
+        }
+        // else if there is an enemy under the player
+        else if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
+        {
+            //take health from enemy under player
+            for (int q = 1; q < 51; q++)
+            {
+                if ((enemyArray[q].getCurrentX() == atkDownX) &&
+                   (enemyArray[q].getCurrentY() == atkDownY))
+                {
+                    enemyArray[q].takeDamage(50);
+                    printw("You did 50 damage to the enemy! \n");
+                    if (enemyArray[q].getHealth() < 1)
+                    {
+                        printw("You killed the enemy! \n");
+                        floor -> tileArray[atkDownX][atkDownY].setEnemy(0);
+                    }
+                    else
+                    {
+                        if (randomChance > 5)
+                        {
+                            takeDamage(10);
+                            printw("The enemy attacked you back for 10 damage! \n");
+                        }
+                    }
+                }
+            }
         }
     }
-};
 
-/************************************************
-Enemy class
-
-    Enemy()             Creates an enemy with 100 health.
-
-*************************************************/
-class Enemy: public Character
-{
-private:
-
-public:
-
-    Enemy()
+    void takeDamage(int inDamage)
     {
-        health = 100;
+        char bell = 7;
+        health = health - inDamage;
+        cout<<bell;
     }
 };
+
 
 #endif

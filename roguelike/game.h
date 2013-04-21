@@ -28,9 +28,11 @@ class Game
 {
 private:
     Floor floorArray[LAST_FLOOR];
-    Enemy enemyArray[50];
 
 public:
+
+    Enemy enemyArray[50];
+
     Game()
     {
     }
@@ -64,6 +66,12 @@ public:
         // Get Input
         while (input != '9')
         {
+            if (player1.getHealth() < 1)
+            {
+                printw("  You were killed!! \n  Game Over!! \n");
+                //need to make this end game
+
+            }
             interface.drawOver(player1); // stuff above board
             printw("%s\n", "--------------------------------------------------------------------------------");
             currentFloor -> displayFloor();
@@ -90,7 +98,7 @@ public:
             {
                 erase();
                 refresh();
-                player1.attack(currentFloor);
+                player1.attack(currentFloor, enemyArray);
             }
 
             if (input == 'h' || input == 'H')
