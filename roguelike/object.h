@@ -69,7 +69,7 @@ class Character : public Object
         int Experience;
         int Experience_Cap;
         float Cap_Increase;
-        int attack;
+        int damage;
         int defense;
         int evasion;
         int critical;
@@ -144,7 +144,7 @@ public:
     Player()
     {
         health = 100;
-        attack = 5;
+        damage = 5;
         defense = 5;
         evasion = 5;
         critical = 5;
@@ -174,7 +174,7 @@ public:
             //set exp to zero, inc the cap, adjust attributes
             Experience = 0;
             Experience_Cap = Experience_Cap * Cap_Increase;
-            attack++;
+            damage++;
             defense++;
             evasion++;
             critical++;
@@ -186,7 +186,7 @@ public:
             //experience set to rollover exp, cap increase, attributes adjusted
             Experience = Experience - Experience_Cap;
             Experience_Cap = Experience_Cap * Cap_Increase;
-            attack++;
+            damage++;
             defense++;
             evasion++;
             critical++;
@@ -218,7 +218,7 @@ public:
     {
         //assert(false); //test to see if game header is handling the attack input
 
-        printw("%s\n", "ATTACK!");
+        printw("%s\n\n\n", "ATTACK!");
         int atkUpX = currentX - 1;
         int atkUpY = currentY - 1;
         int atkLeftX = currentX;
