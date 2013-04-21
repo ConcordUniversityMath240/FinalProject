@@ -334,7 +334,7 @@ public:
                     }
                     else
                     {
-                        if (randomChance > 5)
+                        if (randomChance > 4)
                         {
                             takeDamage(10);
                             printw("The enemy attacked you back for 10 damage! \n");

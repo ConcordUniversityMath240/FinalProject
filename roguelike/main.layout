@@ -5,25 +5,10 @@
 		<Cursor>
 			<Cursor1 position="3316" topLine="0" />
 		</Cursor>
-		<Folding>
-			<Collapse line="53" />
-			<Collapse line="58" />
-			<Collapse line="63" />
-			<Collapse line="68" />
-			<Collapse line="73" />
-			<Collapse line="78" />
-			<Collapse line="83" />
-			<Collapse line="88" />
-			<Collapse line="98" />
-			<Collapse line="103" />
-			<Collapse line="108" />
-			<Collapse line="113" />
-			<Collapse line="118" />
-		</Folding>
 	</File>
-	<File name="object.h" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="object.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="10848" topLine="283" />
+			<Cursor1 position="8632" topLine="283" />
 		</Cursor>
 		<Folding>
 			<Collapse line="29" />
@@ -34,9 +19,9 @@
 			<Cursor1 position="2655" topLine="76" />
 		</Cursor>
 	</File>
-	<File name="interface.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="interface.h" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2180" topLine="49" />
+			<Cursor1 position="1890" topLine="48" />
 		</Cursor>
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
