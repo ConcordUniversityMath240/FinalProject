@@ -54,6 +54,14 @@ public :
     void drawHelp()
     {
         erase();
+        printw("\n");
+printw(" __   __  _______  ___      _______");printw("\n");
+printw("|  | |  ||       ||   |    |       |");printw("\n");
+printw("|  |_|  ||    ___||   |    |    _  |");printw("\n");
+printw("|       ||   |___ |   |    |   |_| |");printw("\n");
+printw("|       ||    ___||   |___ |    ___|");printw("\n");
+printw("|   _   ||   |___ |       ||   |");printw("\n");
+printw("|__| |__||_______||_______||___|");     printw("\n");
         printw("HELP SCREEN");
         printw("\n");
         printw("Arrow Keys to move 9 to exit");
@@ -64,6 +72,9 @@ public :
     }
     void drawUnder()
     {
+
+
+
         printw("(h)elp add more stuff here");
     }
 };
