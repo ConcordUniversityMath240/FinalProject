@@ -116,8 +116,10 @@ class Character : public Object
             destY = currentY+1;
         }
 
+        if (floor -> tileArray[destX][destY].hasEnemy() == 1)
+            printw("%s", "An enemy blocks your path!! \n");
 
-        if (floor -> tileArray[destX][destY].hasFloor() == 1)
+        else if (floor -> tileArray[destX][destY].hasFloor() == 1)
         {
             floor -> tileArray[currentX][currentY].setPlayer(0);
             floor -> tileArray[destX][destY].setPlayer(1);
@@ -235,7 +237,6 @@ public:
             (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1))
         {
             //take health from the adjacent enemy
-
         }
     }
 };

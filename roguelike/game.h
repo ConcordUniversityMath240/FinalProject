@@ -13,6 +13,7 @@ Purpose:
 #include <cstdlib>
 #include "map.h"
 #include "object.h"
+#include "interface.h"
 
 using namespace std;
 
@@ -27,6 +28,7 @@ class Game
 {
 private:
     Floor floorArray[LAST_FLOOR];
+    Enemy enemyArray[50];
 
 public:
     Game()
@@ -46,6 +48,10 @@ public:
         /* Don't echo() while we do getch won't work otherwise */
         noecho();
 
+        //color and interface init
+        Interface interface;
+        interface.init();
+
         // Create objects.
         Player player1;
         Floor* currentFloor = &floorArray[0];
@@ -53,30 +59,31 @@ public:
         // Initialization.
         setupFloors();
         updatePlayerLocation(player1, currentFloor);
+        populateEnemyList(floorArray);
 
-        printw("%s\n", "Enter arrows to move or 9 to exit.");
-        printw("%s\n\n", "Press the spacebar when standing on stairs to go up or down.");
         // Get Input
         while (input != '9')
         {
+            interface.drawOver(player1); // stuff above board
             printw("%s\n", "--------------------------------------------------------------------------------");
             currentFloor -> displayFloor();
             printw("%s\n", "--------------------------------------------------------------------------------");
-            // Print player stats here later.
+            interface.drawUnder(); // draw below board
+
             input = getch();
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
                 {
+                    player1.move(input, currentFloor);
                     erase();
                     refresh();
-                    player1.move(input, currentFloor);
                 }
 
             if(input == ' ')
                 {
-                    erase();
-                    refresh();
                     player1.useStairs(currentFloor);
                     updatePlayerLocation(player1, currentFloor);
+                    erase();
+                    refresh();
                 }
 
             if (input == 'f' || input == 'F')
@@ -84,6 +91,13 @@ public:
                 erase();
                 refresh();
                 player1.attack(currentFloor);
+            }
+
+            if (input == 'h' || input == 'H')
+            {
+                interface.drawHelp();
+                erase();
+                refresh();
             }
         }
         endwin();
@@ -115,6 +129,24 @@ public:
             floorArray[i].populateFloor();
         }
     }
+
+    void populateEnemyList(Floor floorArray[LAST_FLOOR])
+    {
+        int counter = 0;
+        for (int i = 0; i < LAST_FLOOR; i++)
+            for (int x = 0; x < XSIZE; x++)
+                for (int y = 0; y < YSIZE; y++)
+                {
+                    if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
+                    {
+                        enemyArray[counter].setCurrentX(x);
+                        enemyArray[counter].setCurrentY(y);
+                        counter++;
+                    }
+                }
+    }
+
+
 };
 
 #endif
