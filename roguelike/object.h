@@ -149,6 +149,31 @@ public:
         else
           printw("%s\n\n\n", "You are not currently on any stairs...");
     }
+
+    void attack(Floor*& floor)
+    {
+        //assert(false); //test to see if game header is handling the attack input
+
+        printw("%s\n", "ATTACK!");
+        int atkUpX = currentX - 1;
+        int atkUpY = currentY - 1;
+        int atkLeftX = currentX;
+        int atkLeftY = currentY - 1;
+        int atkRightX = currentX;
+        int atkRightY = currentY + 1;
+        int atkDownX = currentX + 1;
+        int atkDownY = currentY + 1;
+
+        //if there is an enemy adjacent to the player
+        if ((floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1) ||
+            (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1) ||
+            (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1) ||
+            (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1))
+        {
+            //take health from the adjacent enemy
+
+        }
+    }
 };
 
 /************************************************

@@ -78,20 +78,15 @@ public:
                     player1.useStairs(currentFloor);
                     updatePlayerLocation(player1, currentFloor);
                 }
+
+            if (input == 'f' || input == 'F')
+            {
+                erase();
+                refresh();
+                player1.attack(currentFloor);
+            }
         }
         endwin();
-    }
-
-    void printHeader()
-    {
-        printw("s%", "TEST LINE \n");
-        printw("s%", "---------------------------------------------------------- \n");
-    }
-
-    void printFooter()
-    {
-        printw("%s", "----------------------------------------------------------");
-        printw("%s", "TEST LINE \n");
     }
 
     // Search through the floor to find the player, then update its coordinates.
@@ -119,9 +114,6 @@ public:
             floorArray[i].initializeFloor();
             floorArray[i].populateFloor();
         }
-
-//        floorArray[0].prev = NULL;
-//        floorArray[LAST_FLOOR].next = NULL;
     }
 };
 
