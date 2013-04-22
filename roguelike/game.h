@@ -82,7 +82,7 @@ public:
 
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
                 {
-                    player1.move(input, currentFloor);
+                    player1.move(input, currentFloor, enemyArray);
                     erase();
                     refresh();
                     for (int q = 1; q < 11; q++)
