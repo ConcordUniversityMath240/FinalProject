@@ -79,9 +79,16 @@ public:
             interface.drawUnder(); // draw below board
 
             input = getch();
+
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
                 {
                     player1.move(input, currentFloor);
+                    erase();
+                    refresh();
+                    for (int q = 1; q < 11; q++)
+                    {
+                        enemyArray[q].move(currentFloor/*, player1*/);
+                    }
                     erase();
                     refresh();
                 }

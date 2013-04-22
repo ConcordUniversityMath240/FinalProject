@@ -66,7 +66,7 @@
 1366473431 source:c:\users\pritt\documents\github\finalproject\roguelike\main.cpp
 	"game.h"
 
-1366567636 c:\users\pritt\documents\github\finalproject\roguelike\game.h
+1366638543 c:\users\pritt\documents\github\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
@@ -75,18 +75,19 @@
 	"object.h"
 	"interface.h"
 
-1366551038 c:\users\pritt\documents\github\finalproject\roguelike\map.h
+1366627138 c:\users\pritt\documents\github\finalproject\roguelike\map.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1366571716 c:\users\pritt\documents\github\finalproject\roguelike\object.h
+1366639411 c:\users\pritt\documents\github\finalproject\roguelike\object.h
 	<iostream>
 	<ctime>
 	<cstdlib>
+	<cassert>
 
-1366572137 c:\users\pritt\documents\github\finalproject\roguelike\interface.h
+1366627138 c:\users\pritt\documents\github\finalproject\roguelike\interface.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>

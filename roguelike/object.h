@@ -15,6 +15,7 @@ Purpose: These classes store and print locational data.
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
+#include <cassert>
 using namespace std;
 
 /************************************************
@@ -137,6 +138,62 @@ public:
         health = health - inDamage;
     }
 
+    void move(Floor*& floor/*, Player player1*/)
+    {
+        int randomChance = (rand() % 100);
+        int destX = currentX;
+        int destY = currentY;
+
+        //check to see if it's getting this far
+        //assert(false);
+        // determine direction!
+        // 6% chance of moving up
+        if (randomChance > 93)
+        {
+            destX = currentX - 1;
+            destY = currentY - 1;
+        }
+        // 6% chance of moving left
+        else if (randomChance > 87 && randomChance < 94)
+        {
+            destY = currentY - 1;
+        }
+        // 6% chance of moving right
+        else if (randomChance > 81 && randomChance < 88)
+        {
+            destY = currentY + 1;
+        }
+        // 6% chance of moving down
+        else if (randomChance > 75 && randomChance < 82)
+        {
+            destX = currentX + 1;
+            destY = currentY + 1;
+        }
+
+        //check to see if it's determining direction
+        //assert(false);
+        //proceed with move!
+        //if enemy tries to move to an empty tile, move him there
+        if (floor -> tileArray[destX][destY].hasFloor() == 1)
+        {
+            floor -> tileArray[currentX][currentY].setEnemy(0);
+            floor -> tileArray[destX][destY].setEnemy(1);
+            currentX = destX;
+            currentY = destY;
+
+        }
+        //check to see if it's proceeding with the move
+        //assert(false);
+
+        //if enemy tries to move onto the player, damage the player
+        /*else if (floor -> tileArray[destX][destY].hasPlayer() == 1)
+        {
+            player1.takeDamage(10);
+        }
+*/
+
+    }
+
 };
 
 
@@ -225,7 +282,6 @@ public:
           printw("%s\n\n\n", "You are not currently on any stairs...");
     }
 
-
     void move(char input, Floor*& floor)
     {
         printw("\n\n\n");
@@ -278,8 +334,7 @@ public:
     void attack(Floor*& floor, Enemy enemyArray[50])
     {
         //assert(false); //test to see if game header is handling the attack input
-
-        int randomChance = (rand() % 10);
+        int randomChance = (rand() % 100);
         int atkUpX = currentX - 1;
         int atkUpY = currentY - 1;
         int atkLeftX = currentX;
@@ -307,7 +362,8 @@ public:
                     }
                     else
                     {
-                        if (randomChance > 5)
+                        //50% chance of enemy missing
+                        if (randomChance > 49)
                         {
                             takeDamage(10);
                             printw("The enemy attacked you back for 10 damage! \n");
@@ -334,7 +390,8 @@ public:
                     }
                     else
                     {
-                        if (randomChance > 4)
+                        //50% chance of enemy missing
+                        if (randomChance > 49)
                         {
                             takeDamage(10);
                             printw("The enemy attacked you back for 10 damage! \n");
@@ -361,7 +418,8 @@ public:
                     }
                     else
                     {
-                        if (randomChance > 5)
+                        //50% chance of enemy missing
+                        if (randomChance > 49)
                         {
                             takeDamage(10);
                             printw("The enemy attacked you back for 10 damage! \n");
@@ -388,7 +446,8 @@ public:
                     }
                     else
                     {
-                        if (randomChance > 5)
+                        //50% chance of enemy missing
+                        if (randomChance > 49)
                         {
                             takeDamage(10);
                             printw("The enemy attacked you back for 10 damage! \n");
