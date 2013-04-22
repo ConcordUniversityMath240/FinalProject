@@ -75,8 +75,9 @@ class Character : public Object
         int defense;
         int evasion;
         bool successfulEvade = false;
-        bool successfulCrit = false;
         int critical;
+        bool successfulCrit = false;
+        int damageTkn; //Amount of damage dealt
 
 
     public:
@@ -149,17 +150,25 @@ public:
         return damage;
     }
 
+    int getDamageTkn()
+    {
+        return damageTkn;
+    }
+
     void takeDamage(int inPlayerDamage, bool inCritical)
     {
         if (inCritical == true)
         {
-            printw("Critical Hit!");
-            health = health - (((inPlayerDamage * 20) - (defense * 10)) * 2);
+            printw("Critical Hit! \n");
+            damageTkn = (((inPlayerDamage * 20) - (defense * 10)) * 2);
+            health = health - damageTkn;
         }
         else
         {
-            health = health - ((inPlayerDamage * 20) - (defense * 10));
+            damageTkn = ((inPlayerDamage * 20) - (defense * 10));
+            health = health - damageTkn;
         }
+
     }
 
     void move(Floor*& floor/*, Player player1*/)
@@ -198,7 +207,8 @@ public:
         //assert(false);
         //proceed with move!
         //if enemy tries to move to an empty tile, move him there
-        if (floor -> tileArray[destX][destY].hasFloor() == 1)
+        if (floor -> tileArray[destX][destY].hasFloor() == 1 &&
+            health > 0)
         {
             floor -> tileArray[currentX][currentY].setEnemy(0);
             floor -> tileArray[destX][destY].setEnemy(1);
@@ -421,10 +431,16 @@ public:
             for (int q = 1; q < 51; q++)
             {
                 if ((enemyArray[q].getCurrentX() == atkUpX) &&
-                   (enemyArray[q].getCurrentY() == atkUpY))
+                   (enemyArray[q].getCurrentY() == atkUpY) &&
+                   (enemyArray[q].getHealth() > 0))
                 {
                     enemyArray[q].takeDamage(damage, CritHit());
-                    printw("You did damage to the enemy! \n");
+
+                    char buffer[50];
+                    sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
+                    printw("You did ");
+                    printw(buffer);
+                    printw(" damage to the enemy! \n");
                     if (enemyArray[q].getHealth() < 1)
                     {
                         printw("You killed the enemy! \n");
@@ -453,7 +469,8 @@ public:
             for (int q = 1; q < 51; q++)
             {
                 if ((enemyArray[q].getCurrentX() == atkLeftX) &&
-                   (enemyArray[q].getCurrentY() == atkLeftY))
+                   (enemyArray[q].getCurrentY() == atkLeftY) &&
+                   (enemyArray[q].getHealth() > 0))
                 {
                     enemyArray[q].takeDamage(damage, CritHit());
                     printw("You did damage to the enemy! \n");
@@ -485,7 +502,8 @@ public:
             for (int q = 1; q < 51; q++)
             {
                 if ((enemyArray[q].getCurrentX() == atkRightX) &&
-                   (enemyArray[q].getCurrentY() == atkRightY))
+                   (enemyArray[q].getCurrentY() == atkRightY) &&
+                   (enemyArray[q].getHealth() > 0))
                 {
                     enemyArray[q].takeDamage(damage, CritHit());
                     printw("You did damage to the enemy! \n");
@@ -517,7 +535,8 @@ public:
             for (int q = 1; q < 51; q++)
             {
                 if ((enemyArray[q].getCurrentX() == atkDownX) &&
-                   (enemyArray[q].getCurrentY() == atkDownY))
+                   (enemyArray[q].getCurrentY() == atkDownY) &&
+                   (enemyArray[q].getHealth() > 0))
                 {
                     enemyArray[q].takeDamage(damage, CritHit());
                     printw("You did damage to the enemy! \n");
