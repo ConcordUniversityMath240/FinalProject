@@ -408,7 +408,7 @@ public:
         //if you move into a tile with an enemy
         if (floor -> tileArray[destX][destY].hasEnemy() == 1)
         {
-            for (int q = 1; q < 51; q++)
+            for (int q = 0; q < 50; q++)
             {
             //enemy damages player
                 if ((enemyArray[q].getCurrentX() == destX) &&
@@ -456,7 +456,7 @@ public:
         if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
         {
             //take health from enemy above player
-            for (int q = 1; q < 51; q++)
+            for (int q = 0; q < 50; q++)
             {
                 if ((enemyArray[q].getCurrentX() == atkUpX) &&
                    (enemyArray[q].getCurrentY() == atkUpY) &&
@@ -500,7 +500,7 @@ public:
         else if (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1)
         {
             //take health from enemy to the left of player
-            for (int q = 1; q < 51; q++)
+            for (int q = 0; q < 50; q++)
             {
                 if ((enemyArray[q].getCurrentX() == atkLeftX) &&
                    (enemyArray[q].getCurrentY() == atkLeftY) &&
@@ -543,7 +543,7 @@ public:
         else if (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1)
         {
             //take health from enemy to the right of the player
-            for (int q = 1; q < 51; q++)
+            for (int q = 0; q < 50; q++)
             {
                 if ((enemyArray[q].getCurrentX() == atkRightX) &&
                    (enemyArray[q].getCurrentY() == atkRightY) &&
@@ -586,7 +586,7 @@ public:
         else if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
         {
             //take health from enemy under player
-            for (int q = 1; q < 51; q++)
+            for (int q = 0; q < 50; q++)
             {
                 if ((enemyArray[q].getCurrentX() == atkDownX) &&
                    (enemyArray[q].getCurrentY() == atkDownY) &&

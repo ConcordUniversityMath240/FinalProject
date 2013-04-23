@@ -10,6 +10,7 @@ Purpose:
 #define GAME_H
 #include <iostream>
 #include <ctime>
+#include <stdio.h>
 #include <cstdlib>
 #include "map.h"
 #include "object.h"
