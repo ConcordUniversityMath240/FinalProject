@@ -85,9 +85,12 @@ public:
                     player1.move(input, currentFloor, enemyArray);
                     erase();
                     refresh();
-                    for (int q = 1; q < 11; q++)
+                    for (int q = 0; q < 50; q++)
                     {
-                        enemyArray[q].move(currentFloor/*, player1*/);
+                        if (enemyArray[q].getCurrentFloorLevel() == currentFloor -> getFloorLevel())
+                        {
+                            enemyArray[q].move(currentFloor/*, player1*/);
+                        }
                     }
                     erase();
                     refresh();
@@ -154,6 +157,7 @@ public:
                 {
                     if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
                     {
+                        enemyArray[counter].setCurrentFloorLevel(i+1);
                         enemyArray[counter].setCurrentX(x);
                         enemyArray[counter].setCurrentY(y);
                         counter++;

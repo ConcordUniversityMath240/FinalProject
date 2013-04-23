@@ -71,6 +71,7 @@ class Character : public Object
         int level;
         int Experience;
         int Experience_Cap;
+        int XPgained;
         int damage;
         int defense;
         int evasion;
@@ -121,8 +122,8 @@ Enemy class
 *************************************************/
 class Enemy: public Character
 {
-private:
-
+protected:
+    int currentFloorLevel;
 public:
 
     Enemy()
@@ -133,6 +134,8 @@ public:
         defense = level + 4;
         evasion = level + 4;
         critical = level + 4;
+
+        currentFloorLevel = 0;
     }
 
     void setHealth(int inHealth)
@@ -171,7 +174,7 @@ public:
 
     }
 
-    void move(Floor*& floor/*, Player player1*/)
+    void move(Floor*& floor)
     {
         int randomChance = (rand() % 100);
         int destX = currentX;
@@ -220,14 +223,27 @@ public:
         //assert(false);
 
         //if enemy tries to move onto the player, damage the player
-        /*else if (floor -> tileArray[destX][destY].hasPlayer() == 1)
+        else if (floor -> tileArray[destX][destY].hasPlayer() == 1)
         {
-            player1.takeDamage(10);
+            destX = currentX;
+            destY = currentY;
         }
-*/
-
+        else if (floor -> tileArray[destX][destY].hasEnemy() == 1)
+        {
+            destX = currentX;
+            destY = currentY;
+        }
     }
 
+    int getCurrentFloorLevel()
+    {
+        return currentFloorLevel;
+    }
+
+    void setCurrentFloorLevel(int inLevel)
+    {
+        currentFloorLevel = inLevel;
+    }
 };
 
 
@@ -257,12 +273,19 @@ public:
     }
     void gainExperience(int inEnemyLevel)
     {
-        Experience = (inEnemyLevel * 10) + Experience;
+        XPgained = inEnemyLevel * 10;
+        Experience = Experience + XPgained;
         if (Experience >= Experience_Cap)
         {
             levelUp();
         }
     }
+
+    int getXPgained()
+    {
+        return XPgained;
+    }
+
     void levelUp()
     {
         printw("LEVEL UP!! \n");
@@ -392,6 +415,11 @@ public:
                     (enemyArray[q].getCurrentY() == destY))
                 {
                     takeDamage(enemyArray[q].getDamage());
+                    char buffer [50];
+                    sprintf(buffer, "%i", getDamageTkn());
+                    printw("The enemy attacked you for ");
+                    printw(buffer);
+                    printw(" damage!");
                 }
             }
 
@@ -444,11 +472,15 @@ public:
                     {
                         printw("You killed the enemy! \n");
                         gainExperience(enemyArray[q].getLevel());
+                        sprintf(buffer, "%i", getXPgained());
+                        printw("You gained ");
+                        printw(buffer);
+                        printw("XP! \n");
                         floor -> tileArray[atkUpX][atkUpY].setEnemy(0);
                     }
                     else
                     {
-                        if (successfulEvade == false)
+                        if (evade() == false)
                         {
                             takeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
@@ -483,11 +515,15 @@ public:
                     {
                         printw("You killed the enemy! \n");
                         gainExperience(enemyArray[q].getLevel());
+                        sprintf(buffer, "%i", getXPgained());
+                        printw("You gained ");
+                        printw(buffer);
+                        printw("XP! \n");
                         floor -> tileArray[atkLeftX][atkLeftY].setEnemy(0);
                     }
                     else
                     {
-                        if (successfulEvade == false)
+                        if (evade() == false)
                         {
                             takeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
@@ -522,11 +558,15 @@ public:
                     {
                         printw("You killed the enemy! \n");
                         gainExperience(enemyArray[q].getLevel());
+                        sprintf(buffer, "%i", getXPgained());
+                        printw("You gained ");
+                        printw(buffer);
+                        printw("XP! \n");
                         floor -> tileArray[atkRightX][atkRightY].setEnemy(0);
                     }
                     else
                     {
-                        if (successfulEvade == false)
+                        if (evade() == false)
                         {
                             takeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
@@ -561,14 +601,21 @@ public:
                     {
                         printw("You killed the enemy! \n");
                         gainExperience(enemyArray[q].getLevel());
+                        sprintf(buffer, "%i", getXPgained());
+                        printw("You gained ");
+                        printw(buffer);
+                        printw("XP! \n");
                         floor -> tileArray[atkDownX][atkDownY].setEnemy(0);
                     }
                     else
                     {
-                        if (successfulEvade == false)
+                        if (evade() == false)
                         {
                             takeDamage(enemyArray[q].getDamage());
-                            printw("The enemy attacked you back!");
+                            sprintf(buffer, "%i", getDamageTkn());
+                            printw("The enemy attacked you back for ");
+                            printw(buffer);
+                            printw(" damage! \n");
                         }
                         else
                         {
@@ -583,7 +630,11 @@ public:
     void takeDamage(int inEnemyDamage)
     {
         char bell = 7;
-        damageTkn = ((inEnemyDamage * 12) - (defense * 10));
+        damageTkn = ((inEnemyDamage * 11) - (defense * 10));
+        if (damageTkn < 0)
+        {
+            damageTkn = 0;
+        }
         health = health - damageTkn;
         cout<<bell;
     }
