@@ -128,7 +128,7 @@ public:
     Enemy()
     {
         level = 1;
-        health = (level * 15) + 100;
+        health = (level * 15) + 80;
         damage = level + 4;
         defense = level + 4;
         evasion = level + 4;
@@ -410,10 +410,10 @@ public:
         }
     }
 
-
     void attack(Floor*& floor, Enemy enemyArray[50])
     {
         //assert(false); //test to see if game header is handling the attack input
+        char buffer[50];
         int randomChance = (rand() % 100);
         int atkUpX = currentX - 1;
         int atkUpY = currentY - 1;
@@ -436,7 +436,6 @@ public:
                 {
                     enemyArray[q].takeDamage(damage, CritHit());
 
-                    char buffer[50];
                     sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
                     printw("You did ");
                     printw(buffer);
@@ -452,7 +451,10 @@ public:
                         if (successfulEvade == false)
                         {
                             takeDamage(enemyArray[q].getDamage());
-                            printw("The enemy attacked you back! \n");
+                            sprintf(buffer, "%i", getDamageTkn());
+                            printw("The enemy attacked you back for ");
+                            printw(buffer);
+                            printw(" damage! \n");
                         }
                         else
                         {
@@ -472,8 +474,11 @@ public:
                    (enemyArray[q].getCurrentY() == atkLeftY) &&
                    (enemyArray[q].getHealth() > 0))
                 {
-                    enemyArray[q].takeDamage(damage, CritHit());
-                    printw("You did damage to the enemy! \n");
+                    enemyArray[q].takeDamage(damage, CritHit());                    char buffer[50];
+                    sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
+                    printw("You did ");
+                    printw(buffer);
+                    printw(" damage to the enemy! \n");
                     if (enemyArray[q].getHealth() < 1)
                     {
                         printw("You killed the enemy! \n");
@@ -485,7 +490,10 @@ public:
                         if (successfulEvade == false)
                         {
                             takeDamage(enemyArray[q].getDamage());
-                            printw("The enemy attacked you back! \n");
+                            sprintf(buffer, "%i", getDamageTkn());
+                            printw("The enemy attacked you back for ");
+                            printw(buffer);
+                            printw(" damage! \n");
                         }
                         else
                         {
@@ -505,8 +513,11 @@ public:
                    (enemyArray[q].getCurrentY() == atkRightY) &&
                    (enemyArray[q].getHealth() > 0))
                 {
-                    enemyArray[q].takeDamage(damage, CritHit());
-                    printw("You did damage to the enemy! \n");
+                    enemyArray[q].takeDamage(damage, CritHit());                    char buffer[50];
+                    sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
+                    printw("You did ");
+                    printw(buffer);
+                    printw(" damage to the enemy! \n");
                     if (enemyArray[q].getHealth() < 1)
                     {
                         printw("You killed the enemy! \n");
@@ -518,7 +529,10 @@ public:
                         if (successfulEvade == false)
                         {
                             takeDamage(enemyArray[q].getDamage());
-                            printw("The enemy attacked you back! \n");
+                            sprintf(buffer, "%i", getDamageTkn());
+                            printw("The enemy attacked you back for ");
+                            printw(buffer);
+                            printw(" damage! \n");
                         }
                         else
                         {
@@ -538,8 +552,11 @@ public:
                    (enemyArray[q].getCurrentY() == atkDownY) &&
                    (enemyArray[q].getHealth() > 0))
                 {
-                    enemyArray[q].takeDamage(damage, CritHit());
-                    printw("You did damage to the enemy! \n");
+                    enemyArray[q].takeDamage(damage, CritHit());                    char buffer[50];
+                    sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
+                    printw("You did ");
+                    printw(buffer);
+                    printw(" damage to the enemy! \n");
                     if (enemyArray[q].getHealth() < 1)
                     {
                         printw("You killed the enemy! \n");
@@ -566,9 +583,14 @@ public:
     void takeDamage(int inEnemyDamage)
     {
         char bell = 7;
-        health = health - ((inEnemyDamage * 12) - (defense * 10));
+        damageTkn = ((inEnemyDamage * 12) - (defense * 10));
+        health = health - damageTkn;
         cout<<bell;
+    }
 
+    int getDamageTkn()
+    {
+        return damageTkn;
     }
 };
 
