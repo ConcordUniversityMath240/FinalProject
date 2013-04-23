@@ -65,6 +65,7 @@ class Character : public Object
 {
     protected:
         int health;
+        int maxHealth = 100;
         int level;
         int Experience;
         int Experience_Cap;
@@ -78,12 +79,42 @@ class Character : public Object
 
 
     public:
-
+    int getLevel()
+    {
+        return level;
+    }
+    int getMaxhealth()
+    {
+        return maxHealth;
+    }
     int getHealth()
     {
         return health;
     }
-
+    int getExperience()
+    {
+        return Experience;
+    }
+    int getExperience_Cap()
+    {
+        return Experience_Cap;
+    }
+    int getDamage()
+    {
+        return damage;
+    }
+    int getDefense()
+    {
+        return defense;
+    }
+    int getEvasion()
+    {
+        return evasion;
+    }
+    int getCritical()
+    {
+        return critical;
+    }
     int setHealth(int input)
     {
         health = input;
