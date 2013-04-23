@@ -1,9 +1,15 @@
 Current Bugs
 --------------------------------------
-A small (1-3) number of enemies on each floor are unattackable.
+- A small (1-3) number of enemies on each floor are unattackable.
+- Enemies can randomly move into the same tile as each other, so that it appears that 
+	there is one of them, but there's actually 2. (Andy)
+- Enemies can randomly move into the same tile as the player and not damage him. (Andy)
 
 
 
 Fixed Bugs
 --------------------------------------
-A small number of enemies on each floor do not move. - Fixed 4/22/2013 (Royse)
+- A small number of enemies on each floor do not move. - Fixed 4/22/2013 (Royse)
+- Seems like the more floors you go down, the more enemies there are, even though
+	there should be the same amount of enemies on each floor 
+	for now - Fixed 4/22/2013 (Andy)
