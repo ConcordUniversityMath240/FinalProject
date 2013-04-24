@@ -173,66 +173,144 @@ public:
         }
 
     }
-
     void move(Floor*& floor)
     {
-        int randomChance = (rand() % 100);
+        /*
+            AI
+        */
+        int sighted = 0;
+        int visualField = 5;
+        int direction = 0;
         int destX = currentX;
         int destY = currentY;
+        for (int i = 0; i < visualField; i++) {
+            // this registers as up, it should be diagonal up/left
+            if (currentX - i > 0 && currentY - i > 0) {
+                // x should be y, but oh well :P
+                if (floor -> tileArray[currentX-i][currentY-i].hasPlayer()) {
+                    sighted = 1;
+                    direction = 1;
+                }
+            }
+            // registers as down but should be diagonal down/right
+            if (currentX + i < XSIZE && currentY + i < YSIZE) {
+                // x should be y, but oh well :P
+                if (floor -> tileArray[currentX+i][currentY+i].hasPlayer()) {
+                    sighted = 1;
+                    direction = 2;
+                }
+            }
 
-        //check to see if it's getting this far
-        //assert(false);
-        // determine direction!
-        // 6% chance of moving up
-        if (randomChance > 93)
-        {
-            destX = currentX - 1;
-            destY = currentY - 1;
+            // registers as right, works as intended
+            if (currentY + i < YSIZE) {
+                // x should be y, but oh well :P
+                if (floor -> tileArray[currentX][currentY+i].hasPlayer()) {
+                    sighted = 1;
+                    direction = 3;
+                }
+            }
+            // registers as left, works as intended
+            if (currentY - i > 0) {
+                // x should be y, but oh well :P
+                if (floor -> tileArray[currentX][currentY-i].hasPlayer()) {
+                    sighted = 1;
+                    direction = 4;
+                }
+            }
+            /*
+            // does not work, it should register up/right but does funky stuff :)
+            if (currentX + i < XSIZE && currentY - i > 0) {
+                if (floor -> tileArray[currentX+i][currentY-i].hasPlayer()) {
+                    printw("test");
+                    system("pause");
+                    refresh();
+                    erase();
+                }
+            }*/
+            /* fucking not working //// shitty map reading..fucking fix
+            if (currentX - i > 0 && currentY + i < YSIZE) {
+                if (floor -> tileArray[currentX-i][currentY+i].hasPlayer()) {
+                    printw("test");
+                    system("pause");
+                    refresh();
+                    erase();
+                }
+            }
+            */
         }
-        // 6% chance of moving left
-        else if (randomChance > 87 && randomChance < 94)
-        {
-            destY = currentY - 1;
+        // move dumb
+        if (sighted == 0) {
+            int randomChance = (rand() % 100);
+            //check to see if it's getting this far
+            //assert(false);
+            // determine direction!
+            // 6% chance of moving up
+            if (randomChance > 93)
+            {
+                destX = currentX - 1;
+                destY = currentY - 1;
+            }
+            // 6% chance of moving left
+            else if (randomChance > 87 && randomChance < 94)
+            {
+                destY = currentY - 1;
+            }
+            // 6% chance of moving right
+            else if (randomChance > 81 && randomChance < 88)
+            {
+                destY = currentY + 1;
+            }
+            // 6% chance of moving down
+            else if (randomChance > 75 && randomChance < 82)
+            {
+                destX = currentX + 1;
+                destY = currentY + 1;
+            }
         }
-        // 6% chance of moving right
-        else if (randomChance > 81 && randomChance < 88)
-        {
-            destY = currentY + 1;
-        }
-        // 6% chance of moving down
-        else if (randomChance > 75 && randomChance < 82)
-        {
-            destX = currentX + 1;
-            destY = currentY + 1;
+        //move smart ;)
+        else {
+            switch(direction) {
+            //move up
+            case 1:
+                destX = currentX - 1;
+                destY = currentY - 1;
+                break;
+            //move down
+            case 2:
+                destX = currentX + 1;
+                destY = currentY + 1;
+                break;
+            //move right
+            case 3:
+                destY = currentY + 1;
+                break;
+            //move left
+            case 4:
+                destY = currentY - 1;
+                break;
+            }
         }
 
-        //check to see if it's determining direction
-        //assert(false);
-        //proceed with move!
-        //if enemy tries to move to an empty tile, move him there
-        if (floor -> tileArray[destX][destY].hasFloor() == 1 &&
-            health > 0)
-        {
-            floor -> tileArray[currentX][currentY].setEnemy(0);
-            floor -> tileArray[destX][destY].setEnemy(1);
-            currentX = destX;
-            currentY = destY;
+            //check to see if it's determining direction
+            //assert(false);
+            //proceed with move!
+            //if enemy tries to move to an empty tile, move him there
+            if (floor -> tileArray[destX][destY].hasFloor() == 1 &&
+                health > 0 && floor -> tileArray[destX][destY].hasPlayer() != 1
+                && floor -> tileArray[destX][destY].hasEnemy() != 1
+                )
+            {
+                floor -> tileArray[currentX][currentY].setEnemy(0);
+                floor -> tileArray[destX][destY].setEnemy(1);
+                currentX = destX;
+                currentY = destY;
+            }
+            if (floor -> tileArray[destX][destY].hasPlayer() == 1) {
+            }
+            //check to see if it's proceeding with the move
+            //assert(false);
 
-        }
-        //check to see if it's proceeding with the move
-        //assert(false);
-
-        //if enemy tries to move onto the player, damage the player
-        else if (floor -> tileArray[destX][destY].hasPlayer() == 1)
-        {
-            destX = currentX;
-            destY = currentY;
-        }
-        else if (floor -> tileArray[destX][destY].hasEnemy() == 1)
-        {
-            destX = currentX;
-            destY = currentY;
-        }
+            //if enemy tries to move onto the player, damage the player
     }
 
     int getCurrentFloorLevel()

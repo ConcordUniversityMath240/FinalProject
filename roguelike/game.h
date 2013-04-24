@@ -41,6 +41,8 @@ public:
     // Start and run the game.
     void run()
     {
+        // moved here from main, don't erase :P
+        srand(time(NULL));
         char input;
         /* Start curses mode */
         initscr();
@@ -70,8 +72,8 @@ public:
             if (player1.getHealth() < 1)
             {
                 printw("  You were killed!! \n  Game Over!! \n");
-                //need to make this end game
-
+                // need to make it wait for a few seconds before exiting
+                exit(1);
             }
             interface.drawOver(player1); // stuff above board
             printw("%s\n", "--------------------------------------------------------------------------------");
