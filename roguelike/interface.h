@@ -61,6 +61,8 @@ public:
         sprintf(attack,"%i",player.getDamage());
         char defense[10]= {0};
         sprintf(defense,"%i",player.getDefense());
+        char evade[10]= {0};
+        sprintf(evade,"%i",player.getEvasion());
 
         //int blk = 219;
 
@@ -98,6 +100,8 @@ public:
         printw(health);printw("/");printw(maxHealth);printw("\n");
         printw("Attack : ");printw(attack);
         move(4,20);printw("Defense : ");printw(defense);
+        printw("\nEvade  : ");printw(evade);
+
 //        int temp = player.getHealth();
 
 
