@@ -10,6 +10,7 @@ Purpose:
 #define GAME_H
 #include <iostream>
 #include <ctime>
+#include <stdio.h>
 #include <cstdlib>
 #include "map.h"
 #include "object.h"
@@ -28,9 +29,11 @@ class Game
 {
 private:
     Floor floorArray[LAST_FLOOR];
-    Enemy enemyArray[50];
 
 public:
+
+    Enemy enemyArray[50];
+
     Game()
     {
     }
@@ -64,17 +67,32 @@ public:
         // Get Input
         while (input != '9')
         {
+            if (player1.getHealth() < 1)
+            {
+                printw("  You were killed!! \n  Game Over!! \n");
+                //need to make this end game
+
+            }
             interface.drawOver(player1); // stuff above board
             printw("%s\n", "--------------------------------------------------------------------------------");
             currentFloor -> displayFloor();
-             attron (COLOR_PAIR(4));
             printw("%s\n", "--------------------------------------------------------------------------------");
             interface.drawUnder(); // draw below board
 
             input = getch();
+
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
                 {
-                    player1.move(input, currentFloor);
+                    player1.move(input, currentFloor, enemyArray);
+                    erase();
+                    refresh();
+                    for (int q = 0; q < 50; q++)
+                    {
+                        if (enemyArray[q].getCurrentFloorLevel() == currentFloor -> getFloorLevel())
+                        {
+                            enemyArray[q].move(currentFloor/*, player1*/);
+                        }
+                    }
                     erase();
                     refresh();
                 }
@@ -91,7 +109,7 @@ public:
             {
                 erase();
                 refresh();
-                player1.attack(currentFloor);
+                player1.attack(currentFloor, enemyArray);
             }
 
             if (input == 'h' || input == 'H')
@@ -140,6 +158,7 @@ public:
                 {
                     if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
                     {
+                        enemyArray[counter].setCurrentFloorLevel(i+1);
                         enemyArray[counter].setCurrentX(x);
                         enemyArray[counter].setCurrentY(y);
                         counter++;

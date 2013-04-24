@@ -2,10 +2,11 @@
 1366761928 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
 	"game.h"
 
-1366761928 c:\users\admin\documents\github\finalproject\roguelike\game.h
+1366726047 c:\users\admin\documents\github\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
+	<stdio.h>
 	<cstdlib>
 	"map.h"
 	"object.h"
@@ -17,16 +18,17 @@
 	<stdio.h>
 	<wchar.h>
 
-1366761928 c:\users\admin\documents\github\finalproject\roguelike\map.h
+1366763306 c:\users\admin\documents\github\finalproject\roguelike\map.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1366761928 c:\users\admin\documents\github\finalproject\roguelike\object.h
+1366763888 c:\users\admin\documents\github\finalproject\roguelike\object.h
 	<iostream>
 	<ctime>
 	<cstdlib>
+	<cassert>
 
 1366512135 source:c:\users\admin\downloads\finalproject-master\finalproject-master\roguelike\main.cpp
 	"game.h"
@@ -57,7 +59,7 @@
 	<stdlib.h>
 	<time.h>
 
-1366761928 c:\users\admin\documents\github\finalproject\roguelike\interface.h
+1366763904 c:\users\admin\documents\github\finalproject\roguelike\interface.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
