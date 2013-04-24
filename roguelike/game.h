@@ -67,6 +67,7 @@ public:
             interface.drawOver(player1); // stuff above board
             printw("%s\n", "--------------------------------------------------------------------------------");
             currentFloor -> displayFloor();
+             attron (COLOR_PAIR(4));
             printw("%s\n", "--------------------------------------------------------------------------------");
             interface.drawUnder(); // draw below board
 
