@@ -43,11 +43,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="enemy.h" />
 		<Unit filename="game.h" />
 		<Unit filename="interface.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="map.h" />
 		<Unit filename="object.h" />
+		<Unit filename="player.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

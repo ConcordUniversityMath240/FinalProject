@@ -35,6 +35,7 @@ public:
         init_pair (3, COLOR_RED, COLOR_BLACK);  //enemies
         init_pair (4, COLOR_WHITE, COLOR_BLACK);  //player
         init_pair (5, COLOR_BLACK,COLOR_WHITE);
+        init_pair (6, COLOR_YELLOW, COLOR_BLACK); //stairs
         attron (A_BOLD);
     }
 
@@ -64,7 +65,7 @@ public:
         //int blk = 219;
 
         move(0,0);
-        printw("Name   : ");
+        printw("Name   : Filburt");
         move(0,20);
         printw("Class  : ");
         move(1,0);
@@ -73,7 +74,7 @@ public:
         move(1,20);
         printw("[");
         int temp = player.getExperience_Cap();
-        int tempFill = player.getExperience();
+        int tempFill = player.getExperience()/10;
         attron (COLOR_PAIR(5));
         for (int i=0; i<tempFill; i++)
         {

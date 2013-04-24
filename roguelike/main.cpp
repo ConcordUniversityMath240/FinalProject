@@ -1,9 +1,15 @@
 /************************************************
 Roguelike
 
-Author:
+Authors: Derek Royse
+         Ioan Istrate
+         Jay Bingley
+         Gary Danovich
+         Andy Pritt
+         Adam McCroskey
+         Zach England
 
-Purpose:
+Purpose: A text-based Rogue-like game.
 *************************************************/
 
 #include "game.h"

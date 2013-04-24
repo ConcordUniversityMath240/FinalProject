@@ -1,9 +1,9 @@
 /*******************************************
 game.h - Game class header file.
 
-Author:
+Author: MATH 240 Team
 
-Purpose:
+Purpose: Main game method and other related methods.
 *******************************************/
 #include <curses.h>
 #ifndef GAME_H
@@ -14,6 +14,8 @@ Purpose:
 #include <cstdlib>
 #include "map.h"
 #include "object.h"
+#include "enemy.h"
+#include "player.h"
 #include "interface.h"
 
 using namespace std;
@@ -22,8 +24,12 @@ using namespace std;
 Game class
 
 Member functions:
-    Game()
-    run()
+    Game()                  Creates a game object.
+    run()                   Starts, recieves input, and ends the game.
+    updatePlayerLocation()  Keeps a Player object's coordinates up to date.
+    setupFloors()           Creates, orders, and links the Floor objects.
+    populateEnemyList()     Creates an ordered array of Enemies and assigns
+                            their coordinates.
 *************************************************/
 class Game
 {
