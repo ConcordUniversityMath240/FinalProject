@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1366764293 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
+1366835343 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
 	"game.h"
 
-1366764687 c:\users\admin\documents\github\finalproject\roguelike\game.h
+1366835343 c:\users\admin\documents\github\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
@@ -20,13 +20,13 @@
 	<stdio.h>
 	<wchar.h>
 
-1366765655 c:\users\admin\documents\github\finalproject\roguelike\map.h
+1366836129 c:\users\admin\documents\github\finalproject\roguelike\map.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1366764934 c:\users\admin\documents\github\finalproject\roguelike\object.h
+1366835841 c:\users\admin\documents\github\finalproject\roguelike\object.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -61,7 +61,7 @@
 	<stdlib.h>
 	<time.h>
 
-1366765728 c:\users\admin\documents\github\finalproject\roguelike\interface.h
+1366836077 c:\users\admin\documents\github\finalproject\roguelike\interface.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
@@ -96,7 +96,7 @@
 	<stdlib.h>
 	<time.h>
 
-1366764575 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
+1366835855 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>

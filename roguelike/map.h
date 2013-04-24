@@ -225,14 +225,14 @@ class Floor
                         }
                     else if (tileArray[i][j].hasDownStairs() == 1)
                     {
-                            attron (COLOR_PAIR(6));
-                            addch('D');
+                        attron (COLOR_PAIR(6));
+                        addch(287);
                     }
 
                     else if (tileArray[i][j].hasUpStairs() == 1)
                     {
                         attron (COLOR_PAIR(6));
-                        addch('U');
+                        addch(286);
                     }
 
                     else if (tileArray[i][j].hasEnemy() == 1)
