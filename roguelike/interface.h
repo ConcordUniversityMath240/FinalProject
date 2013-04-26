@@ -35,7 +35,9 @@ public:
         init_pair (3, COLOR_RED, COLOR_BLACK);  //enemies
         init_pair (4, COLOR_WHITE, COLOR_BLACK);  //player
         init_pair (5, COLOR_BLACK,COLOR_WHITE);
-        init_pair (6, COLOR_YELLOW, COLOR_BLACK); //stairs
+        init_pair (6, COLOR_BLACK, COLOR_YELLOW); //stairs
+        init_pair (7, COLOR_BLACK, COLOR_GREEN);
+        init_pair (8, COLOR_BLACK, COLOR_RED);
         attron (A_BOLD);
     }
 
@@ -63,20 +65,23 @@ public:
         sprintf(defense,"%i",player.getDefense());
         char evade[10]= {0};
         sprintf(evade,"%i",player.getEvasion());
-
+        char critical[10]= {0};
+        sprintf(critical,"%i",player.getCritical());
         //int blk = 219;
 
         move(0,0);
         printw("Name   : Filburt");
         move(0,20);
-        printw("Class  : ");
+        printw("Class    : ");
         move(1,0);
         printw("Level  : ");
         printw(level);
         move(1,20);
         printw("[");
-        int temp = player.getExperience_Cap();
-        int tempFill = player.getExperience()/10;
+        int tempFill = ((player.getExperience() * 10) / player.getExperience_Cap());
+
+
+        int temp = 10 - tempFill; //player.getExperience()/10;
         attron (COLOR_PAIR(5));
         for (int i=0; i<tempFill; i++)
         {
@@ -92,25 +97,43 @@ public:
         printw("]\n");
         printw("Exp    : "); printw(experience);printw("/");printw(experience_Cap);
 
-        move(2,20);
-        temp = player.getHealth();
-
-
         printw("\nHealth : ");
-        printw(health);printw("/");printw(maxHealth);printw("\n");
-        printw("Attack : ");printw(attack);
+        printw(health);printw("/");printw(maxHealth);
+        move(3,20);
+        printw("[");
+        tempFill = ((player.getHealth() * 10 ) / player.getHealthCap());
+        temp = 10 - tempFill;
+
+
+        //char Temp[10]= {0};  123 4567 891
+        //sprintf(Temp,"%i",tempFill);
+        //printw("TEMPFIL = ");printw(Temp);
+        if (tempFill > 7)
+            attron (COLOR_PAIR(7)); // green if > 70%
+        if (tempFill < 4)
+            attron (COLOR_PAIR(8)); // red if < 40%
+        if (tempFill > 3 && tempFill < 8)
+            attron (COLOR_PAIR(6)); // else yellow
+
+        for (int i=0; i<tempFill; i++)
+        {
+                addch(219);
+                addch(219);
+        }
+        attron (COLOR_PAIR(4));
+        for (int i = 10; i > tempFill; i--)
+        {
+            addch(219);
+            addch(219);
+        }
+
+        printw("]");
+        printw("\nAttack : ");printw(attack);
         move(4,20);printw("Defense : ");printw(defense);
         printw("\nEvade  : ");printw(evade);
-
-//        int temp = player.getHealth();
-
-
-        // move(2,15);//printf(blk);
-
-        //printw("Exp     : ");
-        //printw(experience);
+        move(5,20);printw("Critical: ");printw(critical);
         printw("\n");
-        //printw("");
+
     }
 
     void drawHelp()
