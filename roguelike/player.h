@@ -152,10 +152,8 @@ public:
 
         // Up
         if (input == 3)
-        {
             destX = currentX-1;
-            destY = currentY-1;
-        }
+
         // Left
         else if (input == 4)
             destY = currentY-1;
@@ -166,10 +164,7 @@ public:
 
         // Down
         else if (input == 2)
-        {
             destX = currentX+1;
-            destY = currentY+1;
-        }
 
         //if you move into a tile with an enemy
         if (floor -> tileArray[destX][destY].hasEnemy() == 1)
@@ -210,13 +205,13 @@ public:
         char buffer[50];
         int randomChance = (rand() % 100);
         int atkUpX = currentX - 1;
-        int atkUpY = currentY - 1;
+        int atkUpY = currentY;
         int atkLeftX = currentX;
         int atkLeftY = currentY - 1;
         int atkRightX = currentX;
         int atkRightY = currentY + 1;
         int atkDownX = currentX + 1;
-        int atkDownY = currentY + 1;
+        int atkDownY = currentY;
 
         //if there is an enemy above the player
         if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)

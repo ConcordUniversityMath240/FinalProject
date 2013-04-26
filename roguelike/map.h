@@ -17,7 +17,7 @@ Purpose: These classes store and print locational data.
 
 const int LAST_FLOOR = 5;
 const int XSIZE = 32;
-const int YSIZE = 79;
+const int YSIZE = 80;
 const int MAX_NUM_ENEMIES = 10;
 
 using namespace std;
@@ -208,6 +208,9 @@ class Floor
                     else if (test == '-')
                         tileArray[i][j].setFloor(1);
                 }
+
+                // Picks up carriage return at end of line.
+                map1 >> test;
         }
 
         // Loop through the tileArray, displaying an appropriate symbol

@@ -144,7 +144,6 @@ public:
             if (randomChance > 93)
             {
                 destX = currentX - 1;
-                destY = currentY - 1;
             }
             // 6% chance of moving left
             else if (randomChance > 87 && randomChance < 94)
@@ -160,7 +159,6 @@ public:
             else if (randomChance > 75 && randomChance < 82)
             {
                 destX = currentX + 1;
-                destY = currentY + 1;
             }
         }
         //move smart ;)
@@ -169,12 +167,10 @@ public:
             //move up
             case 1:
                 destX = currentX - 1;
-                destY = currentY - 1;
                 break;
             //move down
             case 2:
                 destX = currentX + 1;
-                destY = currentY + 1;
                 break;
             //move right
             case 3:
