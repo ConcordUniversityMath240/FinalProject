@@ -36,7 +36,7 @@ public:
         init_pair (4, COLOR_WHITE, COLOR_BLACK);  //player
         init_pair (5, COLOR_BLACK,COLOR_WHITE);
         init_pair (6, COLOR_BLACK, COLOR_YELLOW); //stairs
-        init_pair (7, COLOR_BLACK, COLOR_GREEN);  // healthbar
+        init_pair (7, COLOR_BLACK, COLOR_GREEN);
         init_pair (8, COLOR_BLACK, COLOR_RED);
         attron (A_BOLD);
     }
