@@ -88,7 +88,7 @@ public:
             interface.drawUnder(); // draw below board
 
             input = getch();
-
+            //move
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
                 {
                     player1.move(input, currentFloor, enemyArray);
@@ -104,7 +104,7 @@ public:
                     erase();
                     refresh();
                 }
-
+            //use stairs
             if(input == ' ')
                 {
                     player1.useStairs(currentFloor);
@@ -112,17 +112,29 @@ public:
                     erase();
                     refresh();
                 }
-
+            //melee attack
             if (input == 'f' || input == 'F')
             {
                 erase();
                 refresh();
                 player1.attack(currentFloor, enemyArray);
             }
-
+            if ((input == 'c' || input == 'C') && (player1.getLevel() >= 4))
+            {
+                erase();
+                refresh();
+                player1.healMagic();
+            }
+            if ((input == 'r' || input == 'r') && (player1.getLevel() >= 3))
+            {
+                erase();
+                refresh();
+                player1.directionalMagic(currentFloor, enemyArray);
+            }
+            //help screen
             if (input == 'h' || input == 'H')
             {
-                interface.drawHelp();
+                interface.drawHelp(player1);
                 erase();
                 refresh();
             }

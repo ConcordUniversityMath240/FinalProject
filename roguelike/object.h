@@ -72,24 +72,28 @@ Character class
 *************************************************/
 class Character : public Object
 {
-    protected:
-        int health;
-        //max amount of health a player can hold
-        int health_cap;
-        int level;
-        int Experience;
-        int Experience_Cap;
-        int XPgained;
-        int damage;
-        int defense;
-        int evasion;
-        bool successfulEvade = false;
-        int critical;
-        bool successfulCrit = false;
-        int damageTkn; //Amount of damage dealt
+protected:
+    int health;
+    //max amount of health a player can hold
+    int health_cap;
+    int magicAmount;
+    int magicAmount_Cap;
+    int level;
+    int Experience;
+    int Experience_Cap;
+    int XPgained;
+    int damage;
+    int magicPower;
+    int defense;
+    int magicDefense;
+    int evasion;
+    bool successfulEvade;
+    int critical;
+    bool successfulCrit;
+    int damageTkn; //Amount of damage dealt
 
 
-    public:
+public:
     int getLevel()
     {
         return level;
@@ -101,6 +105,10 @@ class Character : public Object
     int getHealth()
     {
         return health;
+    }
+    int getMagicAmount()
+    {
+        return magicAmount;
     }
     int getExperience()
     {
@@ -114,9 +122,17 @@ class Character : public Object
     {
         return damage;
     }
+    int getMagicPower()
+    {
+        return magicPower;
+    }
     int getDefense()
     {
         return defense;
+    }
+    int getMagicDefense()
+    {
+        return magicDefense;
     }
     int getEvasion()
     {
@@ -126,11 +142,10 @@ class Character : public Object
     {
         return critical;
     }
-    int setHealth(int input)
+    void setHealth(int input)
     {
         health = input;
     }
-
     void setLevel(int inLevel)
     {
         level = inLevel;
