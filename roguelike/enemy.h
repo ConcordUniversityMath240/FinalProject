@@ -78,64 +78,89 @@ public:
         int destX = currentX;
         int destY = currentY;
         for (int i = 0; i < visualField; i++) {
-            // this registers as up, it should be diagonal up/left
-            //if (currentX - i > 0 && currentY - i > 0) {
-                // x should be y, but oh well :P
-                if (floor -> tileArray[currentX-i][currentY].hasPlayer()) {
+            // up
+            if (floor -> tileArray[currentX-i][currentY].hasPlayer()) {
+                sighted = 1;
+                direction = 1;
+            }
+            // down
+            if (floor -> tileArray[currentX+i][currentY].hasPlayer()) {
+                sighted = 1;
+                direction = 2;
+            }
+            // right
+            if (floor -> tileArray[currentX][currentY+i].hasPlayer()) {
+                sighted = 1;
+                direction = 3;
+           }
+            // left
+            if (floor -> tileArray[currentX][currentY-i].hasPlayer()) {
+                sighted = 1;
+                direction = 4;
+            }
+            // down left
+            if (floor -> tileArray[currentX+i][currentY-i].hasPlayer()) {
+                sighted = 1;
+                direction = 5;
+            }
+            // up left
+            if (floor -> tileArray[currentX-i][currentY-i].hasPlayer()) {
+                sighted = 1;
+                direction = 6;
+            }
+            // up right
+            if (floor -> tileArray[currentX-i][currentY+i].hasPlayer()) {
+                sighted = 1;
+                direction = 7;
+            }
+            // down right
+            if (floor -> tileArray[currentX+i][currentY+i].hasPlayer()) {
+                sighted = 1;
+                direction = 8;
+            }
+            /*
+                Special Cases
+            */
+            for (int j = 1; j < visualField; j++) {
+                // up left skipping
+                if (floor -> tileArray[currentX-i-j][currentY-i].hasPlayer()) {
                     sighted = 1;
-                    direction = 1;
+                    if (floor -> tileArray[currentX-i][currentY].hasFloor()) {
+                        direction = 1;
+                    }
+                    else if (floor -> tileArray[currentX][currentY-i].hasFloor()) {
+                        direction = 4;
+                    }
                 }
-           //}
-            // registers as down but should be diagonal down/right
-           // if (currentX + i < XSIZE && currentY + i < YSIZE) {
-                // x should be y, but oh well :P
-                if (floor -> tileArray[currentX+i][currentY].hasPlayer()) {
+                // up right skipping
+                if (floor -> tileArray[currentX-i-j][currentY+i].hasPlayer()) {
                     sighted = 1;
-                    direction = 2;
+                    if (floor -> tileArray[currentX-i][currentY].hasFloor()) {
+                        direction = 1;
+                    }
+                    else if (floor -> tileArray[currentX][currentY+i].hasFloor()) {
+                        direction = 3;
+                    }                }
+                // down right skipping
+                if (floor -> tileArray[currentX+i+j][currentY+i].hasPlayer()) {
+                    sighted = 1;
+                    if (floor -> tileArray[currentX+i][currentY].hasFloor()) {
+                        direction = 2;
+                    }
+                    else if (floor -> tileArray[currentX][currentY+i].hasFloor()) {
+                        direction = 3;
+                    }                   }
+                // down left skipping
+                if (floor -> tileArray[currentX+i+j][currentY-i].hasPlayer()) {
+                    sighted = 1;
+                    if (floor -> tileArray[currentX+i][currentY].hasFloor()) {
+                        direction = 2;
+                    }
+                    else if (floor -> tileArray[currentX][currentY-i].hasFloor()) {
+                        direction = 4;
+                    }
                 }
-          //  }
-
-            // registers as right, works as intended
-           // if (currentY + i < YSIZE) {
-                // x should be y, but oh well :P
-                if (floor -> tileArray[currentX][currentY+i].hasPlayer()) {
-                    sighted = 1;
-                    direction = 3;
-               }
-            //}
-            // registers as left, works as intended
-           // if (currentY - i > 0) {
-                // x should be y, but oh well :P
-                if (floor -> tileArray[currentX][currentY-i].hasPlayer()) {
-                    sighted = 1;
-                    direction = 4;
-                }
-          //  }
-            // does not work, it should register up/right but does funky stuff :)
-           // if (currentX + i < XSIZE && currentY - i > 0) {
-                // down left
-                if (floor -> tileArray[currentX+i][currentY-i].hasPlayer()) {
-                    sighted = 1;
-                    direction = 5;
-                }
-           // }
-            //if (currentX - i > 0 && currentY + i < YSIZE) {
-                // up left
-                if (floor -> tileArray[currentX-i][currentY-i].hasPlayer()) {
-                    sighted = 1;
-                    direction = 6;
-                }
-                // up right
-                if (floor -> tileArray[currentX-i][currentY+i].hasPlayer()) {
-                    sighted = 1;
-                    direction = 7;
-                }
-                // down right
-                if (floor -> tileArray[currentX+i][currentY+i].hasPlayer()) {
-                    sighted = 1;
-                    direction = 8;
-                }
-            //}
+            }
         }
         // move dumb
         if (sighted == 0) {
