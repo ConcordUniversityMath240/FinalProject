@@ -81,7 +81,7 @@ public:
             // this registers as up, it should be diagonal up/left
             //if (currentX - i > 0 && currentY - i > 0) {
                 // x should be y, but oh well :P
-                if (floor -> tileArray[currentX-i][currentY-i].hasPlayer()) {
+                if (floor -> tileArray[currentX-i][currentY].hasPlayer()) {
                     sighted = 1;
                     direction = 1;
                 }
@@ -89,7 +89,7 @@ public:
             // registers as down but should be diagonal down/right
            // if (currentX + i < XSIZE && currentY + i < YSIZE) {
                 // x should be y, but oh well :P
-                if (floor -> tileArray[currentX+i][currentY+i].hasPlayer()) {
+                if (floor -> tileArray[currentX+i][currentY].hasPlayer()) {
                     sighted = 1;
                     direction = 2;
                 }
@@ -114,21 +114,24 @@ public:
             // does not work, it should register up/right but does funky stuff :)
            // if (currentX + i < XSIZE && currentY - i > 0) {
                 // down left
-                if (floor -> tileArray[currentX+i][currentY].hasPlayer()) {
+                if (floor -> tileArray[currentX+i][currentY-i].hasPlayer()) {
                     sighted = 1;
                     direction = 5;
                 }
            // }
             //if (currentX - i > 0 && currentY + i < YSIZE) {
-                if (floor -> tileArray[currentX-i][currentY].hasPlayer()) {
+                // up left
+                if (floor -> tileArray[currentX-i][currentY-i].hasPlayer()) {
                     sighted = 1;
                     direction = 6;
                 }
+                // up right
                 if (floor -> tileArray[currentX-i][currentY+i].hasPlayer()) {
                     sighted = 1;
                     direction = 7;
                 }
-                if (floor -> tileArray[currentX+i][currentY-i].hasPlayer()) {
+                // down right
+                if (floor -> tileArray[currentX+i][currentY+i].hasPlayer()) {
                     sighted = 1;
                     direction = 8;
                 }
@@ -183,19 +186,22 @@ public:
             //move down left
             case 5:
                 destX = currentX + 1;
+                destY = currentY - 1;
                 break;
-            //move up right
+            //move up left
             case 6:
                 destX = currentX - 1;
+                destY = currentY - 1;
                 break;
             //move up right
             case 7:
                 destX = currentX - 1;
                 destY = currentY + 1;
                 break;
+            //move down right
             case 8:
                 destX = currentX + 1;
-                destY = currentY - 1;
+                destY = currentY + 1;
                 break;
             }
         }
