@@ -148,10 +148,14 @@ public:
                             floor -> tileArray[currentX-i][currentY-i-j].hasPlayer()
                             ) {
                             sighted = 1;
-                            if (floor -> tileArray[currentX-i][currentY].hasFloor()) {
+                            if (floor -> tileArray[currentX-i][currentY].hasFloor() &&
+                                !floor -> tileArray[currentX-i][currentY].hasEnemy()
+                                ) {
                                 direction = 1;
                             }
-                            else if (floor -> tileArray[currentX][currentY-i].hasFloor()) {
+                            else if (floor -> tileArray[currentX][currentY-i].hasFloor() &&
+                                    !floor -> tileArray[currentX-i][currentY].hasEnemy()
+                                     ) {
                                 direction = 4;
                             }
                         }
@@ -164,10 +168,14 @@ public:
                             floor -> tileArray[currentX-i][currentY+i+j].hasPlayer()
                             ) {
                             sighted = 1;
-                            if (floor -> tileArray[currentX-i][currentY].hasFloor()) {
+                            if (floor -> tileArray[currentX-i][currentY].hasFloor() &&
+                                !floor -> tileArray[currentX-i][currentY].hasEnemy()
+                                ) {
                                 direction = 1;
                             }
-                            else if (floor -> tileArray[currentX][currentY+i].hasFloor()) {
+                            else if (floor -> tileArray[currentX][currentY+i].hasFloor() &&
+                                     !floor -> tileArray[currentX][currentY+i].hasEnemy()
+                                     ) {
                                 direction = 3;
                             }
                         }
@@ -180,10 +188,14 @@ public:
                             floor -> tileArray[currentX+i][currentY+i+j].hasPlayer()
                             ) {
                             sighted = 1;
-                            if (floor -> tileArray[currentX+i][currentY].hasFloor()) {
+                            if (floor -> tileArray[currentX+i][currentY].hasFloor() &&
+                                !floor -> tileArray[currentX+i][currentY].hasEnemy()
+                                ) {
                                 direction = 2;
                             }
-                            else if (floor -> tileArray[currentX][currentY+i].hasFloor()) {
+                            else if (floor -> tileArray[currentX][currentY+i].hasFloor() &&
+                                     !floor -> tileArray[currentX][currentY+i].hasEnemy()
+                                     ) {
                                 direction = 3;
                             }
                         }
@@ -196,10 +208,13 @@ public:
                             floor -> tileArray[currentX+i][currentY-i-j].hasPlayer()
                             ) {
                             sighted = 1;
-                            if (floor -> tileArray[currentX+i][currentY].hasFloor()) {
+                            if (floor -> tileArray[currentX+i][currentY].hasFloor() &&
+                                !floor -> tileArray[currentX+i][currentY].hasEnemy()) {
                                 direction = 2;
                             }
-                            else if (floor -> tileArray[currentX][currentY-i].hasFloor()) {
+                            else if (floor -> tileArray[currentX][currentY-i].hasFloor() &&
+                                     !floor -> tileArray[currentX][currentY-i].hasEnemy()
+                                    ) {
                                 direction = 4;
                             }
                         }
