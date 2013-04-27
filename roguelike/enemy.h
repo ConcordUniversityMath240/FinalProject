@@ -122,52 +122,54 @@ public:
                 Special Cases
             */
             for (int j = 1; j < visualField; j++) {
-                // up left skipping vertical // horizontal
-                if (floor -> tileArray[currentX-i-j][currentY-i].hasPlayer() ||
-                    floor -> tileArray[currentX-i][currentY-i-j].hasPlayer()
-                    ) {
-                    sighted = 1;
-                    if (floor -> tileArray[currentX-i][currentY].hasFloor()) {
-                        direction = 1;
+                if (i+j <= visualField) {
+                    // up left skipping vertical // horizontal
+                    if (floor -> tileArray[currentX-i-j][currentY-i].hasPlayer() ||
+                        floor -> tileArray[currentX-i][currentY-i-j].hasPlayer()
+                        ) {
+                        sighted = 1;
+                        if (floor -> tileArray[currentX-i][currentY].hasFloor()) {
+                            direction = 1;
+                        }
+                        else if (floor -> tileArray[currentX][currentY-i].hasFloor()) {
+                            direction = 4;
+                        }
                     }
-                    else if (floor -> tileArray[currentX][currentY-i].hasFloor()) {
-                        direction = 4;
+                    // up right skipping vertical // horizontal
+                    if (floor -> tileArray[currentX-i-j][currentY+i].hasPlayer() ||
+                        floor -> tileArray[currentX-i][currentY+i+j].hasPlayer()
+                        ) {
+                        sighted = 1;
+                        if (floor -> tileArray[currentX-i][currentY].hasFloor()) {
+                            direction = 1;
+                        }
+                        else if (floor -> tileArray[currentX][currentY+i].hasFloor()) {
+                            direction = 3;
+                        }
                     }
-                }
-                // up right skipping vertical // horizontal
-                if (floor -> tileArray[currentX-i-j][currentY+i].hasPlayer() ||
-                    floor -> tileArray[currentX-i][currentY+i+j].hasPlayer()
-                    ) {
-                    sighted = 1;
-                    if (floor -> tileArray[currentX-i][currentY].hasFloor()) {
-                        direction = 1;
+                    // down right skipping vertical // horizontal
+                    if (floor -> tileArray[currentX+i+j][currentY+i].hasPlayer() ||
+                        floor -> tileArray[currentX+i][currentY+i+j].hasPlayer()
+                        ) {
+                        sighted = 1;
+                        if (floor -> tileArray[currentX+i][currentY].hasFloor()) {
+                            direction = 2;
+                        }
+                        else if (floor -> tileArray[currentX][currentY+i].hasFloor()) {
+                            direction = 3;
+                        }
                     }
-                    else if (floor -> tileArray[currentX][currentY+i].hasFloor()) {
-                        direction = 3;
-                    }
-                }
-                // down right skipping vertical // horizontal
-                if (floor -> tileArray[currentX+i+j][currentY+i].hasPlayer() ||
-                    floor -> tileArray[currentX+i][currentY+i+j].hasPlayer()
-                    ) {
-                    sighted = 1;
-                    if (floor -> tileArray[currentX+i][currentY].hasFloor()) {
-                        direction = 2;
-                    }
-                    else if (floor -> tileArray[currentX][currentY+i].hasFloor()) {
-                        direction = 3;
-                    }
-                }
-                // down left skipping vertical // horizontal
-                if (floor -> tileArray[currentX+i+j][currentY-i].hasPlayer() ||
-                    floor -> tileArray[currentX+i][currentY-i-j].hasPlayer()
-                    ) {
-                    sighted = 1;
-                    if (floor -> tileArray[currentX+i][currentY].hasFloor()) {
-                        direction = 2;
-                    }
-                    else if (floor -> tileArray[currentX][currentY-i].hasFloor()) {
-                        direction = 4;
+                    // down left skipping vertical // horizontal
+                    if (floor -> tileArray[currentX+i+j][currentY-i].hasPlayer() ||
+                        floor -> tileArray[currentX+i][currentY-i-j].hasPlayer()
+                        ) {
+                        sighted = 1;
+                        if (floor -> tileArray[currentX+i][currentY].hasFloor()) {
+                            direction = 2;
+                        }
+                        else if (floor -> tileArray[currentX][currentY-i].hasFloor()) {
+                            direction = 4;
+                        }
                     }
                 }
             }
