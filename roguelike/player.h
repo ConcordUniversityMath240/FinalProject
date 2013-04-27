@@ -18,7 +18,7 @@ public:
     // Create a player with default attributes.
     Player()
     {
-        level = 4;
+        level = 1;
         health = 100;
         magicAmount = 80;
         magicAmount_Cap = 80;
