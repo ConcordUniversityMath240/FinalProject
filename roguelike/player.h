@@ -376,7 +376,7 @@ public:
         else if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
         {
             //take health from enemy under player
-            for (int q = 0; q < 50; q++)
+            for (int q = 0; q < 55; q++)
             {
                 if ((enemyArray[q].getCurrentX() == atkDownX) &&
                    (enemyArray[q].getCurrentY() == atkDownY) &&

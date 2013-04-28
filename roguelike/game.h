@@ -72,6 +72,7 @@ public:
         updatePlayerLocation(player1, currentFloor);
         populateEnemyList(floorArray);
 
+        halfdelay(5);
         // Get Input
         while (input != '9')
         {
