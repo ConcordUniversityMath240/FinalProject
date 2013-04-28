@@ -20,22 +20,23 @@ public:
     {
         level = 1;
         health = 100;
+        magicAmount = 80;
+        magicAmount_Cap = 80;
         health_cap = 100;
         damage = 5;
+        magicPower = 5;
         defense = 5;
+        magicDefense = 5;
         evasion = 5;
         critical = 5;
         Experience = 0;
         //player reaches lvl 2 with 100 experience
         Experience_Cap = 100;
-
     }
-
-    int Return_Level()
+    int getLevel()
     {
         return level;
     }
-
     void gainExperience(int inEnemyLevel)
     {
         XPgained = inEnemyLevel * 10;
@@ -45,12 +46,10 @@ public:
             levelUp();
         }
     }
-
     int getXPgained()
     {
         return XPgained;
     }
-
     void levelUp()
     {
         //printw("LEVEL UP!! \n");
@@ -64,6 +63,17 @@ public:
         }
         //give full health
         health = health_cap;
+
+        //chance to increase magic amount cap
+        randomChance = (rand() % 100);
+        if (randomChance > 29)
+        {
+            magicAmount_Cap = (magicAmount_Cap/5) + magicAmount_Cap;
+            //printw("Max MP increased! \n);
+        }
+        //give full MP
+        magicAmount = magicAmount_Cap;
+
         //chance to increase damage
         randomChance = (rand() % 100);
         if (randomChance > 29)
@@ -71,12 +81,26 @@ public:
             damage++;
             //printw("Damage Increased!\n");
         }
+        //chance to increase magic damage
+        randomChance = (rand() % 100);
+        if (randomChance > 29)
+        {
+            magicPower++;
+            //printw("Magic Damage Increased!\n");
+        }
         //chance to increase defense
         randomChance = (rand() % 100);
         if (randomChance > 29)
         {
             defense++;
             //printw("Defense Increased! \n");
+        }
+        //chance to increase magic defense
+        randomChance = (rand() % 100);
+        if (randomChance > 49)
+        {
+            magicDefense++;
+            //printw("Magic Defense Increased! \n");
         }
         //chance to increase evasion
         randomChance = (rand() % 100);
@@ -95,8 +119,15 @@ public:
         Experience_Cap = Experience_Cap * 1.2;
         Experience = 0;
         level++;
+        if (level == 3)
+        {
+            printw("You can now use Directional magic attack! \n");
+        }
+        if (level == 4)
+        {
+            printw("You can now use Heal magic! \n");
+        }
     }
-
     //method to determine if player will get a critical hit
     bool CritHit()
     {
@@ -142,7 +173,6 @@ public:
         //else
           //printw("%s\n\n\n", "You are not currently on any stairs...");
     }
-
     void move(char input, Floor*& floor, Enemy enemyArray[50])
     {
         printw("\n\n\n");
@@ -175,7 +205,7 @@ public:
                 if ((enemyArray[q].getCurrentX() == destX) &&
                     (enemyArray[q].getCurrentY() == destY))
                 {
-                    takeDamage(enemyArray[q].getDamage());
+                    takeMeleeDamage(enemyArray[q].getDamage());
                     char buffer [50];
                     sprintf(buffer, "%i", getDamageTkn());
                     //printw("The enemy attacked you for ");
@@ -183,7 +213,6 @@ public:
                     //printw(" damage!");
                 }
             }
-
         }
 
         else if (floor -> tileArray[destX][destY].hasFloor() == 1)
@@ -198,7 +227,6 @@ public:
             //printw("%s", "You walked into a wall, dumbass! \n");
         }
     }
-
     void attack(Floor*& floor, Enemy enemyArray[50])
     {
         //assert(false); //test to see if game header is handling the attack input
@@ -212,7 +240,6 @@ public:
         int atkRightY = currentY + 1;
         int atkDownX = currentX + 1;
         int atkDownY = currentY;
-
         //if there is an enemy above the player
         if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
         {
@@ -223,7 +250,7 @@ public:
                    (enemyArray[q].getCurrentY() == atkUpY) &&
                    (enemyArray[q].getHealth() > 0))
                 {
-                    enemyArray[q].takeDamage(damage, CritHit());
+                    enemyArray[q].takeMeleeDamage(damage, CritHit());
 
                     sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
                     //printw("You did ");
@@ -243,7 +270,7 @@ public:
                     {
                         if (evade() == false)
                         {
-                            takeDamage(enemyArray[q].getDamage());
+                            takeMeleeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
                             //printw("The enemy attacked you back for ");
                             //printw(buffer);
@@ -251,7 +278,7 @@ public:
                         }
                         else
                         {
-                            printw("You evaded the enemy counter!");
+                            //printw("You evaded the enemy counter!");
                         }
                     }
                 }
@@ -267,7 +294,8 @@ public:
                    (enemyArray[q].getCurrentY() == atkLeftY) &&
                    (enemyArray[q].getHealth() > 0))
                 {
-                    enemyArray[q].takeDamage(damage, CritHit());                    char buffer[50];
+                    enemyArray[q].takeMeleeDamage(damage, CritHit());
+                    char buffer[50];
                     sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
                     //printw("You did ");
                     //printw(buffer);
@@ -286,7 +314,7 @@ public:
                     {
                         if (evade() == false)
                         {
-                            takeDamage(enemyArray[q].getDamage());
+                            takeMeleeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
                             //printw("The enemy attacked you back for ");
                             //printw(buffer);
@@ -310,7 +338,8 @@ public:
                    (enemyArray[q].getCurrentY() == atkRightY) &&
                    (enemyArray[q].getHealth() > 0))
                 {
-                    enemyArray[q].takeDamage(damage, CritHit());                    char buffer[50];
+                    enemyArray[q].takeMeleeDamage(damage, CritHit());
+                    char buffer[50];
                     sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
                     //printw("You did ");
                     //printw(buffer);
@@ -329,7 +358,7 @@ public:
                     {
                         if (evade() == false)
                         {
-                            takeDamage(enemyArray[q].getDamage());
+                            takeMeleeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
                             //printw("The enemy attacked you back for ");
                             //printw(buffer);
@@ -353,7 +382,7 @@ public:
                    (enemyArray[q].getCurrentY() == atkDownY) &&
                    (enemyArray[q].getHealth() > 0))
                 {
-                    enemyArray[q].takeDamage(damage, CritHit());                    char buffer[50];
+                    enemyArray[q].takeMeleeDamage(damage, CritHit());                    char buffer[50];
                     sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
                     //printw("You did ");
                     //printw(buffer);
@@ -372,7 +401,7 @@ public:
                     {
                         if (evade() == false)
                         {
-                            takeDamage(enemyArray[q].getDamage());
+                            takeMeleeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
                             //printw("The enemy attacked you back for ");
                            // printw(buffer);
@@ -387,8 +416,133 @@ public:
             }
         }
     }
-
-    void takeDamage(int inEnemyDamage)
+    void directionalMagic(Floor*& floor, Enemy enemyArray[50])
+    {
+        if (magicAmount >= 10)
+        {
+            char buffer[50];
+            int randomChance = (rand() % 100);
+            int atkUpX = currentX - 1;
+            int atkUpY = currentY;
+            int atkLeftX = currentX;
+            int atkLeftY = currentY - 1;
+            int atkRightX = currentX;
+            int atkRightY = currentY + 1;
+            int atkDownX = currentX + 1;
+            int atkDownY = currentY;
+            //if there is an enemy above the player
+            for (int counter = 0; counter < 4; counter++)
+            {
+                if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
+                {
+                    for (int q = 0; q < 50; q++)
+                    {
+                        if ((enemyArray[q].getCurrentX() == atkUpX) &&
+                        (enemyArray[q].getCurrentY() == atkUpY) &&
+                        (enemyArray[q].getHealth() > 0))
+                        {
+                            enemyArray[q].takeMagicDam(getMagicPower());
+                            if (enemyArray[q].getHealth() < 1)
+                            {
+                                gainExperience(enemyArray[q].getLevel());
+                                floor -> tileArray[atkUpX][atkUpY].setEnemy(0);
+                            }
+                        }
+                    }
+                }
+                atkUpX = atkUpX - 1;
+            }
+            for (int counter = 0; counter < 4; counter++)
+            {
+                if (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1)
+                {
+                    for (int q = 0; q < 50; q++)
+                    {
+                        if ((enemyArray[q].getCurrentX() == atkLeftX) &&
+                        (enemyArray[q].getCurrentY() == atkLeftY) &&
+                        (enemyArray[q].getHealth() > 0))
+                        {
+                            enemyArray[q].takeMagicDam(getMagicPower());
+                            if (enemyArray[q].getHealth() < 1)
+                            {
+                                gainExperience(enemyArray[q].getLevel());
+                                floor -> tileArray[atkLeftX][atkLeftY].setEnemy(0);
+                            }
+                        }
+                    }
+                }
+                atkLeftY = atkLeftY - 1;
+            }
+            for (int counter = 0; counter < 4; counter++)
+            {
+                if (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1)
+                {
+                    for (int q = 0; q < 50; q++)
+                    {
+                        if ((enemyArray[q].getCurrentX() == atkRightX) &&
+                        (enemyArray[q].getCurrentY() == atkRightY) &&
+                        (enemyArray[q].getHealth() > 0))
+                        {
+                            enemyArray[q].takeMagicDam(getMagicPower());
+                            if (enemyArray[q].getHealth() < 1)
+                            {
+                                gainExperience(enemyArray[q].getLevel());
+                                floor -> tileArray[atkRightX][atkRightY].setEnemy(0);
+                            }
+                        }
+                    }
+                }
+                atkRightY = atkRightY + 1;
+            }
+            for (int counter = 0; counter < 4; counter++)
+            {
+                if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
+                {
+                    for (int q = 0; q < 50; q++)
+                    {
+                        if ((enemyArray[q].getCurrentX() == atkDownX) &&
+                        (enemyArray[q].getCurrentY() == atkDownY) &&
+                        (enemyArray[q].getHealth() > 0))
+                        {
+                            enemyArray[q].takeMagicDam(getMagicPower());
+                            if (enemyArray[q].getHealth() < 1)
+                            {
+                                gainExperience(enemyArray[q].getLevel());
+                                floor -> tileArray[atkDownX][atkDownY].setEnemy(0);
+                            }
+                        }
+                    }
+                }
+                atkDownX = atkDownX + 1;
+            }
+            magicAmount = magicAmount - 10;
+        }
+        else
+        {
+            printw("You don't have enough MP!");
+        }
+    }
+    void healMagic()
+    {
+        if (health == health_cap)
+        {
+            printw("You already have full HP!");
+        }
+        else if (magicAmount >= 7)
+        {
+            magicAmount = magicAmount - 7;
+            health = health + 20;
+            if (health > health_cap)
+            {
+                health = health_cap;
+            }
+        }
+        else
+        {
+            printw("You don't have enough MP!");
+        }
+    }
+    void takeMeleeDamage(int inEnemyDamage)
     {
         char bell = 7;
         damageTkn = ((inEnemyDamage * 11) - (defense * 10));
@@ -399,7 +553,6 @@ public:
         health = health - damageTkn;
         cout<<bell;
     }
-
     int getDamageTkn()
     {
         return damageTkn;

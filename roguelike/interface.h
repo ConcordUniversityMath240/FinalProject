@@ -136,7 +136,7 @@ public:
 
     }
 
-    void drawHelp()
+    void drawHelp(Player player1)
     {
         erase();
         printw("\n");
@@ -158,6 +158,15 @@ public:
         printw("\n");
         printw("Arrow Keys to move 9 to exit f to fight");
         printw("\n");
+        printw("'f' to melee attack \n");
+        if (player1.getLevel() >= 3)
+        {
+            printw("'r' to use Directional magic attack \n");
+        }
+        if (player1.getLevel() >= 4)
+        {
+            printw("'c' to use Heal magic \n");
+        }
         printw("other help crap goes here and needs added");
         printw("\n");
         getch();

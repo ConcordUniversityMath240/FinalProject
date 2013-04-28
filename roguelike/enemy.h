@@ -10,7 +10,7 @@ using namespace std;
 /************************************************
 Enemy class
 
-    Enemy()             Creates an enemy with 100 health.
+    Enemy()
 
 *************************************************/
 class Enemy: public Character
@@ -23,8 +23,11 @@ public:
     {
         level = 1;
         health = (level * 15) + 80;
+        magicAmount = 100;
         damage = level + 4;
+        magicPower = level + 4;
         defense = level + 4;
+        magicDefense = level + 4;
         evasion = level + 4;
         critical = level + 4;
 
@@ -51,20 +54,36 @@ public:
         return damageTkn;
     }
 
-    void takeDamage(int inPlayerDamage, bool inCritical)
+    void takeMeleeDamage(int inPlayerDamage, bool inCritical)
     {
         if (inCritical == true)
         {
             printw("Critical Hit! \n");
             damageTkn = (((inPlayerDamage * 20) - (defense * 10)) * 2);
+            if (damageTkn < 0)
+            {
+                damageTkn = 0;
+            }
             health = health - damageTkn;
         }
         else
         {
             damageTkn = ((inPlayerDamage * 20) - (defense * 10));
+            if (damageTkn < 0)
+            {
+                damageTkn = 0;
+            }
             health = health - damageTkn;
         }
-
+    }
+    void takeMagicDam(int inPlayerMagDam)
+    {
+        damageTkn = ((inPlayerMagDam * 20) - (magicDefense * 7));
+        if (damageTkn < 0)
+        {
+            damageTkn = 0;
+        }
+        health = health - damageTkn;
     }
 
     void move(Floor*& floor)
@@ -225,7 +244,6 @@ public:
     {
         return currentFloorLevel;
     }
-
     void setCurrentFloorLevel(int inLevel)
     {
         currentFloorLevel = inLevel;
