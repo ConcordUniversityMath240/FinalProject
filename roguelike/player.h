@@ -431,7 +431,7 @@ public:
             int atkDownX = currentX + 1;
             int atkDownY = currentY;
             //if there is an enemy above the player
-            for (int counter = 0; counter < 4; counter++)
+            for (int counter = 0; counter < 7; counter++)
             {
                 if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
                 {
@@ -452,7 +452,7 @@ public:
                 }
                 atkUpX = atkUpX - 1;
             }
-            for (int counter = 0; counter < 4; counter++)
+            for (int counter = 0; counter < 7; counter++)
             {
                 if (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1)
                 {
@@ -473,7 +473,7 @@ public:
                 }
                 atkLeftY = atkLeftY - 1;
             }
-            for (int counter = 0; counter < 4; counter++)
+            for (int counter = 0; counter < 7; counter++)
             {
                 if (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1)
                 {
@@ -494,7 +494,7 @@ public:
                 }
                 atkRightY = atkRightY + 1;
             }
-            for (int counter = 0; counter < 4; counter++)
+            for (int counter = 0; counter < 7; counter++)
             {
                 if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
                 {
