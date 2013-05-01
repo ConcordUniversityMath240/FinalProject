@@ -33,10 +33,6 @@ public:
         //player reaches lvl 2 with 100 experience
         Experience_Cap = 100;
     }
-    int getLevel()
-    {
-        return level;
-    }
     void gainExperience(int inEnemyLevel)
     {
         XPgained = inEnemyLevel * 10;

@@ -17,6 +17,7 @@ Purpose: Main game method and other related methods.
 #include "enemy.h"
 #include "player.h"
 #include "interface.h"
+#include "combat.h"
 
 using namespace std;
 
@@ -65,6 +66,7 @@ public:
 
         // Create objects.
         Player player1;
+        Combat combat1;
         Floor* currentFloor = &floorArray[0];
 
         // Initialization.
@@ -118,7 +120,7 @@ public:
             {
                 erase();
                 refresh();
-                player1.attack(currentFloor, enemyArray);
+                combat1.playerMeleeAttack(currentFloor, player1, enemyArray);
             }
             if ((input == 'c' || input == 'C') && (player1.getLevel() >= 4))
             {

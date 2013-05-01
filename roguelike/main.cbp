@@ -43,6 +43,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="combat.h" />
 		<Unit filename="enemy.h" />
 		<Unit filename="game.h" />
 		<Unit filename="interface.h" />
