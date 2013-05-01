@@ -50,6 +50,12 @@
 		<Unit filename="map.h" />
 		<Unit filename="object.h" />
 		<Unit filename="player.h" />
+		<Unit filename="sql.cpp" />
+		<Unit filename="sqlite3.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="sqlite3.h" />
+		<Unit filename="sqlite3ext.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

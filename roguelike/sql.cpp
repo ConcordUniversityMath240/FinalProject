@@ -16,7 +16,7 @@ public:
     db = "rogue.sqlite";
     }
     void dbConnect(const char * db) {
-     sqlite3_open(db, &database);
+        sqlite3_open(db, &database);
     };
     void dbCommand (const char * command, string action) {
 dbConnect(db);
@@ -29,5 +29,8 @@ dbConnect(db);
     //
     sqlite3_finalize(statement);
     sqlite3_close(database);
+    }
+    string returnRead() {
+        return returned;
     }
 };

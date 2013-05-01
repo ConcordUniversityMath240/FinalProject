@@ -156,7 +156,7 @@
 1367409858 source:c:\users\ioan\desktop\finalproject\roguelike\main.cpp
 	"game.h"
 
-1367421395 c:\users\ioan\desktop\finalproject\roguelike\game.h
+1367424226 c:\users\ioan\desktop\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
@@ -167,8 +167,7 @@
 	"enemy.h"
 	"player.h"
 	"interface.h"
-	"sqlite3.h"
-	"sql.h"
+	"sql.cpp"
 
 1367017987 c:\users\ioan\desktop\finalproject\roguelike\map.h
 	<fstream>
@@ -176,25 +175,25 @@
 	<stdlib.h>
 	<time.h>
 
-1367164614 c:\users\ioan\desktop\finalproject\roguelike\object.h
+1367421659 c:\users\ioan\desktop\finalproject\roguelike\object.h
 	<iostream>
 	<ctime>
 	<cstdlib>
 	<cassert>
 
-1367164614 c:\users\ioan\desktop\finalproject\roguelike\enemy.h
+1367421659 c:\users\ioan\desktop\finalproject\roguelike\enemy.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1367164614 c:\users\ioan\desktop\finalproject\roguelike\player.h
+1367421659 c:\users\ioan\desktop\finalproject\roguelike\player.h
 	<iostream>
 	<ctime>
 	<cstdlib>
 	<cassert>
 
-1367164614 c:\users\ioan\desktop\finalproject\roguelike\interface.h
+1367421659 c:\users\ioan\desktop\finalproject\roguelike\interface.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
@@ -254,12 +253,12 @@
 1367017987 c:\users\ioan\desktop\finalproject\roguelike\sqlite3.h
 	<stdarg.h>
 
-1367421344 c:\users\ioan\desktop\finalproject\roguelike\sql.cpp
+1367424033 c:\users\ioan\desktop\finalproject\roguelike\sql.cpp
 	<iostream>
 	"sqlite3.h"
 	<string>
 
-1367421164 source:c:\users\ioan\desktop\finalproject\roguelike\sql.cpp
+1367424033 source:c:\users\ioan\desktop\finalproject\roguelike\sql.cpp
 	<iostream>
 	"sqlite3.h"
 	<string>
@@ -267,4 +266,24 @@
 1367421419 c:\users\ioan\desktop\finalproject\roguelike\sql.h
 	<iostream>
 	<string>
+
+1367017987 source:c:\users\ioan\desktop\finalproject\roguelike\shell.c
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+	<assert.h>
+	"sqlite3.h"
+	<ctype.h>
+	<stdarg.h>
+	<signal.h>
+	<pwd.h>
+	<unistd.h>
+	<sys/types.h>
+	<editline/editline.h>
+	<readline/readline.h>
+	<readline/history.h>
+	<io.h>
+	<sys/time.h>
+	<sys/resource.h>
+	<windows.h>
 
