@@ -2,7 +2,7 @@
 1366835343 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
 	"game.h"
 
-1366835343 c:\users\admin\documents\github\finalproject\roguelike\game.h
+1367375877 c:\users\admin\documents\github\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
@@ -11,22 +11,23 @@
 	"map.h"
 	"object.h"
 	"enemy.h"
+	"inventory.h"
 	"player.h"
 	"interface.h"
 
-1365986591 c:\codeblocks\pdcurs33\curses.h
+1182380599 c:\codeblocks\pdcurs33\curses.h
 	<stdarg.h>
 	<stddef.h>
 	<stdio.h>
 	<wchar.h>
 
-1366999002 c:\users\admin\documents\github\finalproject\roguelike\map.h
+1367371251 c:\users\admin\documents\github\finalproject\roguelike\map.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1366836202 c:\users\admin\documents\github\finalproject\roguelike\object.h
+1367257672 c:\users\admin\documents\github\finalproject\roguelike\object.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -61,7 +62,7 @@
 	<stdlib.h>
 	<time.h>
 
-1366999984 c:\users\admin\documents\github\finalproject\roguelike\interface.h
+1367366385 c:\users\admin\documents\github\finalproject\roguelike\interface.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
@@ -96,13 +97,13 @@
 	<stdlib.h>
 	<time.h>
 
-1366999140 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
+1367370560 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1366999163 c:\users\admin\documents\github\finalproject\roguelike\player.h
+1367375829 c:\users\admin\documents\github\finalproject\roguelike\player.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -148,6 +149,119 @@
 	<cassert>
 
 1367085236 c:\users\pritt\documents\github\finalproject\roguelike\interface.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367343161 c:\users\admin\documents\github\finalproject\roguelike\inventory.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+	<vector>
+
+1366835343 source:c:\users\admin\downloads\boss stuff\roguelike\main.cpp
+	"game.h"
+
+1367429804 c:\users\admin\downloads\boss stuff\roguelike\game.h
+	<curses.h>
+	<iostream>
+	<ctime>
+	<stdio.h>
+	<cstdlib>
+	"map.h"
+	"object.h"
+	"enemy.h"
+	"inventory.h"
+	"player.h"
+	"interface.h"
+
+1367380273 c:\users\admin\downloads\boss stuff\roguelike\map.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367257672 c:\users\admin\downloads\boss stuff\roguelike\object.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+
+1367370560 c:\users\admin\downloads\boss stuff\roguelike\enemy.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367431695 c:\users\admin\downloads\boss stuff\roguelike\inventory.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+	<vector>
+
+1367432204 c:\users\admin\downloads\boss stuff\roguelike\player.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+
+1367366385 c:\users\admin\downloads\boss stuff\roguelike\interface.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1366835343 source:c:\users\admin\downloads\equipping\equipping\roguelike\main.cpp
+	"game.h"
+
+1367439343 c:\users\admin\downloads\equipping\equipping\roguelike\game.h
+	<curses.h>
+	<iostream>
+	<ctime>
+	<stdio.h>
+	<cstdlib>
+	"map.h"
+	"object.h"
+	"enemy.h"
+	"inventory.h"
+	"player.h"
+	"interface.h"
+
+1367380273 c:\users\admin\downloads\equipping\equipping\roguelike\map.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367257672 c:\users\admin\downloads\equipping\equipping\roguelike\object.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+
+1367370560 c:\users\admin\downloads\equipping\equipping\roguelike\enemy.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367439888 c:\users\admin\downloads\equipping\equipping\roguelike\inventory.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+	<vector>
+
+1367440075 c:\users\admin\downloads\equipping\equipping\roguelike\player.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+
+1367366385 c:\users\admin\downloads\equipping\equipping\roguelike\interface.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>

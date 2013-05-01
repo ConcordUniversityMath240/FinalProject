@@ -15,6 +15,15 @@ Player class
 class Player : public Character
 {
 public:
+    Inventory playerInventory;
+    //0 = armor
+    //1 = weapon
+    //2 = NYI
+    //3 = NYI
+    //4 = NYI
+    //5 = NYI
+    Item equipped[5];
+
     // Create a player with default attributes.
     Player()
     {
@@ -32,6 +41,9 @@ public:
         Experience = 0;
         //player reaches lvl 2 with 100 experience
         Experience_Cap = 100;
+
+        for (int i = 0; i < 5; i++)
+            equipped[i].setName("");
     }
     int getLevel()
     {
@@ -52,6 +64,7 @@ public:
     }
     void levelUp()
     {
+        move(44, 0);
         //printw("LEVEL UP!! \n");
         //randomchance is variable for randomization
         int randomChance = (rand() % 100);
@@ -160,22 +173,26 @@ public:
     }
     void useStairs(Floor*& currentFloor)
     {
+        move(44, 0);
         if (currentFloor -> tileArray[currentX][currentY].hasDownStairs() == 1)
         {
             currentFloor = currentFloor -> next;
-            //printw("%s\n\n\n", "You moved down a floor.");
+            printw("You moved down a floor.");
         }
         else if (currentFloor -> tileArray[currentX][currentY].hasUpStairs() == 1)
         {
             currentFloor = currentFloor -> prev;
-            //printw("%s\n\n\n", "You moved up a floor.");
+            printw("You moved up a floor.");
         }
-        //else
-          //printw("%s\n\n\n", "You are not currently on any stairs...");
+        else
+        {
+            printw("You are not currently on any stairs...");
+        }
+
     }
-    void move(char input, Floor*& floor, Enemy enemyArray[50])
+    void movePlayer(char input, Floor*& floor, Enemy enemyArray[50], Item itemArray[50])
     {
-        printw("\n\n\n");
+        move(44, 0);
         // Destination X,Y
         int destX = currentX;
         int destY = currentY;
@@ -208,13 +225,33 @@ public:
                     takeMeleeDamage(enemyArray[q].getDamage());
                     char buffer [50];
                     sprintf(buffer, "%i", getDamageTkn());
-                    //printw("The enemy attacked you for ");
-                    //printw(buffer);
-                    //printw(" damage!");
+                    printw("The enemy attacked you for ");
+                    printw(buffer);
+                    printw(" damage!\n");
                 }
             }
         }
 
+        // Tile has an item.
+        else if (floor -> tileArray[destX][destY].hasItem() == 1)
+        {
+            for (int q = 0; q < 50; q++)
+            {
+                if ((itemArray[q].getCurrentX() == destX) && (itemArray[q].getCurrentY() == destY))
+                {
+                    // Add the new item. Remove item from map. Move player.
+                    playerInventory.storage.push_back(itemArray[q]);
+                    floor -> tileArray[destX][destY].setItem(0);
+                    floor -> tileArray[currentX][currentY].setPlayer(0);
+                    floor -> tileArray[destX][destY].setPlayer(1);
+                    currentX = destX;
+                    currentY = destY;
+                    printw("You picked up an item.\n");
+                }
+            }
+        }
+
+        // Regular movement.
         else if (floor -> tileArray[destX][destY].hasFloor() == 1)
         {
             floor -> tileArray[currentX][currentY].setPlayer(0);
@@ -224,11 +261,13 @@ public:
         }
         else
         {
-            //printw("%s", "You walked into a wall, dumbass! \n");
+            printw("%s", "You walked into a wall, dumbass!\n");
         }
     }
     void attack(Floor*& floor, Enemy enemyArray[50])
     {
+        move(44, 0);
+
         //assert(false); //test to see if game header is handling the attack input
         char buffer[50];
         int randomChance = (rand() % 100);
@@ -253,17 +292,17 @@ public:
                     enemyArray[q].takeMeleeDamage(damage, CritHit());
 
                     sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
-                    //printw("You did ");
-                    //printw(buffer);
-                    //printw(" damage to the enemy! \n");
+                    printw("You did ");
+                    printw(buffer);
+                    printw(" damage to the enemy! \n");
                     if (enemyArray[q].getHealth() < 1)
                     {
-                        //printw("You killed the enemy! \n");
+                        printw("You killed the enemy! \n");
                         gainExperience(enemyArray[q].getLevel());
                         sprintf(buffer, "%i", getXPgained());
-                        //printw("You gained ");
-                        //printw(buffer);
-                        //printw("XP! \n");
+                        printw("You gained ");
+                        printw(buffer);
+                        printw("XP! \n");
                         floor -> tileArray[atkUpX][atkUpY].setEnemy(0);
                     }
                     else
@@ -272,13 +311,13 @@ public:
                         {
                             takeMeleeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
-                            //printw("The enemy attacked you back for ");
-                            //printw(buffer);
-                            //printw(" damage! \n");
+                            printw("The enemy attacked you back for ");
+                            printw(buffer);
+                            printw(" damage! \n");
                         }
                         else
                         {
-                            //printw("You evaded the enemy counter!");
+                            printw("You evaded the enemy counter!");
                         }
                     }
                 }
@@ -297,17 +336,17 @@ public:
                     enemyArray[q].takeMeleeDamage(damage, CritHit());
                     char buffer[50];
                     sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
-                    //printw("You did ");
-                    //printw(buffer);
-                    //printw(" damage to the enemy! \n");
+                    printw("You did ");
+                    printw(buffer);
+                    printw(" damage to the enemy! \n");
                     if (enemyArray[q].getHealth() < 1)
                     {
-                        //printw("You killed the enemy! \n");
+                        printw("You killed the enemy! \n");
                         gainExperience(enemyArray[q].getLevel());
                         sprintf(buffer, "%i", getXPgained());
-                        //printw("You gained ");
-                       // printw(buffer);
-                        //printw("XP! \n");
+                        printw("You gained ");
+                        printw(buffer);
+                        printw("XP! \n");
                         floor -> tileArray[atkLeftX][atkLeftY].setEnemy(0);
                     }
                     else
@@ -316,13 +355,13 @@ public:
                         {
                             takeMeleeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
-                            //printw("The enemy attacked you back for ");
-                            //printw(buffer);
-                            //printw(" damage! \n");
+                            printw("The enemy attacked you back for ");
+                            printw(buffer);
+                            printw(" damage! \n");
                         }
                         else
                         {
-                            //printw("You evaded the enemy counter!");
+                            printw("You evaded the enemy counter!");
                         }
                     }
                 }
@@ -341,17 +380,17 @@ public:
                     enemyArray[q].takeMeleeDamage(damage, CritHit());
                     char buffer[50];
                     sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
-                    //printw("You did ");
-                    //printw(buffer);
-                    //printw(" damage to the enemy! \n");
+                    printw("You did ");
+                    printw(buffer);
+                    printw(" damage to the enemy! \n");
                     if (enemyArray[q].getHealth() < 1)
                     {
-                        //printw("You killed the enemy! \n");
+                        printw("You killed the enemy! \n");
                         gainExperience(enemyArray[q].getLevel());
                         sprintf(buffer, "%i", getXPgained());
-                        //printw("You gained ");
-                        //printw(buffer);
-                        //printw("XP! \n");
+                        printw("You gained ");
+                        printw(buffer);
+                        printw("XP! \n");
                         floor -> tileArray[atkRightX][atkRightY].setEnemy(0);
                     }
                     else
@@ -360,13 +399,13 @@ public:
                         {
                             takeMeleeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
-                            //printw("The enemy attacked you back for ");
-                            //printw(buffer);
-                            //printw(" damage! \n");
+                            printw("The enemy attacked you back for ");
+                            printw(buffer);
+                            printw(" damage! \n");
                         }
                         else
                         {
-                            //printw("You evaded the enemy counter!\n");
+                            printw("You evaded the enemy counter!\n");
                         }
                     }
                 }
@@ -384,17 +423,17 @@ public:
                 {
                     enemyArray[q].takeMeleeDamage(damage, CritHit());                    char buffer[50];
                     sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
-                    //printw("You did ");
-                    //printw(buffer);
-                    //printw(" damage to the enemy! \n");
+                    printw("You did ");
+                    printw(buffer);
+                    printw(" damage to the enemy! \n");
                     if (enemyArray[q].getHealth() < 1)
                     {
-                        //printw("You killed the enemy! \n");
+                        printw("You killed the enemy! \n");
                         gainExperience(enemyArray[q].getLevel());
                         sprintf(buffer, "%i", getXPgained());
-                        //printw("You gained ");
-                        //printw(buffer);
-                        //printw("XP! \n");
+                        printw("You gained ");
+                        printw(buffer);
+                        printw("XP! \n");
                         floor -> tileArray[atkDownX][atkDownY].setEnemy(0);
                     }
                     else
@@ -403,13 +442,13 @@ public:
                         {
                             takeMeleeDamage(enemyArray[q].getDamage());
                             sprintf(buffer, "%i", getDamageTkn());
-                            //printw("The enemy attacked you back for ");
-                           // printw(buffer);
-                           // printw(" damage! \n");
+                            printw("The enemy attacked you back for ");
+                            printw(buffer);
+                            printw(" damage! \n");
                         }
                         else
                         {
-                           // printw("You evaded the enemy counter!");
+                            printw("You evaded the enemy counter!");
                         }
                     }
                 }
@@ -418,6 +457,7 @@ public:
     }
     void directionalMagic(Floor*& floor, Enemy enemyArray[50])
     {
+        move(44, 0);
         if (magicAmount >= 10)
         {
             char buffer[50];
@@ -524,6 +564,7 @@ public:
     }
     void healMagic()
     {
+        move(44, 0);
         if (health == health_cap)
         {
             printw("You already have full HP!");
@@ -553,10 +594,134 @@ public:
         health = health - damageTkn;
         cout<<bell;
     }
+
     int getDamageTkn()
     {
         return damageTkn;
     }
+
+    void equipItem(int newItem)
+    {
+        int oldItem = playerInventory.storage[newItem].getItemType();
+
+        // If there is no item in the new item's slot.
+        if (equipped[oldItem].getName() == "")
+        {
+            addStats(playerInventory.storage[newItem]);
+            equipped[oldItem] = playerInventory.storage[newItem];
+            playerInventory.storage.erase(playerInventory.storage.begin() + newItem);
+
+        }
+        // If we're switching items.
+        else if (equipped[oldItem].getName() != "")
+        {
+            removeStats(equipped[oldItem]);
+            playerInventory.storage.push_back(equipped[oldItem]);
+            addStats(playerInventory.storage[newItem]);
+            equipped[oldItem] = playerInventory.storage[newItem];
+            playerInventory.storage.erase(playerInventory.storage.begin() + newItem);
+        }
+
+
+    }
+
+    void removeStats(Item oldItem)
+    {
+        health_cap = health_cap - oldItem.getHealthBonus();
+        magicAmount_Cap = magicAmount_Cap - oldItem.getMagicAmount_CapBonus();
+        damage = damage - oldItem.getDamageBonus();
+        magicPower = magicPower - oldItem.getMagicDamageBonus();
+        defense = defense - oldItem.getDefenseBonus();
+        magicDefense = magicDefense - oldItem.getMagicDefenseBonus();
+        evasion = evasion - oldItem.getEvasionBonus();
+        critical = critical - oldItem.getCriticalBonus();
+    }
+
+    void addStats(Item newItem)
+    {
+        health_cap = health_cap + newItem.getHealthBonus();
+        magicAmount_Cap = magicAmount_Cap + newItem.getMagicAmount_CapBonus();
+        damage = damage + newItem.getDamageBonus();
+        magicPower = magicPower + newItem.getMagicDamageBonus();
+        defense = defense + newItem.getDefenseBonus();
+        magicDefense = magicDefense + newItem.getMagicDefenseBonus();
+        evasion = evasion + newItem.getEvasionBonus();
+        critical = critical + newItem.getCriticalBonus();
+    }
+
+        void printEquipped()
+    {
+        int counter = 0;
+        int input;
+        attron (COLOR_PAIR(6));
+        for (int i = 2; i < 35 ; i += 10)
+            for (int j = 10; j < 80; j += 18)
+            {
+
+                move(i-1, j-1);
+                printw("--------------------");
+                move(i, j-1);
+                printw("-                  -");
+                move(i+1, j-1);
+                printw("-                  -");
+                move(i+2, j-1);
+                printw("-                  -");
+                move(i+3, j-1);
+                printw("-                  -");
+                move(i+4, j-1);
+                printw("-                  -");
+                move(i+5, j-1);
+                printw("-                  -");
+                move(i+6, j-1);
+                printw("-                  -");
+                move(i+7, j-1);
+                printw("--------------------");
+
+                move(i,j);
+                printw(" %i. ", counter);
+                const char *itemName = equipped[counter].getName().c_str();
+                printw(itemName);
+
+                if (equipped[counter].getName() != "")
+                {
+                    if (equipped[counter].getItemType() == 0)
+                    {
+                        move(i+1,j);
+                        printw(" Defense: +%i", equipped[counter].getDefenseBonus());
+                        move(i+2,j);
+                        printw(" Health: +%i", equipped[counter].getHealthBonus());
+                        move(i+3,j);
+                        printw(" M.Defense: +%i", equipped[counter].getMagicDefenseBonus());
+                        move(i+4,j);
+                        printw(" Evasion: +%i", equipped[counter].getEvasionBonus());
+                    }
+                    else if (equipped[counter].getItemType() == 1)
+                    {
+                        move(i+1,j);
+                        printw(" Damage: +%i", equipped[counter].getDamageBonus());
+                        move(i+2,j);
+                        printw(" Magic Damage: +%i", equipped[counter].getMagicDamageBonus());
+                        move(i+3,j);
+                        printw(" Critical: +%i", equipped[counter].getCriticalBonus());
+                    }
+
+                }
+                else
+                {
+                    move(i,j+3);
+                    printw("EMPTY");
+                }
+
+                counter++;
+                if (counter == 2)
+                {
+                    attron (COLOR_PAIR(2));
+                    return;
+                }
+
+            }
+    }
+
 };
 
 

@@ -1,8 +1,7 @@
 /************************************************
 object.h    - Entity related classes header file.
             - Game Object (base class)
-            - Character
-            - Item
+            - Character (base class)
 
 Author: MATH 240 Team
 
@@ -150,16 +149,6 @@ public:
     {
         level = inLevel;
     }
-};
-
-/************************************************
-Item class
-
-*************************************************/
-class Item : public Object
-{
-public:
-
 };
 
 #endif

@@ -19,6 +19,7 @@ const int LAST_FLOOR = 5;
 const int XSIZE = 32;
 const int YSIZE = 80;
 const int MAX_NUM_ENEMIES = 10;
+const int MAX_NUM_ITEMS = 2;
 
 using namespace std;
 
@@ -38,6 +39,8 @@ class Tile
         bool isVoid;
         bool isUpStairs;
         bool isDownStairs;
+        bool isItem;
+        bool isBoss;
     public:
         Tile()
         {
@@ -48,6 +51,12 @@ class Tile
             isVoid = 0;
             isDownStairs = 0;
             isUpStairs = 0;
+            isItem = 0;
+            isBoss = 0;
+        }
+        bool hasBoss()
+        {
+            return isBoss;
         }
 
         bool hasPlayer()
@@ -85,6 +94,11 @@ class Tile
             return isUpStairs;
         }
 
+        bool hasItem()
+        {
+            return isItem;
+        }
+
         void setPlayer(int input)
         {
             isPlayer = input;
@@ -118,6 +132,16 @@ class Tile
         void setUpStairs(int input)
         {
             isUpStairs = input;
+        }
+
+        void setItem(int input)
+        {
+            isItem = input;
+        }
+
+        void setBoss(int input)
+        {
+            isBoss = input;
         }
 };
 
@@ -182,8 +206,25 @@ class Floor
                     map1 >> test;
                     if (test == ' ' || test == '$' || test == '#')
                         tileArray[i][j].setVoid(1);
+                    else if (test == '@')
+                    {
+                        tileArray[i][j].setItem(1);
+                        tileArray[i][j].setFloor(1);
+                    }
+                    else if (test == 'B' && floorLevel == LAST_FLOOR)
+                    {
+                        tileArray[i][j].setBoss(1);
+                        tileArray[i][j].setEnemy(1);
+                        tileArray[i][j].setFloor(1);
+                    }
+                    else if (test == 'B' && floorLevel != LAST_FLOOR)
+                    {
+                        tileArray[i][j].setFloor(1);
+                    }
                     else if (test == '*')
-                        tileArray[i][j].setWall(1);
+                    {
+                       tileArray[i][j].setWall(1);
+                    }
                     else if (test == 'P')
                     {
                         tileArray[i][j].setPlayer(1);
@@ -226,16 +267,21 @@ class Floor
                             attron (COLOR_PAIR(4));
                             addch('P');
                         }
+                    else if (tileArray[i][j].hasBoss() == 1)
+                    {
+                        attron (COLOR_PAIR(3));
+                        addch('B');
+                    }
                     else if (tileArray[i][j].hasDownStairs() == 1)
                     {
-                        attron (COLOR_PAIR(6));
-                        addch(287);
+                            attron (COLOR_PAIR(6));
+                            addch(287);
                     }
 
                     else if (tileArray[i][j].hasUpStairs() == 1)
                     {
-                        attron (COLOR_PAIR(6));
-                        addch(286);
+                            attron (COLOR_PAIR(6));
+                            addch(286);
                     }
 
                     else if (tileArray[i][j].hasEnemy() == 1)
@@ -247,6 +293,11 @@ class Floor
                         {
                             attron (COLOR_PAIR(2));
                             addch('*');
+                        }
+                    else if (tileArray[i][j].hasItem() == 1)
+                        {
+                            attron (COLOR_PAIR(6));
+                            addch('@');
                         }
                     else if (tileArray[i][j].hasFloor() == 1)
                         {
@@ -280,6 +331,26 @@ class Floor
                    tileArray[x][y].hasDownStairs() == 0)
                 {
                     tileArray[x][y].setEnemy(1);
+                    counter++;
+                }
+                else
+                {
+                    x = rand() % XSIZE;
+                    y = rand() % YSIZE;
+                }
+            }
+
+            // Spawn items.
+            counter = 0;
+            while (counter < MAX_NUM_ITEMS)
+            {
+                x = rand() % XSIZE;
+                y = rand() % YSIZE;
+                if(tileArray[x][y].hasFloor() == 1 &&
+                   tileArray[x][y].hasUpStairs() == 0 &&
+                   tileArray[x][y].hasDownStairs() == 0)
+                {
+                    tileArray[x][y].setItem(1);
                     counter++;
                 }
                 else

@@ -15,6 +15,7 @@ Purpose: Main game method and other related methods.
 #include "map.h"
 #include "object.h"
 #include "enemy.h"
+#include "inventory.h"
 #include "player.h"
 #include "interface.h"
 
@@ -38,7 +39,8 @@ private:
 
 public:
 
-    Enemy enemyArray[50];
+    Enemy enemyArray[51];
+    Item itemArray[50];
 
     Game()
     {
@@ -71,73 +73,100 @@ public:
         setupFloors();
         updatePlayerLocation(player1, currentFloor);
         populateEnemyList(floorArray);
+        populateItemList(floorArray);
 
-        halfdelay(5);
+        int toEquip;
+
+        //halfdelay(5);
         // Get Input
         while (input != '9')
         {
-            if (player1.getHealth() < 1)
-            {
-                printw("  You were killed!! \n  Game Over!! \n");
-                // need to make it wait for a few seconds before exiting
-                exit(1);
-            }
+            refresh();
             interface.drawOver(player1); // stuff above board
             printw("%s\n", "--------------------------------------------------------------------------------");
             currentFloor -> displayFloor();
             printw("%s\n", "--------------------------------------------------------------------------------");
             interface.drawUnder(); // draw below board
-
             input = getch();
-            //move
+
+            // Player Movement
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
+            {
+                refresh();
+                interface.clearLower();
+                player1.movePlayer(input, currentFloor, enemyArray, itemArray);
+                for (int q = 0; q < 51; q++)
                 {
-                    player1.move(input, currentFloor, enemyArray);
-                    erase();
-                    refresh();
-                    for (int q = 0; q < 50; q++)
+                    if (enemyArray[q].getCurrentFloorLevel() == currentFloor -> getFloorLevel())
                     {
-                        if (enemyArray[q].getCurrentFloorLevel() == currentFloor -> getFloorLevel())
-                        {
-                            enemyArray[q].move(currentFloor/*, player1*/);
-                        }
+                        enemyArray[q].move(currentFloor);
                     }
-                    erase();
-                    refresh();
                 }
-            //use stairs
+            }
+            // Use Stairs
             if(input == ' ')
-                {
-                    player1.useStairs(currentFloor);
-                    updatePlayerLocation(player1, currentFloor);
-                    erase();
-                    refresh();
-                }
-            //melee attack
+            {
+                refresh();
+                interface.clearLower();
+                player1.useStairs(currentFloor);
+                updatePlayerLocation(player1, currentFloor);
+            }
+            // Melee Attack
             if (input == 'f' || input == 'F')
             {
-                erase();
+                interface.clearLower();
                 refresh();
                 player1.attack(currentFloor, enemyArray);
+                if (enemyArray[50].getHealth() < 1)
+                {
+                    printw("You win!");
+                    getch();
+                    exit(1);
+                }
             }
+            // Heal
             if ((input == 'c' || input == 'C') && (player1.getLevel() >= 4))
             {
-                erase();
                 refresh();
+                interface.clearLower();
                 player1.healMagic();
+                interface.clearLower();
             }
+            // Directional Magic
             if ((input == 'r' || input == 'r') && (player1.getLevel() >= 3))
             {
-                erase();
                 refresh();
+                interface.clearLower();
                 player1.directionalMagic(currentFloor, enemyArray);
             }
-            //help screen
+            // Help Screen
             if (input == 'h' || input == 'H')
             {
                 interface.drawHelp(player1);
                 erase();
                 refresh();
+            }
+            // Inventory Screen
+            if (input == 'i' || input == 'I')
+            {
+
+                erase();
+                refresh();
+                player1.printEquipped();
+                toEquip = player1.playerInventory.print();
+                if (toEquip != 99)
+                    player1.equipItem(toEquip);
+
+                erase();
+                refresh();
+            }
+
+            // Death Test
+            if (player1.getHealth() < 1)
+            {
+                printw("  You were killed!! \n  Game Over!! \n Press any key to exit...");
+                getch();
+                exit(1);
             }
         }
         endwin();
@@ -158,6 +187,7 @@ public:
             }
     }
 
+    // Set up Floors and their relation to each other.
     void setupFloors()
     {
         for (int i = 0; i < LAST_FLOOR; i++)
@@ -170,6 +200,7 @@ public:
         }
     }
 
+    // Populates the Game enemy array with the proper coordinates.
     void populateEnemyList(Floor floorArray[LAST_FLOOR])
     {
         int counter = 0;
@@ -177,17 +208,49 @@ public:
             for (int x = 0; x < XSIZE; x++)
                 for (int y = 0; y < YSIZE; y++)
                 {
-                    if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
+                    if (floorArray[i].tileArray[x][y].hasBoss() == 1)
+                    {
+                        enemyArray[50].setBoss(1);
+                        enemyArray[counter].setCurrentFloorLevel(i+1);
+                        enemyArray[counter].setCurrentX(x);
+                        enemyArray[counter].setCurrentY(y);
+                        enemyArray[50].setHealth(500);
+                        counter++;
+                    }
+
+                    else if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
                     {
                         enemyArray[counter].setCurrentFloorLevel(i+1);
                         enemyArray[counter].setCurrentX(x);
                         enemyArray[counter].setCurrentY(y);
                         counter++;
                     }
+
+                    if (counter == 49)
+                        return;
                 }
     }
 
-
+    // Populates the Game item array with the proper coordinates.
+    void populateItemList(Floor floorArray[LAST_FLOOR])
+    {
+        int counter = 0;
+        for (int i = 0; i < LAST_FLOOR; i++)
+            for (int x = 0; x < XSIZE; x++)
+                for (int y = 0; y < YSIZE; y++)
+                {
+                    if (floorArray[i].tileArray[x][y].hasItem() == 1)
+                    {
+                        itemArray[counter].setCurrentFloorLevel(i+1);
+                        itemArray[counter].setCurrentX(x);
+                        itemArray[counter].setCurrentY(y);
+                        itemArray[counter].randomize();
+                        counter++;
+                        if (counter == 49)
+                            return;
+                    }
+                }
+    }
 };
 
 #endif

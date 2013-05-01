@@ -35,7 +35,7 @@ public:
         init_pair (3, COLOR_RED, COLOR_BLACK);  //enemies
         init_pair (4, COLOR_WHITE, COLOR_BLACK);  //player
         init_pair (5, COLOR_BLACK,COLOR_WHITE);
-        init_pair (6, COLOR_BLACK, COLOR_YELLOW); //stairs
+        init_pair (6, COLOR_YELLOW, COLOR_BLACK); //stairs
         init_pair (7, COLOR_BLACK, COLOR_GREEN);
         init_pair (8, COLOR_BLACK, COLOR_RED);
         attron (A_BOLD);
@@ -156,35 +156,55 @@ public:
         printw("\n");
         printw("HELP SCREEN");
         printw("\n");
-        printw("Arrow Keys to move 9 to exit f to fight");
+        printw("Use the Arrow Keys to move.");
         printw("\n");
-        printw("'f' to melee attack \n");
+        printw("Press 'F' to use your melee attack \n");
         if (player1.getLevel() >= 3)
         {
-            printw("'r' to use Directional magic attack \n");
+            printw("Press 'R' to use your directional magic attack \n");
         }
         if (player1.getLevel() >= 4)
         {
-            printw("'c' to use Heal magic \n");
+            printw("Press 'C' to use Heal magic \n");
         }
-        printw("other help crap goes here and needs added");
+        printw("Press 'I' to view your Inventory.\n");
+        printw("Press 'H' to view this screen again.\n");
+        printw("Press '9' to exit the game.");
         printw("\n");
         getch();
+    }
+
+    void clearLower()
+    {
+        move(44, 0);
+        clrtoeol();
+        move(45, 0);
+        clrtoeol();
+        move(46, 0);
+        clrtoeol();
+        move(47, 0);
+        clrtoeol();
+        move(48, 0);
+        clrtoeol();
+        move(49, 0);
+        clrtoeol();
+        move(50, 0);
+        clrtoeol();
     }
 
     void drawUnder()
     {
       //  printw("(h)elp add more stuff here\n");
-printw("@@@@@@@    @@@@@@    @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@@@   @@@  @@@  @@@  @@@\n");
-printw("@@@@@@@@  @@@@@@@@  @@@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@@@@  @@@  @@@@ @@@  @@@\n");
-printw("@@!  @@@  @@!  @@@  !@@        @@!  @@@  @@!       @@! @@! @@!  @@!  @@!@!@@@  @@!\n");
-printw("!@!  @!@  !@!  @!@  !@!        !@!  @!@  !@!       !@! !@! !@!  !@!  !@!!@!@!  !@!\n");
-printw("@!@!!@!   @!@  !@!  !@! @!@!@  @!@  !@!  @!!!:!    @!! !!@ @!@  !!@  @!@ !!@!  !!@\n");
-printw("!!@!@!    !@!  !!!  !!! !!@!!  !@!  !!!  !!!!!:    !@!   ! !@!  !!!  !@!  !!!  !!!\n");
-printw("!!: :!!   !!:  !!!  :!!   !!:  !!:  !!!  !!:       !!:     !!:  !!:  !!:  !!!  !!:\n");
-printw(":!:  !:!  :!:  !:!  :!:   !::  :!:  !:!  :!:       :!:     :!:  :!:  :!:  !:!  :!:\n");
-printw("::   :::  ::::: ::   ::: ::::  ::::: ::   :: ::::  :::     ::    ::   ::   ::   ::\n");
- printw(":   : :   : :  :    :: :: :    : :  :   : :: ::    :      :    :    ::    :   :\n");
+//printw("@@@@@@@    @@@@@@    @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@@@   @@@  @@@  @@@  @@@\n");
+//printw("@@@@@@@@  @@@@@@@@  @@@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@@@@  @@@  @@@@ @@@  @@@\n");
+//printw("@@!  @@@  @@!  @@@  !@@        @@!  @@@  @@!       @@! @@! @@!  @@!  @@!@!@@@  @@!\n");
+//printw("!@!  @!@  !@!  @!@  !@!        !@!  @!@  !@!       !@! !@! !@!  !@!  !@!!@!@!  !@!\n");
+//printw("@!@!!@!   @!@  !@!  !@! @!@!@  @!@  !@!  @!!!:!    @!! !!@ @!@  !!@  @!@ !!@!  !!@\n");
+//printw("!!@!@!    !@!  !!!  !!! !!@!!  !@!  !!!  !!!!!:    !@!   ! !@!  !!!  !@!  !!!  !!!\n");
+//printw("!!: :!!   !!:  !!!  :!!   !!:  !!:  !!!  !!:       !!:     !!:  !!:  !!:  !!!  !!:\n");
+//printw(":!:  !:!  :!:  !:!  :!:   !::  :!:  !:!  :!:       :!:     :!:  :!:  :!:  !:!  :!:\n");
+//printw("::   :::  ::::: ::   ::: ::::  ::::: ::   :: ::::  :::     ::    ::   ::   ::   ::\n");
+// printw(":   : :   : :  :    :: :: :    : :  :   : :: ::    :      :    :    ::    :   :\n");
 }
 };
 

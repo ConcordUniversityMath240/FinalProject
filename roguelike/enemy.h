@@ -17,6 +17,7 @@ class Enemy: public Character
 {
 protected:
     int currentFloorLevel;
+    bool isBoss;
 public:
 
     Enemy()
@@ -32,6 +33,16 @@ public:
         critical = level + 4;
 
         currentFloorLevel = 0;
+        isBoss = 0;
+    }
+    bool getBoss()
+    {
+        return isBoss;
+    }
+
+    void setBoss(int input)
+    {
+        isBoss = input;
     }
 
     void setHealth(int inHealth)
