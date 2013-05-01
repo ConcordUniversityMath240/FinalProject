@@ -17,6 +17,8 @@ Purpose: Main game method and other related methods.
 #include "enemy.h"
 #include "player.h"
 #include "interface.h"
+#include "sqlite3.h"
+#include "sql.h"
 
 using namespace std;
 
@@ -47,6 +49,8 @@ public:
     // Start and run the game.
     void run()
     {
+        // create db object
+        sqlite sql;
         // moved here from main, don't erase :P
         srand(time(NULL));
         char input;
