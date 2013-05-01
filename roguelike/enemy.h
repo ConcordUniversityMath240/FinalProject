@@ -17,6 +17,7 @@ class Enemy: public Character
 {
 protected:
     int currentFloorLevel;
+    bool attackPlayerNow = false;
 public:
 
     Enemy()
@@ -33,27 +34,14 @@ public:
 
         currentFloorLevel = 0;
     }
-
     void setHealth(int inHealth)
     {
         health = inHealth;
     }
-
-    int getLevel()
-    {
-        return level;
-    }
-
-    int getDamage()
-    {
-        return damage;
-    }
-
     int getDamageTkn()
     {
         return damageTkn;
     }
-
     void takeMeleeDamage(int inPlayerDamage, bool inCritical)
     {
         if (inCritical == true)
@@ -85,12 +73,9 @@ public:
         }
         health = health - damageTkn;
     }
-
     void move(Floor*& floor)
     {
-        /*
-            AI
-        */
+        /*     AI     */
         int sighted = 0;
         int visualField = 6;
         int direction = 0;
@@ -309,27 +294,24 @@ public:
                 break;
             }
         }
-
-            //check to see if it's determining direction
             //assert(false);
             //proceed with move!
             //if enemy tries to move to an empty tile, move him there
             if (floor -> tileArray[destX][destY].hasFloor() == 1 &&
-                health > 0 && floor -> tileArray[destX][destY].hasPlayer() != 1
-                && floor -> tileArray[destX][destY].hasEnemy() != 1
-                )
+                health > 0
+                && floor -> tileArray[destX][destY].hasPlayer() != 1
+                && floor -> tileArray[destX][destY].hasEnemy() != 1)
+                {
+                    floor -> tileArray[currentX][currentY].setEnemy(0);
+                    floor -> tileArray[destX][destY].setEnemy(1);
+                    currentX = destX;
+                    currentY = destY;
+                }
+            //the following 'if' damages the player if the enemy moves into him
+            if (floor -> tileArray[destX][destY].hasPlayer() == 1)
             {
-                floor -> tileArray[currentX][currentY].setEnemy(0);
-                floor -> tileArray[destX][destY].setEnemy(1);
-                currentX = destX;
-                currentY = destY;
+                attackPlayerNow = true;
             }
-            if (floor -> tileArray[destX][destY].hasPlayer() == 1) {
-            }
-            //check to see if it's proceeding with the move
-            //assert(false);
-
-            //if enemy tries to move onto the player, damage the player
     }
     int getCurrentFloorLevel()
     {
@@ -338,6 +320,14 @@ public:
     void setCurrentFloorLevel(int inLevel)
     {
         currentFloorLevel = inLevel;
+    }
+    void setAtkStatus(bool inStatus)
+    {
+        attackPlayerNow = inStatus;
+    }
+    bool getAtkStatus()
+    {
+        return attackPlayerNow;
     }
 };
 

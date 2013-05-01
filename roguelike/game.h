@@ -101,7 +101,12 @@ public:
                     {
                         if (enemyArray[q].getCurrentFloorLevel() == currentFloor -> getFloorLevel())
                         {
-                            enemyArray[q].move(currentFloor/*, player1*/);
+                            enemyArray[q].move(currentFloor);
+                            if (enemyArray[q].getAtkStatus() == true)
+                            {
+                                combat1.enemyMeleeAttack(enemyArray[q].getDamage(), player1);
+                                enemyArray[q].setAtkStatus(0);
+                            }
                         }
                     }
                     erase();
@@ -132,7 +137,7 @@ public:
             {
                 erase();
                 refresh();
-                player1.directionalMagic(currentFloor, enemyArray);
+                combat1.playerDirMagicAtk(currentFloor, player1, enemyArray);
             }
             //help screen
             if (input == 'h' || input == 'H')

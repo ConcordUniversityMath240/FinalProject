@@ -209,6 +209,118 @@ public:
             }
         }
     }
+    void playerDirMagicAtk(Floor*& floor, Player& player1, Enemy enemyArray[50])
+    {
+        if (player1.getMagicAmount() >= 10)
+        {
+            char buffer[50];
+            int randomChance = (rand() % 100);
+            int atkUpX = player1.getCurrentX() - 1;
+            int atkUpY = player1.getCurrentY();
+            int atkLeftX = player1.getCurrentX();
+            int atkLeftY = player1.getCurrentY() - 1;
+            int atkRightX = player1.getCurrentX();
+            int atkRightY = player1.getCurrentY() + 1;
+            int atkDownX = player1.getCurrentX() + 1;
+            int atkDownY = player1.getCurrentY();
+            //if there is an enemy above the player
+            for (int counter = 0; counter < 7; counter++)
+            {
+                if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
+                {
+                    for (int q = 0; q < 50; q++)
+                    {
+                        if ((enemyArray[q].getCurrentX() == atkUpX) &&
+                        (enemyArray[q].getCurrentY() == atkUpY) &&
+                        (enemyArray[q].getHealth() > 0))
+                        {
+                            enemyArray[q].takeMagicDam(player1.getMagicPower());
+                            if (enemyArray[q].getHealth() < 1)
+                            {
+                                player1.gainExperience(enemyArray[q].getLevel());
+                                floor -> tileArray[atkUpX][atkUpY].setEnemy(0);
+                            }
+                        }
+                    }
+                }
+                atkUpX = atkUpX - 1;
+            }
+            for (int counter = 0; counter < 7; counter++)
+            {
+                if (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1)
+                {
+                    for (int q = 0; q < 50; q++)
+                    {
+                        if ((enemyArray[q].getCurrentX() == atkLeftX) &&
+                        (enemyArray[q].getCurrentY() == atkLeftY) &&
+                        (enemyArray[q].getHealth() > 0))
+                        {
+                            enemyArray[q].takeMagicDam(player1.getMagicPower());
+                            if (enemyArray[q].getHealth() < 1)
+                            {
+                                player1.gainExperience(enemyArray[q].getLevel());
+                                floor -> tileArray[atkLeftX][atkLeftY].setEnemy(0);
+                            }
+                        }
+                    }
+                }
+                atkLeftY = atkLeftY - 1;
+            }
+            for (int counter = 0; counter < 7; counter++)
+            {
+                if (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1)
+                {
+                    for (int q = 0; q < 50; q++)
+                    {
+                        if ((enemyArray[q].getCurrentX() == atkRightX) &&
+                        (enemyArray[q].getCurrentY() == atkRightY) &&
+                        (enemyArray[q].getHealth() > 0))
+                        {
+                            enemyArray[q].takeMagicDam(player1.getMagicPower());
+                            if (enemyArray[q].getHealth() < 1)
+                            {
+                                player1.gainExperience(enemyArray[q].getLevel());
+                                floor -> tileArray[atkRightX][atkRightY].setEnemy(0);
+                            }
+                        }
+                    }
+                }
+                atkRightY = atkRightY + 1;
+            }
+            for (int counter = 0; counter < 7; counter++)
+            {
+                if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
+                {
+                    for (int q = 0; q < 50; q++)
+                    {
+                        if ((enemyArray[q].getCurrentX() == atkDownX) &&
+                        (enemyArray[q].getCurrentY() == atkDownY) &&
+                        (enemyArray[q].getHealth() > 0))
+                        {
+                            enemyArray[q].takeMagicDam(player1.getMagicPower());
+                            if (enemyArray[q].getHealth() < 1)
+                            {
+                                player1.gainExperience(enemyArray[q].getLevel());
+                                floor -> tileArray[atkDownX][atkDownY].setEnemy(0);
+                            }
+                        }
+                    }
+                }
+                atkDownX = atkDownX + 1;
+            }
+            player1.setMagicAmount(player1.getMagicAmount() - 10);
+        }
+        else
+        {
+            printw("You don't have enough MP!");
+        }
+    }
+    void enemyMeleeAttack(int inDamage, Player& player1)
+    {
+        //test to see if it's getting inside this function
+        //assert(false);
+        player1.takeMeleeDamage(inDamage);
+    }
 };
 
 #endif
