@@ -53,8 +53,11 @@ public:
     {
         // create db object
         sqlite sql;
-        sql.dbCommand("SELECT * FROM users", "READ");
+        sql.dbCommand("SELECT * FROM test", "READ");
         //sql.returnRead();
+        system("pause");
+
+
         // moved here from main, don't erase :P
         srand(time(NULL));
         char input;
