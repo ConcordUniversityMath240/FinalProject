@@ -18,6 +18,7 @@ Purpose: Main game method and other related methods.
 #include "inventory.h"
 #include "player.h"
 #include "interface.h"
+#include "combat.h"
 
 using namespace std;
 
@@ -67,6 +68,7 @@ public:
 
         // Create objects.
         Player player1;
+        Combat combat1;
         Floor* currentFloor = &floorArray[0];
 
         // Initialization.
@@ -100,6 +102,11 @@ public:
                     if (enemyArray[q].getCurrentFloorLevel() == currentFloor -> getFloorLevel())
                     {
                         enemyArray[q].move(currentFloor);
+                        if ((enemyArray[q].getAtkStatus() == true) && enemyArray[q].getHealth() > 0)
+                        {
+                            combat1.enemyMeleeAttack(enemyArray[q].getDamage(), player1);
+                            enemyArray[q].setAtkStatus(false);
+                        }
                     }
                 }
             }

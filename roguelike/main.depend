@@ -2,7 +2,7 @@
 1367458254 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
 	"game.h"
 
-1367467606 c:\users\admin\documents\github\finalproject\roguelike\game.h
+1367468608 c:\users\admin\documents\github\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
@@ -14,6 +14,7 @@
 	"inventory.h"
 	"player.h"
 	"interface.h"
+	"combat.h"
 
 1182380599 c:\codeblocks\pdcurs33\curses.h
 	<stdarg.h>
@@ -97,13 +98,13 @@
 	<stdlib.h>
 	<time.h>
 
-1367458254 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
+1367468042 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1367458254 c:\users\admin\documents\github\finalproject\roguelike\player.h
+1367468176 c:\users\admin\documents\github\finalproject\roguelike\player.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -263,6 +264,15 @@
 
 1367366385 c:\users\admin\downloads\equipping\equipping\roguelike\interface.h
 	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367467689 c:\users\admin\documents\github\finalproject\roguelike\combat.h
+	<iostream>
+	<fstream>
+	<ctime>
+	<cstdlib>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
