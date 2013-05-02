@@ -19,6 +19,7 @@ Purpose: Main game method and other related methods.
 #include "player.h"
 #include "interface.h"
 #include "combat.h"
+#include "sql.cpp"
 
 using namespace std;
 
@@ -79,7 +80,7 @@ public:
 
         int toEquip;
 
-        //halfdelay(5);
+        halfdelay(5);
         // Get Input
         while (input != '9')
         {
