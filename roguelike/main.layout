@@ -6,24 +6,6 @@
 			<Cursor1 position="213" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="player.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="7071" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="19" />
-			<Collapse line="36" />
-			<Collapse line="45" />
-			<Collapse line="49" />
-			<Collapse line="128" />
-			<Collapse line="143" />
-			<Collapse line="157" />
-			<Collapse line="172" />
-			<Collapse line="226" />
-			<Collapse line="241" />
-			<Collapse line="257" />
-		</Folding>
-	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="107" topLine="0" />
@@ -36,7 +18,7 @@
 	</File>
 	<File name="object.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2851" topLine="87" />
+			<Cursor1 position="2132" topLine="51" />
 		</Cursor>
 		<Folding>
 			<Collapse line="37" />
@@ -50,14 +32,14 @@
 			<Collapse line="113" />
 			<Collapse line="117" />
 			<Collapse line="121" />
-			<Collapse line="125" />
-			<Collapse line="129" />
-			<Collapse line="133" />
-			<Collapse line="137" />
-			<Collapse line="141" />
-			<Collapse line="145" />
-			<Collapse line="149" />
-			<Collapse line="153" />
+		</Folding>
+	</File>
+	<File name="player.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7071" topLine="0" />
+		</Cursor>
+		<Folding>
+			<Collapse line="19" />
 		</Folding>
 	</File>
 	<File name="combat.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -71,13 +53,6 @@
 			<Collapse line="105" />
 			<Collapse line="107" />
 			<Collapse line="115" />
-			<Collapse line="124" />
-			<Collapse line="159" />
-			<Collapse line="168" />
-			<Collapse line="175" />
-			<Collapse line="183" />
-			<Collapse line="193" />
-			<Collapse line="212" />
 		</Folding>
 	</File>
 	<File name="enemy.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -90,19 +65,11 @@
 			<Collapse line="45" />
 			<Collapse line="67" />
 			<Collapse line="83" />
-			<Collapse line="229" />
-			<Collapse line="256" />
-			<Collapse line="257" />
-			<Collapse line="303" />
-			<Collapse line="316" />
-			<Collapse line="320" />
-			<Collapse line="324" />
-			<Collapse line="328" />
 		</Folding>
 	</File>
 	<File name="game.h" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3387" topLine="87" />
+			<Cursor1 position="3303" topLine="90" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

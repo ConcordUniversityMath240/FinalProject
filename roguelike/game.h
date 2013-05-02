@@ -102,10 +102,10 @@ public:
                         if (enemyArray[q].getCurrentFloorLevel() == currentFloor -> getFloorLevel())
                         {
                             enemyArray[q].move(currentFloor);
-                            if (enemyArray[q].getAtkStatus() == true)
+                            if ((enemyArray[q].getAtkStatus() == true) && enemyArray[q].getHealth() > 0)
                             {
                                 combat1.enemyMeleeAttack(enemyArray[q].getDamage(), player1);
-                                enemyArray[q].setAtkStatus(0);
+                                enemyArray[q].setAtkStatus(false);
                             }
                         }
                     }
