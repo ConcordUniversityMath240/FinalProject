@@ -2,7 +2,7 @@
 1367458254 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
 	"game.h"
 
-1367513007 c:\users\admin\documents\github\finalproject\roguelike\game.h
+1367513185 c:\users\admin\documents\github\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>

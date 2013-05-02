@@ -51,6 +51,10 @@ public:
     // Start and run the game.
     void run()
     {
+        // create db object
+        sqlite sql;
+        sql.dbCommand("SELECT * FROM users", "READ");
+        //sql.returnRead();
         // moved here from main, don't erase :P
         srand(time(NULL));
         char input;
