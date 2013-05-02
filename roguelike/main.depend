@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1367440163 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
+1367458254 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
 	"game.h"
 
-1367458242 c:\users\admin\documents\github\finalproject\roguelike\game.h
+1367458254 c:\users\admin\documents\github\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
@@ -21,13 +21,13 @@
 	<stdio.h>
 	<wchar.h>
 
-1367457417 c:\users\admin\documents\github\finalproject\roguelike\map.h
+1367458254 c:\users\admin\documents\github\finalproject\roguelike\map.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1367457431 c:\users\admin\documents\github\finalproject\roguelike\object.h
+1367458254 c:\users\admin\documents\github\finalproject\roguelike\object.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -62,7 +62,7 @@
 	<stdlib.h>
 	<time.h>
 
-1367457915 c:\users\admin\documents\github\finalproject\roguelike\interface.h
+1367458254 c:\users\admin\documents\github\finalproject\roguelike\interface.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
@@ -97,13 +97,13 @@
 	<stdlib.h>
 	<time.h>
 
-1367458239 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
+1367458254 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1367458248 c:\users\admin\documents\github\finalproject\roguelike\player.h
+1367458254 c:\users\admin\documents\github\finalproject\roguelike\player.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -154,7 +154,7 @@
 	<stdlib.h>
 	<time.h>
 
-1367457417 c:\users\admin\documents\github\finalproject\roguelike\inventory.h
+1367458254 c:\users\admin\documents\github\finalproject\roguelike\inventory.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -263,15 +263,6 @@
 
 1367366385 c:\users\admin\downloads\equipping\equipping\roguelike\interface.h
 	<fstream>
-	<stdio.h>
-	<stdlib.h>
-	<time.h>
-
-1367457866 c:\users\admin\documents\github\finalproject\roguelike\combat.h
-	<iostream>
-	<fstream>
-	<ctime>
-	<cstdlib>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>

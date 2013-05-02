@@ -23,7 +23,7 @@ public:
     {
         //assert(false); //test to see if game header is handling the attack input
         char buffer[50];
-        //int randomChance = (rand() % 100);
+        int randomChance = (rand() % 100);
         int atkUpX = player1.getCurrentX() - 1;
         int atkUpY = player1.getCurrentY();
         int atkLeftX = player1.getCurrentX();
@@ -213,8 +213,8 @@ public:
     {
         if (player1.getMagicAmount() >= 10)
         {
-            //char buffer[50];
-            //int randomChance = (rand() % 100);
+            char buffer[50];
+            int randomChance = (rand() % 100);
             int atkUpX = player1.getCurrentX() - 1;
             int atkUpY = player1.getCurrentY();
             int atkLeftX = player1.getCurrentX();
