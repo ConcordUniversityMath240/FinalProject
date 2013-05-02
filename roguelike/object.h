@@ -109,6 +109,10 @@ public:
     {
         return magicAmount;
     }
+    void setMagicAmount(int inAmount)
+    {
+        magicAmount = inAmount;
+    }
     int getExperience()
     {
         return Experience;
