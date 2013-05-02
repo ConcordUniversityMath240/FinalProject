@@ -53,8 +53,15 @@ public:
     {
         // create db object
         sqlite sql;
-        sql.dbCommand("SELECT * FROM test", "READ");
-        //sql.returnRead();
+        /*
+            // creates table users
+            sql.dbCommand("CREATE TABLE users (id integer primary key, user varchar(64));");
+            // adds good ol' Filburt
+            sql.dbCommand("INSERT INTO users (id, user) VALUES (NULL, 'Filburt');");
+            // returns stuff :)
+            sql.dbCommand("SELECT id FROM users WHERE user = 'Filburt';", "READ");
+        */
+        sql.returnRead();
         system("pause");
 
 
@@ -164,10 +171,10 @@ public:
             // Inventory Screen
             if (input == 'i' || input == 'I')
             {
-
                 erase();
                 refresh();
                 player1.printEquipped();
+
                 toEquip = player1.playerInventory.print();
                 if (toEquip != 99)
                     player1.equipItem(toEquip);

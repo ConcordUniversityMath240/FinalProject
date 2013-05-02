@@ -9,7 +9,7 @@ private:
     sqlite3 *database;
     const char * command;
     const char * db;
-    const char * returned;
+    string returned;
 public:
     string action;
     sqlite() {
@@ -18,14 +18,13 @@ public:
     void dbConnect() {
         sqlite3_open(db, &database);
     };
-    void dbCommand (const char * command, string action) {
+    void dbCommand (const char * command, string action = "") {
         dbConnect();
         sqlite3_stmt *statement;
         sqlite3_prepare_v2(database, command, -1, &statement, 0);
         sqlite3_step(statement);
         if (action == "READ") {
             returned = (char *) sqlite3_column_text(statement, 0);
-            cout<<returned;
         }
         //
         sqlite3_finalize(statement);
