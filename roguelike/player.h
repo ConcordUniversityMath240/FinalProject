@@ -216,7 +216,7 @@ public:
         //if you move into a tile with an enemy
         if (floor -> tileArray[destX][destY].hasEnemy() == 1)
         {
-            for (int q = 0; q < 50; q++)
+            for (int q = 0; q < 51; q++)
             {
             //enemy damages player
                 if ((enemyArray[q].getCurrentX() == destX) &&

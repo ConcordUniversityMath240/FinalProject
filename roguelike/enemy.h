@@ -18,6 +18,7 @@ class Enemy: public Character
 protected:
     int currentFloorLevel;
     bool isBoss;
+    bool attackPlayerNow;
 public:
 
     Enemy()
@@ -34,6 +35,7 @@ public:
 
         currentFloorLevel = 0;
         isBoss = 0;
+        attackPlayerNow = false;
     }
     bool getBoss()
     {
@@ -337,10 +339,10 @@ public:
             }
             if (floor -> tileArray[destX][destY].hasPlayer() == 1) {
             }
-            //check to see if it's proceeding with the move
-            //assert(false);
-
-            //if enemy tries to move onto the player, damage the player
+            if (floor -> tileArray[destX][destY].hasPlayer() == 1)
+            {
+                attackPlayerNow = true;
+            }
     }
     int getCurrentFloorLevel()
     {
@@ -349,6 +351,15 @@ public:
     void setCurrentFloorLevel(int inLevel)
     {
         currentFloorLevel = inLevel;
+    }
+
+    void setAtkStatus(bool inStatus)
+    {
+        attackPlayerNow = inStatus;
+    }
+    bool getAtkStatus()
+    {
+        return attackPlayerNow;
     }
 };
 
