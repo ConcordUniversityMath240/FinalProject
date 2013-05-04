@@ -201,12 +201,7 @@ public:
                 if ((enemyArray[q].getCurrentX() == destX) &&
                     (enemyArray[q].getCurrentY() == destY))
                 {
-                    takeMeleeDamage(enemyArray[q].getDamage());
-                    char buffer [50];
-                    sprintf(buffer, "%i", getDamageTkn());
-                    //printw("The enemy attacked you for ");
-                    //printw(buffer);
-                    //printw(" damage!");
+                    takeMeleeDamage(enemyArray[q].getDamage(), evade());
                 }
             }
         }
@@ -243,16 +238,23 @@ public:
             printw("You don't have enough MP!");
         }
     }
-    void takeMeleeDamage(int inEnemyDamage)
+    void takeMeleeDamage(int inEnemyDamage, bool inEvade)
     {
-        char bell = 7;
-        damageTkn = ((inEnemyDamage * 11) - (defense * 10));
-        if (damageTkn < 0)
+        if (inEvade == true)
         {
-            damageTkn = 0;
+            printw("You dodged the enemy attack!");
         }
-        health = health - damageTkn;
-        //cout<<bell;
+        else
+        {
+            damageTkn = ((inEnemyDamage * 11) - (defense * 10));
+            if (damageTkn < 0)
+            {
+                damageTkn = 0;
+            }
+            health = health - damageTkn;
+            char bell = 7;
+            cout<<bell; //game beeps when you take damage!
+        }
     }
     int getDamageTkn()
     {

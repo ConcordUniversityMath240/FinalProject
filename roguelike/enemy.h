@@ -23,8 +23,8 @@ public:
     Enemy()
     {
         level = 1;
-        health = (level * 15) + 80;
-        magicAmount = 100;
+        health = (level * 1.2) + 95;
+        magicAmount = (level * 1.2) + 95;
         damage = level + 4;
         magicPower = level + 4;
         defense = level + 4;

@@ -90,10 +90,14 @@ protected:
     bool successfulEvade;
     int critical;
     bool successfulCrit;
-    int damageTkn; //Amount of damage dealt
-
+    int damageTkn; //Amount of damage the character will take
 
 public:
+    //setters and getters
+    void setLevel(int inLevel)
+    {
+        level = inLevel;
+    }
     int getLevel()
     {
         return level;
@@ -150,20 +154,5 @@ public:
     {
         health = input;
     }
-    void setLevel(int inLevel)
-    {
-        level = inLevel;
-    }
 };
-
-/************************************************
-Item class
-
-*************************************************/
-class Item : public Object
-{
-public:
-
-};
-
 #endif

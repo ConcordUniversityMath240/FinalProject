@@ -127,13 +127,15 @@ public:
                 refresh();
                 combat1.playerMeleeAttack(currentFloor, player1, enemyArray);
             }
+            //heal spell
             if ((input == 'c' || input == 'C') && (player1.getLevel() >= 4))
             {
                 erase();
                 refresh();
                 player1.healMagic();
             }
-            if ((input == 'r' || input == 'r') && (player1.getLevel() >= 3))
+            //directional magic
+            if ((input == 'r' || input == 'R') && (player1.getLevel() >= 3))
             {
                 erase();
                 refresh();

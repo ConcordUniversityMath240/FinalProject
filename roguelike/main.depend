@@ -14,7 +14,7 @@
 	"player.h"
 	"interface.h"
 
-1365986591 c:\codeblocks\pdcurs33\curses.h
+1365889818 c:\codeblocks\pdcurs33\curses.h
 	<stdarg.h>
 	<stddef.h>
 	<stdio.h>
@@ -155,6 +155,61 @@
 	<time.h>
 
 1367464194 c:\users\pritt\documents\github\finalproject\roguelike\combat.h
+	<iostream>
+	<fstream>
+	<ctime>
+	<cstdlib>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367469489 source:c:\users\andrew\documents\github\finalproject\roguelike\main.cpp
+	"game.h"
+
+1367709284 c:\users\andrew\documents\github\finalproject\roguelike\game.h
+	<curses.h>
+	<iostream>
+	<ctime>
+	<stdio.h>
+	<cstdlib>
+	"map.h"
+	"object.h"
+	"enemy.h"
+	"player.h"
+	"interface.h"
+	"combat.h"
+
+1367508700 c:\users\andrew\documents\github\finalproject\roguelike\map.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367709053 c:\users\andrew\documents\github\finalproject\roguelike\object.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+
+1367709174 c:\users\andrew\documents\github\finalproject\roguelike\enemy.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367710500 c:\users\andrew\documents\github\finalproject\roguelike\player.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+
+1367505741 c:\users\andrew\documents\github\finalproject\roguelike\interface.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1367710231 c:\users\andrew\documents\github\finalproject\roguelike\combat.h
 	<iostream>
 	<fstream>
 	<ctime>
