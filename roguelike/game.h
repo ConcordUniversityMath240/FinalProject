@@ -54,17 +54,31 @@ public:
         // create db object
         sqlite sql;
         /*
+            // don't re run commands, this is just something to keep track on the commands used so far
             // creates table users
             sql.dbCommand("CREATE TABLE users (id integer primary key, user varchar(64));");
             // adds good ol' Filburt
             sql.dbCommand("INSERT INTO users (id, user) VALUES (NULL, 'Filburt');");
-            // returns stuff :)
+            // reading our previous insert
             sql.dbCommand("SELECT id FROM users WHERE user = 'Filburt';", "READ");
+            // create table map
+            sql.dbCommand("CREATE TABLE maps (id integer primary key, name varchar(64), content text);");
+            //sql.dbCommand("drop table if exists maps");3
+            //sql.dbCommand("CREATE TABLE attributes (id integer primary key, pid integer, level integer, health integer, health_cap integer, magicAmount integer, magicAmount_cap integer, damage integer, magicPower integer, defence integer, magicDefence integer, evasion integer,critical integer, experience integer, experience_cap integer);");
+            //sql.dbCommand("INSERT INTO attributes (id, pid, level, health, health_cap, magicAmount, magicAmount_cap, damage, magicPower, defence, magicDefence, evasion, critical, experience, experience_cap) VALUES (NULL, 1, 1, 100, 100, 80, 80, 5, 5, 5, 5, 5, 5, 0, 100);");
         */
-        sql.returnRead();
+        // player attributes
+        // location of objects
+        string username;
+        int userid;
+        username = "Filburt";
+        sql.dbCommand("SELECT user FROM users WHERE user = '"+string(username)+"';", "READ");
+
+        cout<<sql.returnRead();
+        if (username == sql.returnRead()) {
+            system("pause");
+        }
         system("pause");
-
-
         // moved here from main, don't erase :P
         srand(time(NULL));
         char input;
@@ -181,6 +195,9 @@ public:
 
                 erase();
                 refresh();
+            }
+            if (input == 's' || input == 'S') {
+
             }
 
             // Death Test

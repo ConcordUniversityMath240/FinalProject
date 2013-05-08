@@ -7,7 +7,7 @@ using namespace std;
 class sqlite {
 private:
     sqlite3 *database;
-    const char * command;
+    string command;
     const char * db;
     string returned;
 public:
@@ -18,10 +18,11 @@ public:
     void dbConnect() {
         sqlite3_open(db, &database);
     };
-    void dbCommand (const char * command, string action = "") {
+    void dbCommand (string command, string action = "") {
         dbConnect();
         sqlite3_stmt *statement;
-        sqlite3_prepare_v2(database, command, -1, &statement, 0);
+        const char * convert = command.c_str();
+        sqlite3_prepare_v2(database, convert, -1, &statement, 0);
         sqlite3_step(statement);
         if (action == "READ") {
             returned = (char *) sqlite3_column_text(statement, 0);
