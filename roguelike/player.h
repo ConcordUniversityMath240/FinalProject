@@ -25,7 +25,7 @@ public:
     Item equipped[5];
 
     // Create a player with default attributes.
-    Player(int inLevel, int inHealth, int inMagicAmount, int inMagicAmount_cap, int inHealth_cap,
+    Player(int inLevel, int inHealth, int inHealth_cap, int inMagicAmount, int inMagicAmount_cap,
            int inDamage, int inMagicPower, int inDefence, int inMagicDefence, int inEvasion,
            int inCritical, int inExperience, int inExperience_Cap)
     {

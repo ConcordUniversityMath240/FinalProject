@@ -1,6 +1,7 @@
 #include <iostream>
 #include "sqlite3.h"
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -33,5 +34,10 @@ public:
     }
     string returnRead() {
         return returned;
+    }
+    string convertInt(int number) {
+        stringstream ss;//create a stringstream
+        ss << number;//add number to the stream
+        return ss.str();//return a string with the contents of the stream
     }
 };

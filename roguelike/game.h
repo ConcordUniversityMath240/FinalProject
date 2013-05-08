@@ -52,6 +52,7 @@ public:
     void run()
     {
         // create db object
+        int load = NULL;
         sqlite sql;
         /*
             // don't re run commands, this is just something to keep track on the commands used so far
@@ -76,13 +77,27 @@ public:
                                 "magicPower", "defence", "magicDefence", "evasion", "critical",
                                 "experience", "experience_cap"};
         int attr[13];
-        for (int i = 0; i < 12; i++) {
-            sql.dbCommand("SELECT "+s_att[i]+" FROM attributes WHERE pid = '"+userid+"';", "READ");
-            attr[i] = atoi(sql.returnRead().c_str());
-            cout<<attr[i]<<endl;
-        }
 
-        system("pause");
+        string option;
+        //while (option != "L" || option != "N") {
+            cout<<"Please enter Load(L) to load or anything else to begin a new game ";
+            cin >> option;
+        //}
+        if (option == "L") {
+            load = 1;
+        }
+        if (load) {
+            for (int i = 0; i < 13; i++) {
+                sql.dbCommand("SELECT "+s_att[i]+" FROM attributes WHERE pid = '"+userid+"';", "READ");
+                attr[i] = atoi(sql.returnRead().c_str());
+                cout<<s_att[i]<<" "<<attr[i]<<endl;
+            }
+        }
+        else {
+            attr[0] = 1; attr[1] = 100; attr[2] = 100; attr[3] = 80; attr[4] = 80; attr[5] = 5;
+            attr[6] = 5; attr[7] = 5; attr[8] = 5; attr[9] = 5; attr[10] = 5; attr[11] = 0;
+            attr[12] = 100;
+        }
         // moved here from main, don't erase :P
         srand(time(NULL));
         char input;
@@ -202,7 +217,21 @@ public:
                 refresh();
             }
             if (input == 's' || input == 'S') {
+                string health = sql.convertInt(player1.getHealth());
+                string damage = sql.convertInt(player1.getDamage());
+                string defence = sql.convertInt(player1.getDefense());
+                string level = sql.convertInt(player1.getLevel());
+                string health_cap = sql.convertInt(player1.getHealth_cap());
+                string magicAmount = sql.convertInt(player1.getMagicAmount());
+                string magicAmount_cap = sql.convertInt(player1.getMagicAmount_Cap());
+                string magicPower = sql.convertInt(player1.getMagicPower());
+                string magicDefence = sql.convertInt(player1.getMagicDefense());
+                string evasion = sql.convertInt(player1.getEvasion());
+                string critical = sql.convertInt(player1.getCritical());
+                string experience = sql.convertInt(player1.getExperience());
+                string experience_cap = sql.convertInt(player1.getExperience_Cap());
 
+                sql.dbCommand("UPDATE attributes SET health = "+string(health)+", damage = "+string(damage)+", defence = "+string(defence)+", level = "+string(level)+", health_cap = "+string(health_cap)+", magicAmount = "+string(magicAmount)+", magicAmount_cap = "+string(magicAmount_cap)+", magicPower = "+string(magicPower)+", magicDefence = "+string(magicDefence)+", critical = "+string(critical)+", evasion = "+string(evasion)+", experience = "+string(experience)+", experience_cap = "+string(experience_cap)+" WHERE pid = '"+userid+"';");
             }
 
             // Death Test

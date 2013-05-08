@@ -340,7 +340,7 @@
 1367531587 source:c:\users\ioan\desktop\finalproject\roguelike\main.cpp
 	"game.h"
 
-1368023150 c:\users\ioan\desktop\finalproject\roguelike\game.h
+1368027080 c:\users\ioan\desktop\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
@@ -380,7 +380,7 @@
 	<cassert>
 	<vector>
 
-1368023269 c:\users\ioan\desktop\finalproject\roguelike\player.h
+1368026116 c:\users\ioan\desktop\finalproject\roguelike\player.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -401,18 +401,20 @@
 	<stdlib.h>
 	<time.h>
 
-1368014757 c:\users\ioan\desktop\finalproject\roguelike\sql.cpp
+1368024320 c:\users\ioan\desktop\finalproject\roguelike\sql.cpp
 	<iostream>
 	"sqlite3.h"
 	<string>
+	<sstream>
 
 1367017987 c:\users\ioan\desktop\finalproject\roguelike\sqlite3.h
 	<stdarg.h>
 
-1368014757 source:c:\users\ioan\desktop\finalproject\roguelike\sql.cpp
+1368024320 source:c:\users\ioan\desktop\finalproject\roguelike\sql.cpp
 	<iostream>
 	"sqlite3.h"
 	<string>
+	<sstream>
 
 1367017987 source:c:\users\ioan\desktop\finalproject\roguelike\sqlite3.c
 	"config.h"
