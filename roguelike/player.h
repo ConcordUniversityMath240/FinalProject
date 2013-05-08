@@ -51,6 +51,43 @@ public:
     {
         return level;
     }
+    int getHealth()
+    {
+        return health;
+    }
+    int getMagicAmount() {
+        return magicAmount;
+    }
+    int getMagicAmount_Cap() {
+        return magicAmount_Cap;
+    }
+    int getHealth_cap() {
+        return health_cap;
+    }
+    int getDamage() {
+        return damage;
+    }
+    int getDefense() {
+        return defense;
+    }
+    int getMagicPower() {
+        return magicPower;
+    }
+    int getMagicDefense() {
+        return magicDefense;
+    }
+    int getEvasion() {
+        return evasion;
+    }
+    int getCritical() {
+        return critical;
+    }
+    int getExperience() {
+        return Experience;
+    }
+    int getExperience_Cap() {
+        return Experience_Cap;
+    }
     void gainExperience(int inEnemyLevel)
     {
         XPgained = inEnemyLevel * 10;

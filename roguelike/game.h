@@ -79,9 +79,8 @@ public:
         for (int i = 0; i < 12; i++) {
             sql.dbCommand("SELECT "+s_att[i]+" FROM attributes WHERE pid = '"+userid+"';", "READ");
             attr[i] = atoi(sql.returnRead().c_str());
+            cout<<attr[i]<<endl;
         }
-        //sql.dbCommand("SELECT health FROM attributes WHERE pid = '"+userid+"';", "READ");
-        //cout<<sql.returnRead();
 
         system("pause");
         // moved here from main, don't erase :P
