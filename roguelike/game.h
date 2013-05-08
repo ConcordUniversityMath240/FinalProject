@@ -69,15 +69,20 @@ public:
         */
         // player attributes
         // location of objects
-        string username;
-        int userid;
-        username = "Filburt";
-        sql.dbCommand("SELECT user FROM users WHERE user = '"+string(username)+"';", "READ");
-
-        cout<<sql.returnRead();
-        if (username == sql.returnRead()) {
-            system("pause");
+        string username = "Filburt";
+        sql.dbCommand("SELECT id FROM users WHERE user = '"+string(username)+"';", "READ");
+        string userid = sql.returnRead();
+        string s_att[13] = {"level", "health", "health_cap", "magicAmount", "magicAmount_cap", "damage",
+                                "magicPower", "defence", "magicDefence", "evasion", "critical",
+                                "experience", "experience_cap"};
+        int attr[13];
+        for (int i = 0; i < 12; i++) {
+            sql.dbCommand("SELECT "+s_att[i]+" FROM attributes WHERE pid = '"+userid+"';", "READ");
+            attr[i] = atoi(sql.returnRead().c_str());
         }
+        //sql.dbCommand("SELECT health FROM attributes WHERE pid = '"+userid+"';", "READ");
+        //cout<<sql.returnRead();
+
         system("pause");
         // moved here from main, don't erase :P
         srand(time(NULL));
@@ -96,7 +101,8 @@ public:
         interface.init();
 
         // Create objects.
-        Player player1;
+        Player player1(attr[0], attr[1], attr[2], attr[3], attr[4], attr[5], attr[6], attr[7], attr[8],
+                       attr[9], attr[10], attr[11], attr[12]);
         Combat combat1;
         Floor* currentFloor = &floorArray[0];
 

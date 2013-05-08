@@ -25,22 +25,24 @@ public:
     Item equipped[5];
 
     // Create a player with default attributes.
-    Player()
+    Player(int inLevel, int inHealth, int inMagicAmount, int inMagicAmount_cap, int inHealth_cap,
+           int inDamage, int inMagicPower, int inDefence, int inMagicDefence, int inEvasion,
+           int inCritical, int inExperience, int inExperience_Cap)
     {
-        level = 1;
-        health = 100;
-        magicAmount = 80;
-        magicAmount_Cap = 80;
-        health_cap = 100;
-        damage = 5;
-        magicPower = 5;
-        defense = 5;
-        magicDefense = 5;
-        evasion = 5;
-        critical = 5;
-        Experience = 0;
+        level = inLevel;
+        health = inHealth;
+        magicAmount = inMagicAmount;
+        magicAmount_Cap = inMagicAmount_cap;
+        health_cap = inHealth_cap;
+        damage = inDamage;
+        magicPower = inMagicPower;
+        defense = inDefence;
+        magicDefense = inMagicDefence;
+        evasion = inEvasion;
+        critical = inCritical;
+        Experience = inExperience;
         //player reaches lvl 2 with 100 experience
-        Experience_Cap = 100;
+        Experience_Cap = inExperience_Cap;
 
         for (int i = 0; i < 5; i++)
             equipped[i].setName("");
