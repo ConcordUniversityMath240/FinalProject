@@ -75,7 +75,7 @@ public:
             damageTkn = (((inPlayerDamage * 20) - (defense * 10)) * 2);
             if (damageTkn < 0)
             {
-                damageTkn = 0;
+                damageTkn = ((rand() % (7 - 4 + 1)) + 4) * 2;
             }
             health = health - damageTkn;
         }
@@ -84,7 +84,7 @@ public:
             damageTkn = ((inPlayerDamage * 20) - (defense * 10));
             if (damageTkn < 0)
             {
-                damageTkn = 0;
+                damageTkn = (rand() % (7 - 4 + 1)) + 4;
             }
             health = health - damageTkn;
         }
@@ -94,7 +94,17 @@ public:
         damageTkn = ((inPlayerMagDam * 20) - (magicDefense * 7));
         if (damageTkn < 0)
         {
-            damageTkn = 0;
+            damageTkn = (rand() % (7 - 4 + 1)) + 4;
+        }
+        health = health - damageTkn;
+    }
+
+    void takeArrowDam(int inPlayerArrowDam)
+    {
+        damageTkn = ((inPlayerArrowDam * 15) - (defense * 8));
+        if (damageTkn < 0)
+        {
+            damageTkn = (rand() % (7 - 4 + 1)) + 4;
         }
         health = health - damageTkn;
     }

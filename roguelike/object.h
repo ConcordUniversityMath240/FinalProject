@@ -84,12 +84,14 @@ protected:
     int damage;
     int magicPower;
     int defense;
+    int arrows; //amount of arrows in player inventory
     int magicDefense;
     int evasion;
     bool successfulEvade;
     int critical;
     bool successfulCrit;
     int damageTkn; //Amount of damage dealt
+    int Arrow_Count;
 
 
 public:
