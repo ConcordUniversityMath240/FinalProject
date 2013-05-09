@@ -141,6 +141,12 @@ public:
                 refresh();
                 combat1.playerDirMagicAtk(currentFloor, player1, enemyArray);
             }
+            if (input == 'g' || input == 'G')
+            {
+                erase();
+                refresh();
+                combat1.playerArrowAtk(currentFloor, player1, enemyArray);
+            }
             //help screen
             if (input == 'h' || input == 'H')
             {

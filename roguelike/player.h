@@ -25,6 +25,7 @@ public:
         health_cap = 100;
         damage = 5;
         magicPower = 5;
+        arrows = 50;
         defense = 5;
         magicDefense = 5;
         evasion = 5;
@@ -259,6 +260,14 @@ public:
     int getDamageTkn()
     {
         return damageTkn;
+    }
+    void setArrowAmount(int inAmount)
+    {
+        arrows = inAmount;
+    }
+    int getArrowAmount()
+    {
+        return arrows;
     }
 };
 
