@@ -26,6 +26,7 @@ public:
     Item equipped[5];
     Player(char inType)
     {
+        printw("HELLO");
         //Three constructors for stats for
         //each type of player, Fighter, Mage,
         //and Archer, respectively
@@ -96,7 +97,25 @@ public:
 
 
     // Create a player with default attributes.
-
+    Player(int inLevel, int inHealth, int inHealth_cap, int inMagicAmount, int inMagicAmount_cap,
+           int inDamage, int inMagicPower, int inDefence, int inMagicDefence, int inEvasion,
+           int inCritical, int inExperience, int inExperience_Cap)
+    {
+        level = inLevel;
+        health = inHealth;
+        magicAmount = inMagicAmount;
+        magicAmount_Cap = inMagicAmount_cap;
+        health_cap = inHealth_cap;
+        damage = inDamage;
+        magicPower = inMagicPower;
+        defense = inDefence;
+        magicDefense = inMagicDefence;
+        evasion = inEvasion;
+        critical = inCritical;
+        Experience = inExperience;
+        //player reaches lvl 2 with 100 experience
+        Experience_Cap = inExperience_Cap;
+    }
 
 
 
@@ -104,7 +123,46 @@ public:
     {
         return level;
     }
+
     //Adds experience after killing an enemy
+    int getHealth()
+    {
+        return health;
+    }
+    int getMagicAmount() {
+        return magicAmount;
+    }
+    int getMagicAmount_Cap() {
+        return magicAmount_Cap;
+    }
+    int getHealth_cap() {
+        return health_cap;
+    }
+    int getDamage() {
+        return damage;
+    }
+    int getDefense() {
+        return defense;
+    }
+    int getMagicPower() {
+        return magicPower;
+    }
+    int getMagicDefense() {
+        return magicDefense;
+    }
+    int getEvasion() {
+        return evasion;
+    }
+    int getCritical() {
+        return critical;
+    }
+    int getExperience() {
+        return Experience;
+    }
+    int getExperience_Cap() {
+        return Experience_Cap;
+    }
+
     void gainExperience(int inEnemyLevel)
     {
         XPgained = inEnemyLevel * 10;
@@ -277,18 +335,13 @@ public:
         //if you move into a tile with an enemy
         if (floor -> tileArray[destX][destY].hasEnemy() == 1)
         {
-            for (int q = 0; q < 51; q++)
+            for (int q = 0; q < 50; q++)
             {
             //enemy damages player
                 if ((enemyArray[q].getCurrentX() == destX) &&
                     (enemyArray[q].getCurrentY() == destY))
                 {
-                    takeMeleeDamage(enemyArray[q].getDamage());
-                    char buffer [50];
-                    sprintf(buffer, "%i", getDamageTkn());
-                    printw("The enemy attacked you for ");
-                    printw(buffer);
-                    printw(" damage!\n");
+                    takeMeleeDamage(enemyArray[q].getDamage(), evade());
                 }
             }
         }
@@ -325,308 +378,7 @@ public:
             printw("%s", "You walked into a wall, dumbass!\n");
         }
     }
-    //function for handling melee attacking
-    void attack(Floor*& floor, Enemy enemyArray[50])
-    {
-        move(44, 0);
 
-        //assert(false); //test to see if game header is handling the attack input
-        char buffer[50];
-        int randomChance = (rand() % 100);
-        int atkUpX = currentX - 1;
-        int atkUpY = currentY;
-        int atkLeftX = currentX;
-        int atkLeftY = currentY - 1;
-        int atkRightX = currentX;
-        int atkRightY = currentY + 1;
-        int atkDownX = currentX + 1;
-        int atkDownY = currentY;
-        //if there is an enemy above the player
-        if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
-        {
-            //take health from enemy above player
-            for (int q = 0; q < 50; q++)
-            {
-                if ((enemyArray[q].getCurrentX() == atkUpX) &&
-                   (enemyArray[q].getCurrentY() == atkUpY) &&
-                   (enemyArray[q].getHealth() > 0))
-                {
-                    enemyArray[q].takeMeleeDamage(damage, CritHit());
-
-                    sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
-                    printw("You did ");
-                    printw(buffer);
-                    printw(" damage to the enemy! \n");
-                    if (enemyArray[q].getHealth() < 1)
-                    {
-                        printw("You killed the enemy! \n");
-                        gainExperience(enemyArray[q].getLevel());
-                        sprintf(buffer, "%i", getXPgained());
-                        printw("You gained ");
-                        printw(buffer);
-                        printw("XP! \n");
-                        floor -> tileArray[atkUpX][atkUpY].setEnemy(0);
-                    }
-                    else
-                    {
-                        if (evade() == false)
-                        {
-                            takeMeleeDamage(enemyArray[q].getDamage());
-                            sprintf(buffer, "%i", getDamageTkn());
-                            printw("The enemy attacked you back for ");
-                            printw(buffer);
-                            printw(" damage! \n");
-                        }
-                        else
-                        {
-                            printw("You evaded the enemy counter!");
-                        }
-                    }
-                }
-            }
-        }
-        // else if there is an enemy to the left of the player
-        else if (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1)
-        {
-            //take health from enemy to the left of player
-            for (int q = 0; q < 50; q++)
-            {
-                if ((enemyArray[q].getCurrentX() == atkLeftX) &&
-                   (enemyArray[q].getCurrentY() == atkLeftY) &&
-                   (enemyArray[q].getHealth() > 0))
-                {
-                    enemyArray[q].takeMeleeDamage(damage, CritHit());
-                    char buffer[50];
-                    sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
-                    printw("You did ");
-                    printw(buffer);
-                    printw(" damage to the enemy! \n");
-                    if (enemyArray[q].getHealth() < 1)
-                    {
-                        printw("You killed the enemy! \n");
-                        gainExperience(enemyArray[q].getLevel());
-                        sprintf(buffer, "%i", getXPgained());
-                        printw("You gained ");
-                        printw(buffer);
-                        printw("XP! \n");
-                        floor -> tileArray[atkLeftX][atkLeftY].setEnemy(0);
-                    }
-                    else
-                    {
-                        if (evade() == false)
-                        {
-                            takeMeleeDamage(enemyArray[q].getDamage());
-                            sprintf(buffer, "%i", getDamageTkn());
-                            printw("The enemy attacked you back for ");
-                            printw(buffer);
-                            printw(" damage! \n");
-                        }
-                        else
-                        {
-                            printw("You evaded the enemy counter!");
-                        }
-                    }
-                }
-            }
-        }
-        // else if there is an enemy to the right of the player
-        else if (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1)
-        {
-            //take health from enemy to the right of the player
-            for (int q = 0; q < 50; q++)
-            {
-                if ((enemyArray[q].getCurrentX() == atkRightX) &&
-                   (enemyArray[q].getCurrentY() == atkRightY) &&
-                   (enemyArray[q].getHealth() > 0))
-                {
-                    enemyArray[q].takeMeleeDamage(damage, CritHit());
-                    char buffer[50];
-                    sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
-                    printw("You did ");
-                    printw(buffer);
-                    printw(" damage to the enemy! \n");
-                    if (enemyArray[q].getHealth() < 1)
-                    {
-                        printw("You killed the enemy! \n");
-                        gainExperience(enemyArray[q].getLevel());
-                        sprintf(buffer, "%i", getXPgained());
-                        printw("You gained ");
-                        printw(buffer);
-                        printw("XP! \n");
-                        floor -> tileArray[atkRightX][atkRightY].setEnemy(0);
-                    }
-                    else
-                    {
-                        if (evade() == false)
-                        {
-                            takeMeleeDamage(enemyArray[q].getDamage());
-                            sprintf(buffer, "%i", getDamageTkn());
-                            printw("The enemy attacked you back for ");
-                            printw(buffer);
-                            printw(" damage! \n");
-                        }
-                        else
-                        {
-                            printw("You evaded the enemy counter!\n");
-                        }
-                    }
-                }
-            }
-        }
-        // else if there is an enemy under the player
-        else if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
-        {
-            //take health from enemy under player
-            for (int q = 0; q < 55; q++)
-            {
-                if ((enemyArray[q].getCurrentX() == atkDownX) &&
-                   (enemyArray[q].getCurrentY() == atkDownY) &&
-                   (enemyArray[q].getHealth() > 0))
-                {
-                    enemyArray[q].takeMeleeDamage(damage, CritHit());                    char buffer[50];
-                    sprintf(buffer, "%i", enemyArray[q].getDamageTkn());
-                    printw("You did ");
-                    printw(buffer);
-                    printw(" damage to the enemy! \n");
-                    if (enemyArray[q].getHealth() < 1)
-                    {
-                        printw("You killed the enemy! \n");
-                        gainExperience(enemyArray[q].getLevel());
-                        sprintf(buffer, "%i", getXPgained());
-                        printw("You gained ");
-                        printw(buffer);
-                        printw("XP! \n");
-                        floor -> tileArray[atkDownX][atkDownY].setEnemy(0);
-                    }
-                    else
-                    {
-                        if (evade() == false)
-                        {
-                            takeMeleeDamage(enemyArray[q].getDamage());
-                            sprintf(buffer, "%i", getDamageTkn());
-                            printw("The enemy attacked you back for ");
-                            printw(buffer);
-                            printw(" damage! \n");
-                        }
-                        else
-                        {
-                            printw("You evaded the enemy counter!");
-                        }
-                    }
-                }
-            }
-        }
-    }
-    //function for attacking enemies with magic
-    void directionalMagic(Floor*& floor, Enemy enemyArray[50])
-    {
-        move(44, 0);
-        if (magicAmount >= 10)
-        {
-            char buffer[50];
-            int randomChance = (rand() % 100);
-            int atkUpX = currentX - 1;
-            int atkUpY = currentY;
-            int atkLeftX = currentX;
-            int atkLeftY = currentY - 1;
-            int atkRightX = currentX;
-            int atkRightY = currentY + 1;
-            int atkDownX = currentX + 1;
-            int atkDownY = currentY;
-            //if there is an enemy above the player
-            for (int counter = 0; counter < 4; counter++)
-            {
-                if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
-                {
-                    for (int q = 0; q < 50; q++)
-                    {
-                        if ((enemyArray[q].getCurrentX() == atkUpX) &&
-                        (enemyArray[q].getCurrentY() == atkUpY) &&
-                        (enemyArray[q].getHealth() > 0))
-                        {
-                            enemyArray[q].takeMagicDam(getMagicPower());
-                            if (enemyArray[q].getHealth() < 1)
-                            {
-                                gainExperience(enemyArray[q].getLevel());
-                                floor -> tileArray[atkUpX][atkUpY].setEnemy(0);
-                            }
-                        }
-                    }
-                }
-                atkUpX = atkUpX - 1;
-            }
-            for (int counter = 0; counter < 4; counter++)
-            {
-                if (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1)
-                {
-                    for (int q = 0; q < 50; q++)
-                    {
-                        if ((enemyArray[q].getCurrentX() == atkLeftX) &&
-                        (enemyArray[q].getCurrentY() == atkLeftY) &&
-                        (enemyArray[q].getHealth() > 0))
-                        {
-                            enemyArray[q].takeMagicDam(getMagicPower());
-                            if (enemyArray[q].getHealth() < 1)
-                            {
-                                gainExperience(enemyArray[q].getLevel());
-                                floor -> tileArray[atkLeftX][atkLeftY].setEnemy(0);
-                            }
-                        }
-                    }
-                }
-                atkLeftY = atkLeftY - 1;
-            }
-            for (int counter = 0; counter < 4; counter++)
-            {
-                if (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1)
-                {
-                    for (int q = 0; q < 50; q++)
-                    {
-                        if ((enemyArray[q].getCurrentX() == atkRightX) &&
-                        (enemyArray[q].getCurrentY() == atkRightY) &&
-                        (enemyArray[q].getHealth() > 0))
-                        {
-                            enemyArray[q].takeMagicDam(getMagicPower());
-                            if (enemyArray[q].getHealth() < 1)
-                            {
-                                gainExperience(enemyArray[q].getLevel());
-                                floor -> tileArray[atkRightX][atkRightY].setEnemy(0);
-                            }
-                        }
-                    }
-                }
-                atkRightY = atkRightY + 1;
-            }
-            for (int counter = 0; counter < 4; counter++)
-            {
-                if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
-                {
-                    for (int q = 0; q < 50; q++)
-                    {
-                        if ((enemyArray[q].getCurrentX() == atkDownX) &&
-                        (enemyArray[q].getCurrentY() == atkDownY) &&
-                        (enemyArray[q].getHealth() > 0))
-                        {
-                            enemyArray[q].takeMagicDam(getMagicPower());
-                            if (enemyArray[q].getHealth() < 1)
-                            {
-                                gainExperience(enemyArray[q].getLevel());
-                                floor -> tileArray[atkDownX][atkDownY].setEnemy(0);
-                            }
-                        }
-                    }
-                }
-                atkDownX = atkDownX + 1;
-            }
-            magicAmount = magicAmount - 10;
-        }
-        else
-        {
-            printw("You don't have enough MP!");
-        }
-
-
-    }
     //simple healing magic function
     void healMagic()
     {
@@ -650,16 +402,23 @@ public:
         }
     }
     //allows player to take damage from enemies
-    void takeMeleeDamage(int inEnemyDamage)
+    void takeMeleeDamage(int inEnemyDamage, bool inEvade)
     {
-        char bell = 7;
-        damageTkn = ((inEnemyDamage * 11) - (defense * 10));
-        if (damageTkn < 0)
+        if (inEvade == true)
         {
-            damageTkn = (rand() % (7 - 4 + 1)) + 4;
+            printw("You dodged the enemy attack!");
         }
-        health = health - damageTkn;
-        cout<<bell;
+        else
+        {
+            damageTkn = ((inEnemyDamage * 11) - (defense * 10));
+            if (damageTkn < 0)
+            {
+                damageTkn = 0;
+            }
+            health = health - damageTkn;
+            char bell = 7;
+            cout<<bell; //game beeps when you take damage!
+        }
     }
 
     int getDamageTkn()
