@@ -252,8 +252,7 @@ public:
         }
     }
 
-
- void playerArrowAtk(Floor*& floor, Player& player1, Enemy enemyArray[50])
+    void playerArrowAtk(Floor*& floor, Player& player1, Enemy enemyArray[50])
     {
         if (player1.getArrowAmount() >= 10)
         {
@@ -358,11 +357,6 @@ public:
             printw("You're out of arrows!!");
         }
     }
-
-
-
-
-
     void enemyMeleeAttack(int inDamage, Player& player1)
     {
         //test to see if it's getting inside this function
