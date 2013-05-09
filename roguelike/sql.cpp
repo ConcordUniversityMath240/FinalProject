@@ -10,7 +10,7 @@ sql.cpp - database methods
 
 Author: iOAN
 
-Purpose: DB and shit :P
+Purpose: To make Jay mad :P
 *************************************************/
 
 
