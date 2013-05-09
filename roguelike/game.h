@@ -75,10 +75,10 @@ public:
         string username = "Filburt";
         sql.dbCommand("SELECT id FROM users WHERE user = '"+string(username)+"';", "READ");
         string userid = sql.returnRead();
-        string s_att[13] = {"level", "health", "health_cap", "magicAmount", "magicAmount_cap", "damage",
+        string s_att[15] = {"level", "health", "health_cap", "magicAmount", "magicAmount_cap", "damage",
                                 "magicPower", "defence", "magicDefence", "evasion", "critical",
-                                "experience", "experience_cap"};
-        int attr[13];
+                                "experience", "experience_cap", "type", "arrow"};
+        int attr[15];
         char input;
         char Player_Choice;
 
@@ -92,7 +92,7 @@ public:
         }
 
         if (load) {
-            for (int i = 0; i < 13; i++) {
+            for (int i = 0; i < 15; i++) {
                 sql.dbCommand("SELECT "+s_att[i]+" FROM attributes WHERE pid = '"+userid+"';", "READ");
                 attr[i] = atoi(sql.returnRead().c_str());
                 cout<<s_att[i]<<" "<<attr[i]<<endl;
@@ -106,8 +106,8 @@ public:
                 bool Check = false;  //check for if Player put in good information
                 while(Check != true)
                 {
-                    printw("Enter F for fighter, M for mage, or A for archer: ");
-                    Player_Choice = getch();  //gets player choice
+                    cout << "Enter F for fighter, M for mage, or A for archer: ";
+                    cin >> Player_Choice;  //gets player choice
 
                     if((Player_Choice == 'F') || (Player_Choice == 'M') || (Player_Choice == 'A'))
                     {
@@ -123,7 +123,7 @@ public:
 
         if (load)
             Player player1(attr[0], attr[1], attr[2], attr[3], attr[4], attr[5], attr[6], attr[7], attr[8],
-                           attr[9], attr[10], attr[11], attr[12]);
+                           attr[9], attr[10], attr[11], attr[12], attr[13], attr[14]);
         else
             Player player1(Player_Choice);
 
@@ -272,8 +272,10 @@ public:
                 string critical = sql.convertInt(player1.getCritical());
                 string experience = sql.convertInt(player1.getExperience());
                 string experience_cap = sql.convertInt(player1.getExperience_Cap());
+                string type = sql.convertInt(player1.getType());
+                string arrow = sql.convertInt(player1.getArrows());
 
-                sql.dbCommand("UPDATE attributes SET health = "+string(health)+", damage = "+string(damage)+", defence = "+string(defence)+", level = "+string(level)+", health_cap = "+string(health_cap)+", magicAmount = "+string(magicAmount)+", magicAmount_cap = "+string(magicAmount_cap)+", magicPower = "+string(magicPower)+", magicDefence = "+string(magicDefence)+", critical = "+string(critical)+", evasion = "+string(evasion)+", experience = "+string(experience)+", experience_cap = "+string(experience_cap)+" WHERE pid = '"+userid+"';");
+                sql.dbCommand("UPDATE attributes SET health = "+string(health)+", damage = "+string(damage)+", defence = "+string(defence)+", level = "+string(level)+", health_cap = "+string(health_cap)+", magicAmount = "+string(magicAmount)+", magicAmount_cap = "+string(magicAmount_cap)+", magicPower = "+string(magicPower)+", magicDefence = "+string(magicDefence)+", critical = "+string(critical)+", evasion = "+string(evasion)+", experience = "+string(experience)+", experience_cap = "+string(experience_cap)+", type = "+string(type)+", arrow = "+string(arrow)+" WHERE pid = '"+userid+"';");
             }
 
             // Death Test

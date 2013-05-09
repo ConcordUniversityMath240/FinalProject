@@ -99,7 +99,7 @@ public:
     // Create a player with default attributes.
     Player(int inLevel, int inHealth, int inHealth_cap, int inMagicAmount, int inMagicAmount_cap,
            int inDamage, int inMagicPower, int inDefence, int inMagicDefence, int inEvasion,
-           int inCritical, int inExperience, int inExperience_Cap)
+           int inCritical, int inExperience, int inExperience_Cap, int inType, int inArrow)
     {
         level = inLevel;
         health = inHealth;
@@ -115,6 +115,8 @@ public:
         Experience = inExperience;
         //player reaches lvl 2 with 100 experience
         Experience_Cap = inExperience_Cap;
+        Type = inType;
+        arrows = inArrow;
     }
 
 
@@ -162,7 +164,12 @@ public:
     int getExperience_Cap() {
         return Experience_Cap;
     }
-
+    int getType() {
+        return Type;
+    }
+    int getArrows() {
+        return arrows;
+    }
     void gainExperience(int inEnemyLevel)
     {
         XPgained = inEnemyLevel * 10;
