@@ -15,6 +15,7 @@ Player class
 class Player : public Character
 {
 public:
+    int Type;
     Inventory playerInventory;
     //0 = armor
     //1 = weapon
@@ -23,36 +24,92 @@ public:
     //4 = NYI
     //5 = NYI
     Item equipped[5];
+    Player(char inType)
+    {
+        //Three constructors for stats for
+        //each type of player, Fighter, Mage,
+        //and Archer, respectively
+        if(inType == 'F')
+        {
+            Type = 1;  //Numbers used for comparison of player types
+            level = 1;
+            health = 120;
+            magicAmount = 0;
+            magicAmount_Cap = 0;
+            health_cap = 120;
+            damage = 8;
+            magicPower = 0;
+            defense = 4;
+            magicDefense = 2;
+            evasion = 3;
+            critical = 6;
+            Experience = 0;
+            //player reaches lvl 2 with 100 experience
+            Experience_Cap = 20;
+
+            for (int i = 0; i < 5; i++)
+                equipped[i].setName("");
+        }
+
+        else if(inType == 'M')
+        {
+            Type = 2;
+            level = 1;
+            health = 100;
+            magicAmount = 80;
+            magicAmount_Cap = 80;
+            health_cap = 100;
+            damage = 2;
+            magicPower = 8;
+            defense = 4;
+            magicDefense = 7;
+            evasion = 4;
+            critical = 4;
+            Experience = 0;
+            Experience_Cap = 100;
+
+            for (int i = 0; i < 5; i++)
+                equipped[i].setName("");
+        }
+        else if(inType == 'A')
+        {
+            Type = 3;
+            level = 1;
+            health = 110;
+            magicAmount = 40;
+            magicAmount_Cap = 40;
+            health_cap = 110;
+            damage = 6;
+            magicPower = 4;
+            defense = 2;
+            magicDefense = 4;
+            evasion = 8;
+            critical = 8;
+            Experience = 0;
+            Experience_Cap = 100;
+            arrows = 60;
+
+            for (int i = 0; i < 5; i++)
+                equipped[i].setName("");
+        }
+    }
+
 
     // Create a player with default attributes.
-    Player()
-    {
-        level = 1;
-        health = 100;
-        magicAmount = 80;
-        magicAmount_Cap = 80;
-        health_cap = 100;
-        damage = 5;
-        magicPower = 5;
-        defense = 5;
-        magicDefense = 5;
-        evasion = 5;
-        critical = 5;
-        Experience = 0;
-        //player reaches lvl 2 with 100 experience
-        Experience_Cap = 100;
 
-        for (int i = 0; i < 5; i++)
-            equipped[i].setName("");
-    }
+
+
+
     int getLevel()
     {
         return level;
     }
+    //Adds experience after killing an enemy
     void gainExperience(int inEnemyLevel)
     {
         XPgained = inEnemyLevel * 10;
         Experience = Experience + XPgained;
+        //tests if the player gained enough XP to level up
         if (Experience >= Experience_Cap)
         {
             levelUp();
@@ -62,6 +119,7 @@ public:
     {
         return XPgained;
     }
+    //resets experience, initiates chances to increase stats
     void levelUp()
     {
         move(44, 0);
@@ -129,14 +187,15 @@ public:
             critical++;
             //printw("Critical Increased! \n");
         }
-        Experience_Cap = Experience_Cap * 1.2;
+        //Experience_Cap = Experience_Cap * 1.2;
         Experience = 0;
         level++;
-        if (level == 3)
+        //prints for when certain abilities are unlocked
+        if ((level == 3) && ((Type == 1) || (Type == 3)))
         {
             printw("You can now use Directional magic attack! \n");
         }
-        if (level == 4)
+        if ((level == 4) && ((Type == 1) || (Type == 3)))
         {
             printw("You can now use Heal magic! \n");
         }
@@ -171,6 +230,7 @@ public:
             return successfulEvade;
         }
     }
+    //allows player to go up or down stairs to different floors
     void useStairs(Floor*& currentFloor)
     {
         move(44, 0);
@@ -190,6 +250,7 @@ public:
         }
 
     }
+    //handles all movement for the player
     void movePlayer(char input, Floor*& floor, Enemy enemyArray[50], Item itemArray[50])
     {
         move(44, 0);
@@ -264,6 +325,7 @@ public:
             printw("%s", "You walked into a wall, dumbass!\n");
         }
     }
+    //function for handling melee attacking
     void attack(Floor*& floor, Enemy enemyArray[50])
     {
         move(44, 0);
@@ -455,6 +517,7 @@ public:
             }
         }
     }
+    //function for attacking enemies with magic
     void directionalMagic(Floor*& floor, Enemy enemyArray[50])
     {
         move(44, 0);
@@ -561,7 +624,10 @@ public:
         {
             printw("You don't have enough MP!");
         }
+
+
     }
+    //simple healing magic function
     void healMagic()
     {
         move(44, 0);
@@ -583,13 +649,14 @@ public:
             printw("You don't have enough MP!");
         }
     }
+    //allows player to take damage from enemies
     void takeMeleeDamage(int inEnemyDamage)
     {
         char bell = 7;
         damageTkn = ((inEnemyDamage * 11) - (defense * 10));
         if (damageTkn < 0)
         {
-            damageTkn = 0;
+            damageTkn = (rand() % (7 - 4 + 1)) + 4;
         }
         health = health - damageTkn;
         cout<<bell;
@@ -624,7 +691,7 @@ public:
 
 
     }
-
+    //adds/removes stats of items when things are equipped/dequipped
     void removeStats(Item oldItem)
     {
         health_cap = health_cap - oldItem.getHealthBonus();
@@ -721,8 +788,27 @@ public:
 
             }
     }
+    //sets the arrow starting amount
+    void setArrowAmount(int inAmount)
+    {
+        arrows = inAmount;
+    }
+    int getArrowAmount()
+    {
+        return arrows;
+    }
+
+    void Recover_Magic()
+    {
+        int Recover = (rand() % 100);
+        if(Recover < 17)
+        {
+            magicAmount = magicAmount + 10;
+        }
+    }
 
 };
+
 
 
 #endif

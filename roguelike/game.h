@@ -58,6 +58,7 @@ public:
         // moved here from main, don't erase :P
         srand(time(NULL));
         char input;
+        char Player_Choice;
         /* Start curses mode */
         initscr();
         /* Line buffering disabled	*/
@@ -71,8 +72,30 @@ public:
         Interface interface;
         interface.init();
 
+
+        Player_Choice;   //Holds the choice of class for player
+        bool Check = false;  //check for if Player put in good information
+        while(Check != true)
+        {
+            printw("Enter F for fighter, M for mage, or A for archer: ");
+            Player_Choice = getch();  //gets player choice
+
+            if((Player_Choice == 'F') || (Player_Choice == 'M') || (Player_Choice == 'A'))
+            {
+                Check = true;
+            }
+            else
+            {
+                Check = false;
+            }
+            clear(); //clears the screen of the choice selection, so game can be printed
+
+        }
+
+
+
         // Create objects.
-        Player player1;
+        Player player1(Player_Choice);
         Combat combat1;
         Floor* currentFloor = &floorArray[0];
 
@@ -84,7 +107,11 @@ public:
 
         int toEquip;
 
-        halfdelay(5);
+
+        halfdelay(10);
+
+
+
         // Get Input
         while (input != '9')
         {
@@ -94,11 +121,13 @@ public:
             currentFloor -> displayFloor();
             printw("%s\n", "--------------------------------------------------------------------------------");
             interface.drawUnder(); // draw below board
+
             input = getch();
 
             // Player Movement
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
             {
+                player1.Recover_Magic();
                 refresh();
                 interface.clearLower();
                 player1.movePlayer(input, currentFloor, enemyArray, itemArray);
@@ -136,16 +165,24 @@ public:
                     exit(1);
                 }
             }
-            // Heal
-            if ((input == 'c' || input == 'C') && (player1.getLevel() >= 4))
+            //Attack that only archer can use
+            if ((input == 'g' || input == 'G') && (Player_Choice == 'A'))
+            {
+                erase();
+                refresh();
+                combat1.playerArrowAtk(currentFloor, player1, enemyArray);
+            }
+
+            // Heal (Available to all at different times)
+            if ((input == 'c' || input == 'C') && ((player1.getLevel() >= 4) || (Player_Choice == 'M')))
             {
                 refresh();
                 interface.clearLower();
                 player1.healMagic();
                 interface.clearLower();
             }
-            // Directional Magic
-            if ((input == 'r' || input == 'r') && (player1.getLevel() >= 3))
+            // Directional Magic (available to all at different times)
+            if ((input == 'r' || input == 'r') && ((player1.getLevel() >= 3) || (Player_Choice == 'M')))
             {
                 refresh();
                 interface.clearLower();
@@ -158,6 +195,8 @@ public:
                 erase();
                 refresh();
             }
+
+
             // Inventory Screen
             if (input == 'i' || input == 'I')
             {
