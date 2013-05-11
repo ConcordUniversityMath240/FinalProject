@@ -179,7 +179,6 @@ public:
             /*
                 Special Cases
             */
-            // everything below might be buggy in the has floor section
             for (int j = 1; j < visualField; j++) {
                 if (i+j <= visualField) {
                     // up left skipping vertical // horizontal
@@ -266,29 +265,36 @@ public:
         }
         // move dumb
         if (sighted == 0) {
-            int randomChance = (rand() % 100);
-            //check to see if it's getting this far
-            //assert(false);
-            // determine direction!
-            // 6% chance of moving up
-            if (randomChance > 93)
-            {
-                destX = currentX - 1;
-            }
-            // 6% chance of moving left
-            else if (randomChance > 87 && randomChance < 94)
-            {
-                destY = currentY - 1;
-            }
-            // 6% chance of moving right
-            else if (randomChance > 81 && randomChance < 88)
-            {
-                destY = currentY + 1;
-            }
-            // 6% chance of moving down
-            else if (randomChance > 75 && randomChance < 82)
-            {
-                destX = currentX + 1;
+            int moved = 0;
+            int randomChance = 0;
+            while (moved != 1) {
+                randomChance = rand() % 100;
+                //check to see if it's getting this far
+                //assert(false);
+                // determine direction!
+                // 6% chance of moving up
+                if (randomChance > 93)
+                {
+                    destX = currentX - 1;
+                }
+                // 6% chance of moving left
+                else if (randomChance > 87 && randomChance < 94)
+                {
+                    destY = currentY - 1;
+                }
+                // 6% chance of moving right
+                else if (randomChance > 81 && randomChance < 88)
+                {
+                    destY = currentY + 1;
+                }
+                // 6% chance of moving down
+                else if (randomChance > 75 && randomChance < 82)
+                {
+                    destX = currentX + 1;
+                }
+                if (floor -> tileArray[destX][destY].hasFloor() && !floor -> tileArray[destX][destY].hasEnemy()) {
+                    moved = 1;
+                }
             }
         }
         //move smart ;)
