@@ -119,6 +119,10 @@ public:
         int direction = 0;
         int destX = currentX;
         int destY = currentY;
+        /*
+            For each one of the 8 possible directions loop through the visual field;
+            check for player; and then set the enemy in the respective direction
+        */
         for (int i = 0; i < visualField; i++) {
             // up
             if (floor -> tileArray[currentX-i][currentY].hasFloor()) {
@@ -189,16 +193,7 @@ public:
                             floor -> tileArray[currentX-i][currentY-i-j].hasPlayer()
                             ) {
                             sighted = 1;
-                            if (floor -> tileArray[currentX-i][currentY].hasFloor() &&
-                                !floor -> tileArray[currentX-i][currentY].hasEnemy()
-                                ) {
-                                direction = 1;
-                            }
-                            else if (floor -> tileArray[currentX][currentY-i].hasFloor() &&
-                                    !floor -> tileArray[currentX-i][currentY].hasEnemy()
-                                     ) {
-                                direction = 4;
-                            }
+                            direction = 6;
                         }
                     }
                     // up right skipping vertical // horizontal
@@ -209,16 +204,7 @@ public:
                             floor -> tileArray[currentX-i][currentY+i+j].hasPlayer()
                             ) {
                             sighted = 1;
-                            if (floor -> tileArray[currentX-i][currentY].hasFloor() &&
-                                !floor -> tileArray[currentX-i][currentY].hasEnemy()
-                                ) {
-                                direction = 1;
-                            }
-                            else if (floor -> tileArray[currentX][currentY+i].hasFloor() &&
-                                     !floor -> tileArray[currentX][currentY+i].hasEnemy()
-                                     ) {
-                                direction = 3;
-                            }
+                            direction = 7;
                         }
                     }
                     // down right skipping vertical // horizontal
@@ -229,16 +215,7 @@ public:
                             floor -> tileArray[currentX+i][currentY+i+j].hasPlayer()
                             ) {
                             sighted = 1;
-                            if (floor -> tileArray[currentX+i][currentY].hasFloor() &&
-                                !floor -> tileArray[currentX+i][currentY].hasEnemy()
-                                ) {
-                                direction = 2;
-                            }
-                            else if (floor -> tileArray[currentX][currentY+i].hasFloor() &&
-                                     !floor -> tileArray[currentX][currentY+i].hasEnemy()
-                                     ) {
-                                direction = 3;
-                            }
+                            direction = 8;
                         }
                     }
                     // down left skipping vertical // horizontal
@@ -249,21 +226,13 @@ public:
                             floor -> tileArray[currentX+i][currentY-i-j].hasPlayer()
                             ) {
                             sighted = 1;
-                            if (floor -> tileArray[currentX+i][currentY].hasFloor() &&
-                                !floor -> tileArray[currentX+i][currentY].hasEnemy()) {
-                                direction = 2;
-                            }
-                            else if (floor -> tileArray[currentX][currentY-i].hasFloor() &&
-                                     !floor -> tileArray[currentX][currentY-i].hasEnemy()
-                                    ) {
-                                direction = 4;
-                            }
+                            direction = 5;
                         }
                     }
                 }
             }
         }
-        // move dumb
+        // if the player has not been sighted move randomly
         if (sighted == 0) {
             // added a flag to account for the times that we don't hit any probabilities
             int moved = 0;
@@ -330,42 +299,129 @@ public:
         }
         //move smart ;)
         else {
+            /*
+                checks original direction, and tries to go around obstacles
+            */
             switch(direction) {
             //move up
             case 1:
-                destX = currentX - 1;
+                if (floor->tileArray[currentX-1][currentY].hasWall()) {
+                    if (floor->tileArray[currentX][currentY+1].hasWall()) {
+                        destY = currentY - 1;
+                    }
+                    else {
+                        destX = currentX + 1;
+                    }
+                }
+                else {
+                    destX = currentX - 1;
+                }
                 break;
             //move down
             case 2:
-                destX = currentX + 1;
+                if (floor->tileArray[currentX+1][currentY].hasWall()) {
+                    if (floor->tileArray[currentX][currentY+1].hasWall()) {
+                        destY = currentY - 1;
+                    }
+                    else {
+                        destX = currentX + 1;
+                    }
+                }
+                else {
+                    destX = currentX + 1;
+                }
                 break;
             //move right
             case 3:
-                destY = currentY + 1;
+                if (floor->tileArray[currentX][currentY+1].hasWall()) {
+                    if (floor->tileArray[currentX+1][currentY].hasWall()) {
+                        destX = currentX - 1;
+                        destY = currentY + 1;
+                    }
+                    else {
+                        destX = currentX + 1;
+                        destY = currentY + 1;
+                    }
+                }
+                else {
+                    destY = currentY + 1;
+                }
                 break;
             //move left
             case 4:
-                destY = currentY - 1;
+                if (floor->tileArray[currentX][currentY-1].hasWall()) {
+                    if (floor->tileArray[currentX+1][currentY].hasWall()) {
+                        destX = currentX - 1;
+                        destY = currentY - 1;
+                    }
+                    else {
+                        destX = currentX + 1;
+                        destY = currentY - 1;
+                    }
+                }
+                else {
+                    destY = currentY - 1;
+                }
                 break;
             //move down left
             case 5:
-                destX = currentX + 1;
-                destY = currentY - 1;
+                if (floor->tileArray[currentX+1][currentY-1].hasWall()) {
+                    if (floor->tileArray[currentX+1][currentY].hasWall()) {
+                        destY = currentY-1;
+                    }
+                    else {
+                        destX = currentX+1;
+                    }
+                }
+                else {
+                    destX = currentX + 1;
+                    destY = currentY - 1;
+                }
                 break;
             //move up left
             case 6:
-                destX = currentX - 1;
-                destY = currentY - 1;
+                if (floor->tileArray[currentX-1][currentY-1].hasWall()) {
+                    if (floor->tileArray[currentX-1][currentY].hasWall()) {
+                        destY = currentY-1;
+                    }
+                    else {
+                        destX = currentX-1;
+                    }
+                }
+                else {
+                    destX = currentX - 1;
+                    destY = currentY - 1;
+                }
                 break;
             //move up right
             case 7:
-                destX = currentX - 1;
-                destY = currentY + 1;
+                if (floor->tileArray[currentX-1][currentY+1].hasWall()) {
+                    if (floor->tileArray[currentX-1][currentY].hasWall()) {
+                        destY = currentY+1;
+                    }
+                    else {
+                        destX = currentX-1;
+                    }
+                }
+                else {
+                    destX = currentX - 1;
+                    destY = currentY + 1;
+                }
                 break;
             //move down right
             case 8:
-                destX = currentX + 1;
-                destY = currentY + 1;
+                if (floor->tileArray[currentX+1][currentY+1].hasWall()) {
+                    if (floor->tileArray[currentX+1][currentY].hasWall()) {
+                        destY = currentY+1;
+                    }
+                    else {
+                        destX = currentX+1;
+                    }
+                }
+                else {
+                    destX = currentX + 1;
+                    destY = currentY + 1;
+                }
                 break;
             }
         }
