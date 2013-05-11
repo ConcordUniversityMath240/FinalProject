@@ -265,6 +265,7 @@ public:
         }
         // move dumb
         if (sighted == 0) {
+            // added a flag to account for the times that we don't hit any probabilities
             int moved = 0;
             int randomChance = 0;
             while (moved != 1) {
@@ -272,27 +273,57 @@ public:
                 //check to see if it's getting this far
                 //assert(false);
                 // determine direction!
+
                 // 6% chance of moving up
                 if (randomChance > 93)
                 {
                     destX = currentX - 1;
+                    moved = 1;
                 }
                 // 6% chance of moving left
                 else if (randomChance > 87 && randomChance < 94)
                 {
                     destY = currentY - 1;
+                    moved = 1;
                 }
                 // 6% chance of moving right
                 else if (randomChance > 81 && randomChance < 88)
                 {
                     destY = currentY + 1;
+                    moved = 1;
                 }
                 // 6% chance of moving down
                 else if (randomChance > 75 && randomChance < 82)
                 {
                     destX = currentX + 1;
+                    moved = 1;
                 }
-                if (floor -> tileArray[destX][destY].hasFloor() && !floor -> tileArray[destX][destY].hasEnemy()) {
+                // 6% chance of moving down right
+                else if (randomChance > 69 && randomChance < 75)
+                {
+                    destX = currentX + 1;
+                    destY = currentY + 1;
+                    moved = 1;
+                }
+                // 6% chance of moving down left
+                else if (randomChance > 63 && randomChance < 69)
+                {
+                    destX = currentX + 1;
+                    destY = currentY - 1;
+                    moved = 1;
+                }
+                // 6% chance of moving up left
+                else if (randomChance > 57 && randomChance < 63)
+                {
+                    destX = currentX - 1;
+                    destY = currentY - 1;
+                    moved = 1;
+                }
+                // 6% chance of moving up right
+                else if (randomChance > 51 && randomChance < 57)
+                {
+                    destX = currentX - 1;
+                    destY = currentY + 1;
                     moved = 1;
                 }
             }
