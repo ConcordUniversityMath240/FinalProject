@@ -33,6 +33,8 @@ Member functions:
     setupFloors()           Creates, orders, and links the Floor objects.
     populateEnemyList()     Creates an ordered array of Enemies and assigns
                             their coordinates.
+    populateItemList()      Creates an ordered array of Items and assigns their
+                            coordinates.
 *************************************************/
 class Game
 {
@@ -41,18 +43,16 @@ private:
 
 public:
 
-    Enemy enemyArray[51];
+    Enemy enemyArray[50];
     Item itemArray[50];
 
-    Game()
-    {
-    }
+    // Construct a default Game object.
+    Game(){}
 
     // Start and run the game.
     void run()
     {
-        printw("Enter F for fighter, M for mage, or A for archer: ");
-        // create db object
+        // Create DB Object
         int load = NULL;
         sqlite sql;
         /*
@@ -69,46 +69,51 @@ public:
             //sql.dbCommand("CREATE TABLE attributes (id integer primary key, pid integer, level integer, health integer, health_cap integer, magicAmount integer, magicAmount_cap integer, damage integer, magicPower integer, defence integer, magicDefence integer, evasion integer,critical integer, experience integer, experience_cap integer);");
             //sql.dbCommand("INSERT INTO attributes (id, pid, level, health, health_cap, magicAmount, magicAmount_cap, damage, magicPower, defence, magicDefence, evasion, critical, experience, experience_cap) VALUES (NULL, 1, 1, 100, 100, 80, 80, 5, 5, 5, 5, 5, 5, 0, 100);");
         */
-        // player attributes
-        // location of objects
 
+        // player attributes
         string username = "Filburt";
         sql.dbCommand("SELECT id FROM users WHERE user = '"+string(username)+"';", "READ");
         string userid = sql.returnRead();
         string s_att[15] = {"level", "health", "health_cap", "magicAmount", "magicAmount_cap", "damage",
                                 "magicPower", "defence", "magicDefence", "evasion", "critical",
                                 "experience", "experience_cap", "type", "arrow"};
+
+
         int attr[15];
         char input;
         char Player_Choice;
-
         string option;
-        //while (option != "L" || option != "N") {
+
+        //while (option != "L" || option != "N")
+        {
             cout<<"Please enter Load(L) to load or anything else to begin a new game ";
             cin >> option;
-        //}
-        if (option == "L") {
+        }
+        if (option == "L")
+        {
             load = 1;
         }
 
-        if (load) {
+        // If the player loads a game, assign stats from the database to the player.
+        if (load)
+        {
             for (int i = 0; i < 15; i++) {
                 sql.dbCommand("SELECT "+s_att[i]+" FROM attributes WHERE pid = '"+userid+"';", "READ");
                 attr[i] = atoi(sql.returnRead().c_str());
                 cout<<s_att[i]<<" "<<attr[i]<<endl;
             }
         }
+        // Otherwise start a new game by allowing the player to choose a class.
         else
         {
-//            attr[0] = 1; attr[1] = 100; attr[2] = 100; attr[3] = 80; attr[4] = 80; attr[5] = 5;
-//            attr[6] = 5; attr[7] = 5; attr[8] = 5; attr[9] = 5; attr[10] = 5; attr[11] = 0;
-//            attr[12] = 100;
                 bool Check = false;  //check for if Player put in good information
                 while(Check != true)
                 {
+                    //gets player choice
                     cout << "Enter F for fighter, M for mage, or A for archer: ";
-                    cin >> Player_Choice;  //gets player choice
+                    cin >> Player_Choice;
 
+                    // Error Checking
                     if((Player_Choice == 'F') || (Player_Choice == 'M') || (Player_Choice == 'A'))
                     {
                         Check = true;
@@ -121,21 +126,18 @@ public:
                 }
         }
 
+        // Construct the Player object with DB stats if a game was loaded or with default class stats if not.
         if (load)
             Player player1(attr[0], attr[1], attr[2], attr[3], attr[4], attr[5], attr[6], attr[7], attr[8],
                            attr[9], attr[10], attr[11], attr[12], attr[13], attr[14]);
         else
             Player player1(Player_Choice);
 
-        // moved here from main, don't erase :P
+        // Initialize Curses
         srand(time(NULL));
-        /* Start curses mode */
         initscr();
-        /* Line buffering disabled	*/
         raw();
-        /* We get KEYS*/
         keypad(stdscr, TRUE);
-        /* Don't echo() while we do getch won't work otherwise */
         noecho();
 
         //color and interface init
@@ -152,20 +154,21 @@ public:
         updatePlayerLocation(player1, currentFloor);
         populateEnemyList(floorArray);
         populateItemList(floorArray);
-
         int toEquip;
 
         // Get Input
         while (input != '9')
         {
+            // Clear screen then draw the header, map, and footer.
             halfdelay(10);
             refresh();
-            interface.drawOver(player1); // stuff above board
+            interface.drawOver(player1);
             printw("%s\n", "--------------------------------------------------------------------------------");
             currentFloor -> displayFloor();
             printw("%s\n", "--------------------------------------------------------------------------------");
-            interface.drawUnder(); // draw below board
+            interface.drawUnder();
 
+            // Recieve Input
             input = getch();
 
             // Player Movement
@@ -209,7 +212,6 @@ public:
                     exit(1);
                 }
             }
-
             //Attack that only archer can use
             if ((input == 'g' || input == 'G') && (Player_Choice == 'A'))
             {
@@ -217,7 +219,6 @@ public:
                 refresh();
                 combat1.playerArrowAtk(currentFloor, player1, enemyArray);
             }
-
             // Heal (Available to all at different times)
             if ((input == 'c' || input == 'C') && ((player1.getLevel() >= 4) || (Player_Choice == 'M')))
             {
@@ -241,16 +242,17 @@ public:
                 erase();
                 refresh();
             }
-
-
             // Inventory Screen
             if (input == 'i' || input == 'I')
             {
+                // Stop timing so player has time to look at and equip items.
+                // Clear screen, display inventory, then clear screen when finished.
                 nocbreak();
                 erase();
                 refresh();
                 player1.printEquipped();
 
+                // Triggers the equip method if player chooses to equip an item.
                 toEquip = player1.playerInventory.print();
                 if (toEquip != 99)
                     player1.equipItem(toEquip);
@@ -258,7 +260,8 @@ public:
                 erase();
                 refresh();
             }
-            if (input == 's' || input == 'S') {
+            if (input == 's' || input == 'S')
+            {
                 string health = sql.convertInt(player1.getHealth());
                 string damage = sql.convertInt(player1.getDamage());
                 string defence = sql.convertInt(player1.getDefense());
@@ -275,13 +278,22 @@ public:
                 string type = sql.convertInt(player1.getType());
                 string arrow = sql.convertInt(player1.getArrows());
 
+                // Leave this long and ugly: It won't work if you reformat it.
                 sql.dbCommand("UPDATE attributes SET health = "+string(health)+", damage = "+string(damage)+", defence = "+string(defence)+", level = "+string(level)+", health_cap = "+string(health_cap)+", magicAmount = "+string(magicAmount)+", magicAmount_cap = "+string(magicAmount_cap)+", magicPower = "+string(magicPower)+", magicDefence = "+string(magicDefence)+", critical = "+string(critical)+", evasion = "+string(evasion)+", experience = "+string(experience)+", experience_cap = "+string(experience_cap)+", type = "+string(type)+", arrow = "+string(arrow)+" WHERE pid = '"+userid+"';");
             }
 
             // Death Test
             if (player1.getHealth() < 1)
             {
-                printw("  You were killed!! \n  Game Over!! \n Press any key to exit...");
+                printw(" You were killed!! \n Game Over!! \n Press any key to exit...");
+                getch();
+                exit(1);
+            }
+
+            // Win Test
+            if (currentFloor -> getNumEnemies() == 0 && currentFloor -> getFloorLevel() == LAST_FLOOR)
+            {
+                printw(" You are victorious! \n Game Over!! \n Press any key to exit...");
                 getch();
                 exit(1);
             }
@@ -325,17 +337,7 @@ public:
             for (int x = 0; x < XSIZE; x++)
                 for (int y = 0; y < YSIZE; y++)
                 {
-                    if (floorArray[i].tileArray[x][y].hasBoss() == 1)
-                    {
-                        enemyArray[50].setBoss(1);
-                        enemyArray[counter].setCurrentFloorLevel(i+1);
-                        enemyArray[counter].setCurrentX(x);
-                        enemyArray[counter].setCurrentY(y);
-                        enemyArray[50].setHealth(500);
-                        counter++;
-                    }
-
-                    else if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
+                    if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
                     {
                         enemyArray[counter].setCurrentFloorLevel(i+1);
                         enemyArray[counter].setCurrentX(x);

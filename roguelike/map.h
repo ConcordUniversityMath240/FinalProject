@@ -1,10 +1,9 @@
 /************************************************
 map.h - Map related classes header file.
-      - Sector
-      - Quadrant
-      - Galaxy
+      - Tile
+      - Floor
 
-Author: Derek Royse & Andy Pritt
+Author: MATH 240 Team
 
 Purpose: These classes store and print locational data.
 *************************************************/
@@ -40,7 +39,6 @@ class Tile
         bool isUpStairs;
         bool isDownStairs;
         bool isItem;
-        bool isBoss;
     public:
         Tile()
         {
@@ -52,13 +50,9 @@ class Tile
             isDownStairs = 0;
             isUpStairs = 0;
             isItem = 0;
-            isBoss = 0;
-        }
-        bool hasBoss()
-        {
-            return isBoss;
         }
 
+        // Getters
         bool hasPlayer()
         {
             return isPlayer;
@@ -99,6 +93,7 @@ class Tile
             return isItem;
         }
 
+        // Setters
         void setPlayer(int input)
         {
             isPlayer = input;
@@ -139,16 +134,14 @@ class Tile
             isItem = input;
         }
 
-        void setBoss(int input)
-        {
-            isBoss = input;
-        }
 };
 
 /************************************************
 Floor class
 
 Member functions:
+    setFloorLevel()             Sets the floor's level.
+    getFloorLevel()             Returns the current floor's level.
     initializeFloor()           Generates the structure of a floor from a
                                 randomly selected text file.
     populateFloor()             Randomly places enemies and items on the floor.
@@ -182,6 +175,7 @@ class Floor
             return floorLevel;
         }
 
+        // Generates a floor from a random text file.
         void initializeFloor()
         {
             char test;
@@ -211,16 +205,7 @@ class Floor
                         tileArray[i][j].setItem(1);
                         tileArray[i][j].setFloor(1);
                     }
-                    else if (test == 'B' && floorLevel == LAST_FLOOR)
-                    {
-                        tileArray[i][j].setBoss(1);
-                        tileArray[i][j].setEnemy(1);
-                        tileArray[i][j].setFloor(1);
-                    }
-                    else if (test == 'B' && floorLevel != LAST_FLOOR)
-                    {
-                        tileArray[i][j].setFloor(1);
-                    }
+
                     else if (test == '*')
                     {
                        tileArray[i][j].setWall(1);
@@ -267,11 +252,7 @@ class Floor
                             attron (COLOR_PAIR(4));
                             addch('P');
                         }
-                    else if (tileArray[i][j].hasBoss() == 1)
-                    {
-                        attron (COLOR_PAIR(3));
-                        addch('B');
-                    }
+
                     else if (tileArray[i][j].hasDownStairs() == 1)
                     {
                             attron (COLOR_PAIR(6));
@@ -363,7 +344,7 @@ class Floor
         }
 
         // Return the number of enemies on the floor.
-        char getNumEnemies()
+        int getNumEnemies()
         {
             int counter = 0;
             for (int i = 0; i < XSIZE; i++)
@@ -371,10 +352,7 @@ class Floor
                     if (tileArray[i][j].hasEnemy() == 1)
                         counter++;
 
-            if (counter < 0 || counter > 9)
-                return '*';
-            else
-                return '0' + counter;
+            return counter;
         }
 
 };

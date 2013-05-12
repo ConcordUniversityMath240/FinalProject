@@ -1,9 +1,11 @@
 /************************************************
-inventory.h
+inventory.h - Inventory related classes header file.
+            - Item
+            - Inventory
 
 Author: MATH 240 Team
 
-Purpose:
+Purpose: These classes create items and control the player's inventory.
 *************************************************/
 
 #ifndef INVENTORY_H
@@ -17,6 +19,21 @@ using namespace std;
 
 /************************************************
 Item class
+    Item()                      Create a default Item with 0 bonuses.
+    getName                     Return the Item's name.
+    getItemType                 Return the Item's type (Armor, weapon, etc)
+    getHealthBonus()            Return the health bonus the item provides.
+    getMagicAmount_CapBonus()   Return the magic bonus the item provides.
+    getDamageBonus()            Return the damage bonus the item provides.
+    getMagicDamageBonus()       Return the magic damage bonus the item provides.
+    getDefenseBonus()           Return the defense bonus the item provides.
+    getMagicDefenseBonus()      Return the magic defense bonus the item provides.
+    getEvasionBonus()           Return the evasion bonus the item provides.
+    getCriticalBonus()          Return the critical hit bonus the item provides.
+    setCurrentFloorLevel()      Return the floor level the item is on.
+    setName()                   Set the item's name.
+    randomize()                 Randomly assign the Item's bonus stats depending on
+                                floor level it is found on.
 *************************************************/
 class Item : public Object
 {
@@ -47,17 +64,14 @@ class Item : public Object
             evasionBonus = 0;
             criticalBonus = 0;
         }
-
         string getName()
         {
             return name;
         }
-
         int getItemType()
         {
            return itemType;
         }
-
         int getHealthBonus()
         {
             return healthBonus;
@@ -90,17 +104,14 @@ class Item : public Object
         {
             return criticalBonus;
         }
-
         void setCurrentFloorLevel(int input)
         {
             currentFloorLevel = input;
         }
-
         void setName(string input)
         {
             name = input;
         }
-
         void randomize()
         {
             itemType = rand() % 2;
@@ -127,10 +138,9 @@ class Item : public Object
         }
 };
 
-
 /***********************************************
 Inventory class
-
+    print()         Displays inventory and allows player to equip items.
 ***********************************************/
 class Inventory
 {
@@ -138,6 +148,7 @@ class Inventory
         vector <Item> storage;
         Item nullItem;
 
+        // Displays inventory and allows player to equip items.
         int print()
         {
             int counter = 0;
@@ -152,9 +163,9 @@ class Inventory
             }
 
             for (int i = 15; i < 45 ; i += 10)
-                for (int j = 5; j < 80; j += 18)
+                for (int j = 5; j < 77; j += 18)
                 {
-
+                    // Print the box
                     move(i-1, j-1);
                     printw("--------------------");
                     move(i, j-1);
@@ -174,6 +185,7 @@ class Inventory
                     move(i+7, j-1);
                     printw("--------------------");
 
+                    // Print the object's name and relevant stats.
                     move(i,j);
                     printw(" %i. ", counter);
                     const char *itemName = storage[counter].getName().c_str();
@@ -203,6 +215,7 @@ class Inventory
                     }
                     counter++;
 
+
                     // Equip functionality.
                     if (counter >= storage.size())
                     {
@@ -218,7 +231,7 @@ class Inventory
                            input = getch() - '0';
                            return input;
                         }
-
+                        // If no item is to be equipped, return dummy value.
                         return 99;
                     }
                 }
