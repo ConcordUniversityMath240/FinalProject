@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1368243184 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
+1367544640 source:c:\users\admin\documents\github\finalproject\roguelike\main.cpp
 	"game.h"
 
-1368246821 c:\users\admin\documents\github\finalproject\roguelike\game.h
+1368065520 c:\users\admin\documents\github\finalproject\roguelike\game.h
 	<curses.h>
 	<iostream>
 	<ctime>
@@ -17,19 +17,19 @@
 	"combat.h"
 	"sql.cpp"
 
-1182380599 c:\codeblocks\pdcurs33\curses.h
+1365886218 c:\codeblocks\pdcurs33\curses.h
 	<stdarg.h>
 	<stddef.h>
 	<stdio.h>
 	<wchar.h>
 
-1368247426 c:\users\admin\documents\github\finalproject\roguelike\map.h
+1367544656 c:\users\admin\documents\github\finalproject\roguelike\map.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1368225049 c:\users\admin\documents\github\finalproject\roguelike\object.h
+1368062199 c:\users\admin\documents\github\finalproject\roguelike\object.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -64,7 +64,7 @@
 	<stdlib.h>
 	<time.h>
 
-1368225049 c:\users\admin\documents\github\finalproject\roguelike\interface.h
+1367544656 c:\users\admin\documents\github\finalproject\roguelike\interface.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
@@ -99,13 +99,13 @@
 	<stdlib.h>
 	<time.h>
 
-1368225049 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
+1368062199 c:\users\admin\documents\github\finalproject\roguelike\enemy.h
 	<fstream>
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 
-1368226185 c:\users\admin\documents\github\finalproject\roguelike\player.h
+1368064937 c:\users\admin\documents\github\finalproject\roguelike\player.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -156,7 +156,7 @@
 	<stdlib.h>
 	<time.h>
 
-1368320741 c:\users\admin\documents\github\finalproject\roguelike\inventory.h
+1367544656 c:\users\admin\documents\github\finalproject\roguelike\inventory.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -269,7 +269,7 @@
 	<stdlib.h>
 	<time.h>
 
-1368225459 c:\users\admin\documents\github\finalproject\roguelike\combat.h
+1368063184 c:\users\admin\documents\github\finalproject\roguelike\combat.h
 	<iostream>
 	<fstream>
 	<ctime>
@@ -278,22 +278,22 @@
 	<stdlib.h>
 	<time.h>
 
-1368225049 c:\users\admin\documents\github\finalproject\roguelike\sql.cpp
+1368062272 c:\users\admin\documents\github\finalproject\roguelike\sql.cpp
 	<iostream>
 	"sqlite3.h"
 	<string>
 	<sstream>
 
-1368225049 c:\users\admin\documents\github\finalproject\roguelike\sqlite3.h
+1367544640 c:\users\admin\documents\github\finalproject\roguelike\sqlite3.h
 	<stdarg.h>
 
-1368225049 source:c:\users\admin\documents\github\finalproject\roguelike\sql.cpp
+1368062272 source:c:\users\admin\documents\github\finalproject\roguelike\sql.cpp
 	<iostream>
 	"sqlite3.h"
 	<string>
 	<sstream>
 
-1368225049 source:c:\users\admin\documents\github\finalproject\roguelike\sqlite3.c
+1367544640 source:c:\users\admin\documents\github\finalproject\roguelike\sqlite3.c
 	"config.h"
 	<stdint.h>
 	<inttypes.h>
@@ -542,6 +542,131 @@
 	<sstream>
 
 1367017987 source:c:\users\ioan\desktop\finalproject\roguelike\sqlite3.c
+	"config.h"
+	<stdint.h>
+	<inttypes.h>
+	<tcl.h>
+	<stdarg.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<stddef.h>
+	<windows.h>
+	<ctype.h>
+	<time.h>
+	<sys/sysctl.h>
+	<malloc/malloc.h>
+	<libkern/OSAtomic.h>
+	<malloc.h>
+	<pthread.h>
+	<math.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<unistd.h>
+	<sys/time.h>
+	<errno.h>
+	<sys/mman.h>
+	<sys/ioctl.h>
+	<semaphore.h>
+	<limits.h>
+	<sys/file.h>
+	<sys/param.h>
+	<sys/mount.h>
+	<utime.h>
+	<sys/dcmd_blk.h>
+	<sys/statvfs.h>
+	<dlfcn.h>
+	<sys/cygwin.h>
+	"sqlite3rtree.h"
+	<unicode/utypes.h>
+	<unicode/uregex.h>
+	<unicode/ustring.h>
+	<unicode/ucol.h>
+	<unicode/ubrk.h>
+	<unicode/utf16.h>
+
+1368117341 source:c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\main.cpp
+	"game.h"
+
+1368303171 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\game.h
+	<curses.h>
+	<iostream>
+	<ctime>
+	<stdio.h>
+	<cstdlib>
+	"map.h"
+	"object.h"
+	"enemy.h"
+	"inventory.h"
+	"player.h"
+	"interface.h"
+	"combat.h"
+	"sql.cpp"
+
+1368299743 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\map.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1368117341 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\object.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+
+1368117341 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\enemy.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1368301045 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\inventory.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+	<vector>
+
+1368315828 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\player.h
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<cassert>
+
+1368315777 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\interface.h
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1368305156 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\combat.h
+	<iostream>
+	<fstream>
+	<ctime>
+	<cstdlib>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
+1368117341 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\sql.cpp
+	<iostream>
+	"sqlite3.h"
+	<string>
+	<sstream>
+
+1368117341 c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\sqlite3.h
+	<stdarg.h>
+
+1368117341 source:c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\sql.cpp
+	<iostream>
+	"sqlite3.h"
+	<string>
+	<sstream>
+
+1368117341 source:c:\users\gary danovich\desktop\fuckme\finalproject\roguelike\sqlite3.c
 	"config.h"
 	<stdint.h>
 	<inttypes.h>

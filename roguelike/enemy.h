@@ -8,9 +8,23 @@ using namespace std;
 #include <time.h>
 
 /************************************************
-Enemy class
+Enemy.h
 
-    Enemy()
+Class for all enemy attributes and actions.
+
+    Enemy()                                                     sets up enemy stats
+    void setHealth(int inHealth)                                set health
+    int getLevel()                                              gets level
+    int getDamage()                                             gets damage they can do
+    int getDamageTkn()                                          get damage they have taken
+    void takeMeleeDamage(int inPlayerDamage, bool inCritical)   function for hurting enemy (melee)
+    void takeMagicDam(int inPlayerMagDam)                       function for hurting enemy (magic)
+    void takeArrowDam(int inPlayerArrowDam)                     function for hurting enemy (arrows)
+    void move(Floor*& floor)                                    moving enemies
+    int getCurrentFloorLevel()                                  get the current floor an enemy is on
+    void setCurrentFloorLevel(int inLevel)                      set the floor level
+    void setAtkStatus(bool inStatus)                            set whether they are attacking
+    bool getAtkStatus()                                         get the status of attacking or not
 
 *************************************************/
 class Enemy: public Character
@@ -36,15 +50,6 @@ public:
         currentFloorLevel = 0;
         isBoss = 0;
         attackPlayerNow = false;
-    }
-    bool getBoss()
-    {
-        return isBoss;
-    }
-
-    void setBoss(int input)
-    {
-        isBoss = input;
     }
 
     void setHealth(int inHealth)
@@ -89,6 +94,7 @@ public:
             health = health - damageTkn;
         }
     }
+
     void takeMagicDam(int inPlayerMagDam)
     {
         damageTkn = ((inPlayerMagDam * 20) - (magicDefense * 7));
@@ -354,10 +360,12 @@ public:
                 attackPlayerNow = true;
             }
     }
+
     int getCurrentFloorLevel()
     {
         return currentFloorLevel;
     }
+
     void setCurrentFloorLevel(int inLevel)
     {
         currentFloorLevel = inLevel;
@@ -367,6 +375,7 @@ public:
     {
         attackPlayerNow = inStatus;
     }
+
     bool getAtkStatus()
     {
         return attackPlayerNow;

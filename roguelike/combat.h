@@ -22,7 +22,7 @@ public:
     void playerMeleeAttack(Floor*& floor, Player& player1, Enemy enemyArray[50])
     {
         //assert(false); //test to see if game header is handling the attack input
-        int randomChance = (rand() % 100);
+        //int randomChance = (rand() % 100);
         int atkUpX = player1.getCurrentX() - 1;
         int atkUpY = player1.getCurrentY();
         int atkLeftX = player1.getCurrentX();
@@ -31,6 +31,14 @@ public:
         int atkRightY = player1.getCurrentY() + 1;
         int atkDownX = player1.getCurrentX() + 1;
         int atkDownY = player1.getCurrentY();
+        int atkUpDLeftX = player1.getCurrentX() - 1;
+        int atkUpDLeftY = player1.getCurrentY() - 1;
+        int atkUpDRightX = player1.getCurrentX() - 1;
+        int atkUpDRightY = player1.getCurrentY() + 1;
+        int atkDownDLeftX = player1.getCurrentX() + 1;
+        int atkDownDLeftY = player1.getCurrentY() - 1;
+        int atkDownDRightX = player1.getCurrentX() + 1;
+        int atkDownDRightY = player1.getCurrentY() + 1;
         //if there is an enemy above the player
         for (int q = 0; q < 50; q++)
         {
@@ -142,14 +150,114 @@ public:
                     }
                 }
             }
+            else if (floor -> tileArray[atkUpDLeftX][atkUpDLeftY].hasEnemy() == 1)
+            {
+                if ((enemyArray[q].getCurrentX() == atkUpDLeftX) &&
+                   (enemyArray[q].getCurrentY() == atkUpDLeftY) &&
+                   (enemyArray[q].getHealth() > 0))
+                {
+                    enemyArray[q].takeMeleeDamage(player1.getDamage(), player1.CritHit());
+                    if (enemyArray[q].getHealth() < 1)
+                    {
+                        player1.gainExperience(enemyArray[q].getLevel());
+                        floor -> tileArray[atkUpDLeftX][atkUpDLeftY].setEnemy(0);
+                    }
+                    else
+                    {
+                        /*if (player1.evade() == false)
+                        {
+                            player1.takeMeleeDamage(enemyArray[q].getDamage());
+                        }
+                        else
+                        {
+
+                        }*/
+                    }
+                }
+            }
+            else if (floor -> tileArray[atkUpDRightX][atkUpDRightY].hasEnemy() == 1)
+            {
+                if ((enemyArray[q].getCurrentX() == atkUpDRightX) &&
+                   (enemyArray[q].getCurrentY() == atkUpDRightY) &&
+                   (enemyArray[q].getHealth() > 0))
+                {
+                    enemyArray[q].takeMeleeDamage(player1.getDamage(), player1.CritHit());
+                    if (enemyArray[q].getHealth() < 1)
+                    {
+                        player1.gainExperience(enemyArray[q].getLevel());
+                        floor -> tileArray[atkUpDRightX][atkUpDRightY].setEnemy(0);
+                    }
+                    else
+                    {
+                        /*if (player1.evade() == false)
+                        {
+                            player1.takeMeleeDamage(enemyArray[q].getDamage());
+                        }
+                        else
+                        {
+
+                        }*/
+                    }
+                }
+            }
+            else if (floor -> tileArray[atkDownDLeftX][atkDownDLeftY].hasEnemy() == 1)
+            {
+                if ((enemyArray[q].getCurrentX() == atkDownDLeftX) &&
+                   (enemyArray[q].getCurrentY() == atkDownDLeftY) &&
+                   (enemyArray[q].getHealth() > 0))
+                {
+                    enemyArray[q].takeMeleeDamage(player1.getDamage(), player1.CritHit());
+                    if (enemyArray[q].getHealth() < 1)
+                    {
+                        player1.gainExperience(enemyArray[q].getLevel());
+                        floor -> tileArray[atkDownDLeftX][atkDownDLeftY].setEnemy(0);
+                    }
+                    else
+                    {
+                        /*if (player1.evade() == false)
+                        {
+                            player1.takeMeleeDamage(enemyArray[q].getDamage());
+                        }
+                        else
+                        {
+
+                        }*/
+                    }
+                }
+            }
+            else if (floor -> tileArray[atkDownDRightX][atkDownDRightY].hasEnemy() == 1)
+            {
+                if ((enemyArray[q].getCurrentX() == atkDownDRightX) &&
+                   (enemyArray[q].getCurrentY() == atkDownDRightY) &&
+                   (enemyArray[q].getHealth() > 0))
+                {
+                    enemyArray[q].takeMeleeDamage(player1.getDamage(), player1.CritHit());
+                    if (enemyArray[q].getHealth() < 1)
+                    {
+                        player1.gainExperience(enemyArray[q].getLevel());
+                        floor -> tileArray[atkDownDRightX][atkDownDRightY].setEnemy(0);
+                    }
+                    else
+                    {
+                        /*if (player1.evade() == false)
+                        {
+                            player1.takeMeleeDamage(enemyArray[q].getDamage());
+                        }
+                        else
+                        {
+
+                        }*/
+                    }
+                }
+            }
         }
     }
     void playerDirMagicAtk(Floor*& floor, Player& player1, Enemy enemyArray[50])
     {
         if (player1.getMagicAmount() >= 10)
         {
-            char buffer[50];
-            int randomChance = (rand() % 100);
+            /*char buffer[50];
+            int randomChance = (rand() % 100);*/
             int atkUpX = player1.getCurrentX() - 1;
             int atkUpY = player1.getCurrentY();
             int atkLeftX = player1.getCurrentX();
@@ -158,9 +266,17 @@ public:
             int atkRightY = player1.getCurrentY() + 1;
             int atkDownX = player1.getCurrentX() + 1;
             int atkDownY = player1.getCurrentY();
+            int atkUpDLeftX = player1.getCurrentX() - 1;
+            int atkUpDLeftY = player1.getCurrentY() - 1;
+            int atkUpDRightX = player1.getCurrentX() - 1;
+            int atkUpDRightY = player1.getCurrentY() + 1;
+            int atkDownDLeftX = player1.getCurrentX() + 1;
+            int atkDownDLeftY = player1.getCurrentY() - 1;
+            int atkDownDRightX = player1.getCurrentX() + 1;
+            int atkDownDRightY = player1.getCurrentY() + 1;
             //if there is an enemy above the player
 
-            for (int counter = 0; counter < 7; counter++)
+            for (int counter = 0; counter < 4; counter++)
             {
                 if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
                 {
@@ -181,7 +297,7 @@ public:
                 }
                 atkUpX = atkUpX - 1;
             }
-            for (int counter = 0; counter < 7; counter++)
+            for (int counter = 0; counter < 4; counter++)
             {
                 if (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1)
                 {
@@ -202,7 +318,7 @@ public:
                 }
                 atkLeftY = atkLeftY - 1;
             }
-            for (int counter = 0; counter < 7; counter++)
+            for (int counter = 0; counter < 4; counter++)
             {
                 if (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1)
                 {
@@ -223,7 +339,7 @@ public:
                 }
                 atkRightY = atkRightY + 1;
             }
-            for (int counter = 0; counter < 7; counter++)
+            for (int counter = 0; counter < 4; counter++)
             {
                 if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
                 {
@@ -256,7 +372,7 @@ public:
     {
         if (player1.getArrowAmount() >= 10)
         {
-            int randomChance = (rand() % 100);
+           //ff int randomChance = (rand() % 100);
             int atkUpX = player1.getCurrentX() - 1;
             int atkUpY = player1.getCurrentY();
             int atkLeftX = player1.getCurrentX();
@@ -265,8 +381,16 @@ public:
             int atkRightY = player1.getCurrentY() + 1;
             int atkDownX = player1.getCurrentX() + 1;
             int atkDownY = player1.getCurrentY();
+            int atkUpDLeftX = player1.getCurrentX() - 1;
+            int atkUpDLeftY = player1.getCurrentY() - 1;
+            int atkUpDRightX = player1.getCurrentX() - 1;
+            int atkUpDRightY = player1.getCurrentY() + 1;
+            int atkDownDLeftX = player1.getCurrentX() + 1;
+            int atkDownDLeftY = player1.getCurrentY() - 1;
+            int atkDownDRightX = player1.getCurrentX() + 1;
+            int atkDownDRightY = player1.getCurrentY() + 1;
             //if there is an enemy above the player
-            for (int counter = 0; counter < 7; counter++)
+            for (int counter = 0; counter < 4; counter++)
             {
                 if (floor -> tileArray[atkUpX][atkUpY].hasEnemy() == 1)
                 {
@@ -287,7 +411,7 @@ public:
                 }
                 atkUpX = atkUpX - 1;
             }
-            for (int counter = 0; counter < 7; counter++)
+            for (int counter = 0; counter < 4; counter++)
             {
                 if (floor -> tileArray[atkLeftX][atkLeftY].hasEnemy() == 1)
                 {
@@ -308,7 +432,7 @@ public:
                 }
                 atkLeftY = atkLeftY - 1;
             }
-            for (int counter = 0; counter < 7; counter++)
+            for (int counter = 0; counter < 4; counter++)
             {
                 if (floor -> tileArray[atkRightX][atkRightY].hasEnemy() == 1)
                 {
@@ -329,7 +453,7 @@ public:
                 }
                 atkRightY = atkRightY + 1;
             }
-            for (int counter = 0; counter < 7; counter++)
+            for (int counter = 0; counter < 4; counter++)
             {
                 if (floor -> tileArray[atkDownX][atkDownY].hasEnemy() == 1)
                 {

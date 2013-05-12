@@ -6,6 +6,8 @@ Authors: Derek Royse
          Jay Bingley
          Gary Danovich
          Andy Pritt
+         Adam McCroskey
+         Zach England
 
 Purpose: A text-based Rogue-like game.
 *************************************************/
