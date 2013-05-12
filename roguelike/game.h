@@ -38,6 +38,7 @@ class Game
 {
 private:
     Floor floorArray[LAST_FLOOR];
+    Floor floor;
 
 public:
 
@@ -51,9 +52,9 @@ public:
     // Start and run the game.
     void run()
     {
-        printw("Enter F for fighter, M for mage, or A for archer: ");
+       // printw("Enter F for fighter, M for mage, or A for archer: ");
         // create db object
-        int load = NULL;
+        int load = 0;
         sqlite sql;
         /*
             // don't re run commands, this is just something to keep track on the commands used so far
@@ -87,6 +88,7 @@ public:
             cout<<"Please enter Load(L) to load or anything else to begin a new game ";
             cin >> option;
         //}
+
         if (option == "L") {
             load = 1;
         }
@@ -98,34 +100,43 @@ public:
                 cout<<s_att[i]<<" "<<attr[i]<<endl;
             }
         }
-        else
+       /* else
         {
 //            attr[0] = 1; attr[1] = 100; attr[2] = 100; attr[3] = 80; attr[4] = 80; attr[5] = 5;
 //            attr[6] = 5; attr[7] = 5; attr[8] = 5; attr[9] = 5; attr[10] = 5; attr[11] = 0;
 //            attr[12] = 100;
-                bool Check = false;  //check for if Player put in good information
-                while(Check != true)
-                {
-                    cout << "Enter F for fighter, M for mage, or A for archer: ";
-                    cin >> Player_Choice;  //gets player choice
 
-                    if((Player_Choice == 'F') || (Player_Choice == 'M') || (Player_Choice == 'A'))
-                    {
-                        Check = true;
-                    }
-                    else
-                    {
-                        Check = false;
-                    }
-                    clear(); //clears the screen of the choice selection, so game can be printed
-                }
-        }
+        }*/
 
         if (load)
             Player player1(attr[0], attr[1], attr[2], attr[3], attr[4], attr[5], attr[6], attr[7], attr[8],
                            attr[9], attr[10], attr[11], attr[12], attr[13], attr[14]);
         else
+        {
+
             Player player1(Player_Choice);
+        }
+
+                bool Check = 1;  //check for if Player put in good information
+
+                while(Check != 0)
+                {
+                    printf("Enter F for fighter, M for mage, or A for archer: ");
+                    cin >> Player_Choice;  //gets player choice
+
+                    if((Player_Choice == 'F') || (Player_Choice == 'M') || (Player_Choice == 'A'))
+                    {
+                        Check = 0;
+                    }
+                    else
+                    {
+                        Check = 1;
+                    }
+                    clear(); //clears the screen of the choice selection, so game can be printed
+                }
+
+
+
 
         // moved here from main, don't erase :P
         srand(time(NULL));
@@ -172,6 +183,7 @@ public:
             if (input == KEY_UP || input == KEY_LEFT || input == KEY_DOWN || KEY_RIGHT)
             {
                 player1.Recover_Magic();
+                floor.Perimeter();
                 refresh();
                 interface.clearLower();
                 player1.movePlayer(input, currentFloor, enemyArray, itemArray);
@@ -333,7 +345,7 @@ public:
             for (int x = 0; x < XSIZE; x++)
                 for (int y = 0; y < YSIZE; y++)
                 {
-                    if (floorArray[i].tileArray[x][y].hasBoss() == 1)
+                    /*if (floorArray[i].tileArray[x][y].hasBoss() == 1)
                     {
                         enemyArray[50].setBoss(1);
                         enemyArray[counter].setCurrentFloorLevel(i+1);
@@ -341,9 +353,9 @@ public:
                         enemyArray[counter].setCurrentY(y);
                         enemyArray[50].setHealth(500);
                         counter++;
-                    }
+                    }*/
 
-                    else if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
+                    if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
                     {
                         enemyArray[counter].setCurrentFloorLevel(i+1);
                         enemyArray[counter].setCurrentX(x);
@@ -351,7 +363,7 @@ public:
                         counter++;
                     }
 
-                    if (counter == 49)
+                    if (counter == 50)
                         return;
                 }
     }

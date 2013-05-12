@@ -140,7 +140,7 @@ class Inventory
 
         int print()
         {
-            int counter = 0;
+           unsigned int counter = 0;
             int input;
 
             if (storage.size() == 0)
@@ -224,6 +224,7 @@ class Inventory
                 }
 
             getch();
+            return 99;
         }
 };
 

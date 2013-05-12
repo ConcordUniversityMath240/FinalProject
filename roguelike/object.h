@@ -68,6 +68,10 @@ Character class
     getCritical()           Returns the character's critical attribute.
     setHealth()             Sets the player's health
     setLevel()              Sets the player's level.
+    getMagicAmount()        Return the Mana amount of the player.
+    setMagicAmount()        Set the player's mana amount.
+    getMagicPower()         Return the strength of player's magic attacks.
+    getMagicDefense()       Return the defense of the player against magic attacks.
 *************************************************/
 class Character : public Object
 {

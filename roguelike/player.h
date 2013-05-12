@@ -7,9 +7,44 @@
 using namespace std;
 
 /************************************************
-Player class
+Player.h
 
-    Player()
+Handles the types of players, actions, and leveling.
+
+    Player()                          Three different ones, for each player type. Sets stats.
+    getLevel()                        Gets the Player level.
+    getHealth()                       Gets the Player's health.
+    getMagicAmount()                  Gets the Player's Mana Amount.
+    getMagicAmount_Cap()              Gets the Player's max Mana Amount.
+    getHealth_cap()                   Gets the Player's max health amount.
+    getDamage()                       Gets the Player's damage amount.
+    getDefense()                      Gets the Player's defense.
+    getMagicPower()                   Gets the Player's Mana Power.
+    getMagicDefense()                 Gets the Player's Magic Defense.
+    getEvasion()                      Gets the Player's Evasion.
+    getCritical()                     Gets the Player's Critical hit number.
+    getExperience()                   Gets the Player's Experience amount.
+    getExperience_Cap()               Gets the Player's Experience Cap.
+    getType()                         Gets the type of Player (A, M, T).
+    getArrows()                       Gets the amount of arrows the Player has.
+    gainExperience(int inEnemyLevel)  Allows Player to gain experience when killing.
+    getXPgained()                     Gets the Player's gained experience from killing.
+    levelUp()                         Levels up the Player's stats when they get enough experience.
+    CritHit()                         Determines whether the Player scores a critical hit.
+    evade()                           Determines if the Player evades a hit.
+    useStairs(Floor*& currentFloor)movePlayer(char input, Floor*& floor, Enemy enemyArray[50], Item itemArray[50])   Allows Player to go up/down stairs
+    healMagic()                       Gives power to Mage automatically/others at level 4 to regain health with magic
+    takeMeleeDamage(int inEnemyDamage, bool inEvade)    Determines the damage the player takes.
+    getDamageTkn()                    Gets the damage taken.
+    equipItem(int newItem)            Allows Equipping of items.
+    removeStats(Item oldItem)         Removes excess stats when items dequipped.
+    addStats(Item newItem)            Adds extra stats when items are equipped.
+    printEquipped()                   Prints the equipped items.
+    setArrowAmount(int inAmount)      Returns the arrow amount.
+    getArrowAmount()                  Gets the arrow amount.
+    Recover_Magic()                   Player has chance to recover magic with every step.
+
+
 
 *************************************************/
 class Player : public Character
@@ -34,10 +69,10 @@ public:
         {
             Type = 1;  //Numbers used for comparison of player types
             level = 1;
-            health = 120;
-            magicAmount = 0;
-            magicAmount_Cap = 0;
-            health_cap = 120;
+            health = 1200;
+            magicAmount = 40;
+            magicAmount_Cap = 40;
+            health_cap = 1200;
             damage = 8;
             magicPower = 0;
             defense = 4;
@@ -46,12 +81,13 @@ public:
             critical = 6;
             Experience = 0;
             //player reaches lvl 2 with 100 experience
-            Experience_Cap = 20;
+            Experience_Cap = 100;
+            arrows = 0;
 
             for (int i = 0; i < 5; i++)
                 equipped[i].setName("");
         }
-
+        //mage
         else if(inType == 'M')
         {
             Type = 2;
@@ -68,10 +104,12 @@ public:
             critical = 4;
             Experience = 0;
             Experience_Cap = 100;
+            arrows = 0;
 
             for (int i = 0; i < 5; i++)
                 equipped[i].setName("");
         }
+        //archer
         else if(inType == 'A')
         {
             Type = 3;
@@ -121,7 +159,7 @@ public:
     }
 
 
-
+    //getters for all stats
     int getLevel()
     {
         return level;
@@ -132,7 +170,8 @@ public:
     {
         return health;
     }
-    int getMagicAmount() {
+    int getMagicAmount()
+    {
         return magicAmount;
     }
     int getMagicAmount_Cap() {
@@ -317,7 +356,7 @@ public:
 
     }
     //handles all movement for the player
-    void movePlayer(char input, Floor*& floor, Enemy enemyArray[50], Item itemArray[50])
+    void useStairs(Floor*& currentFloor)movePlayer(char input, Floor*& floor, Enemy enemyArray[50], Item itemArray[50])
     {
         move(44, 0);
         // Destination X,Y
@@ -459,7 +498,7 @@ public:
 
     }
     //adds/removes stats of items when things are equipped/dequipped
-    void removeStats(Item oldItem)
+    void  removeStats(Item oldItem)
     {
         health_cap = health_cap - oldItem.getHealthBonus();
         magicAmount_Cap = magicAmount_Cap - oldItem.getMagicAmount_CapBonus();
@@ -482,11 +521,10 @@ public:
         evasion = evasion + newItem.getEvasionBonus();
         critical = critical + newItem.getCriticalBonus();
     }
-
+        //printing for inventory screen
         void printEquipped()
     {
         int counter = 0;
-        int input;
         attron (COLOR_PAIR(6));
         for (int i = 2; i < 35 ; i += 10)
             for (int j = 10; j < 80; j += 18)
@@ -566,11 +604,14 @@ public:
         return arrows;
     }
 
+    //player has a 1:4 chance of recovering 10 mana
     void Recover_Magic()
     {
         int Recover = (rand() % 100);
-        if(Recover < 17)
+        //check if mana is already full
+        if(Recover < 25)
         {
+            if(magicAmount != magicAmount_Cap)
             magicAmount = magicAmount + 10;
         }
     }

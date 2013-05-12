@@ -38,6 +38,7 @@ public:
         init_pair (6, COLOR_YELLOW, COLOR_BLACK); //stairs
         init_pair (7, COLOR_BLACK, COLOR_GREEN);
         init_pair (8, COLOR_BLACK, COLOR_RED);
+        init_pair (9, COLOR_GREEN, COLOR_BLACK);
         attron (A_BOLD);
     }
 
@@ -67,6 +68,16 @@ public:
         sprintf(evade,"%i",player.getEvasion());
         char critical[10]= {0};
         sprintf(critical,"%i",player.getCritical());
+        char magicPower[10] = {0};
+        sprintf(magicPower,"%i",player.getMagicPower());
+        char magicDefence[10] = {0};
+        sprintf(magicDefence,"%i",player.getMagicDefense());
+        char Arrows[10] = {0};
+        sprintf(Arrows,"%i",player.getArrowAmount());
+        char Mana[10] = {0};
+        sprintf(Mana,"%i",player.getMagicAmount());
+        char ManaCap[10] = {0};
+        sprintf(ManaCap,"%i",player.getMagicAmount_Cap());
         //int blk = 219;
 
         move(0,0);
@@ -81,7 +92,7 @@ public:
         int tempFill = ((player.getExperience() * 10) / player.getExperience_Cap());
 
 
-        int temp = 10 - tempFill; //player.getExperience()/10;
+        //int temp = 10 - tempFill; //player.getExperience()/10;
         attron (COLOR_PAIR(5));
         for (int i=0; i<tempFill; i++)
         {
@@ -102,7 +113,7 @@ public:
         move(3,20);
         printw("[");
         tempFill = ((player.getHealth() * 10 ) / player.getHealthCap());
-        temp = 10 - tempFill;
+       // temp = 10 - tempFill;
 
 
         //char Temp[10]= {0};  123 4567 891
@@ -127,11 +138,53 @@ public:
             addch(219);
         }
 
+
+        //magic meter
+        printw("]\n");
+        printw("Mana : ");
+        printw(Mana);printw("/");printw(ManaCap);
+        move(4,20);
+        printw("[");
+        tempFill = ((player.getMagicAmount() * 10 ) / player.getMagicAmount_Cap());
+       // temp = 10 - tempFill;
+
+
+        //char Temp[10]= {0};  123 4567 891
+        //sprintf(Temp,"%i",tempFill);
+        //printw("TEMPFIL = ");printw(Temp);
+        if (tempFill > 7)
+            attron (COLOR_PAIR(2)); // green if > 70%
+        if (tempFill < 4)
+            attron (COLOR_PAIR(8)); // red if < 40%
+        if (tempFill > 3 && tempFill < 8)
+            attron (COLOR_PAIR(6)); // else yellow
+
+        for (int i=0; i<tempFill; i++)
+        {
+                addch(219);
+                addch(219);
+        }
+        attron (COLOR_PAIR(4));
+        for (int i = 10; i > tempFill; i--)
+        {
+            addch(219);
+            addch(219);
+        }
+
+
+
+
+
+
         printw("]");
-        printw("\nAttack : ");printw(attack);
-        move(4,20);printw("Defense : ");printw(defense);
-        printw("\nEvade  : ");printw(evade);
-        move(5,20);printw("Critical: ");printw(critical);
+        move(5,20);printw("\nAttack : ");printw(attack);
+        printw("Defense : ");printw(defense);
+        move(6,20);printw("\nEvade  : ");printw(evade);
+        printw("Critical: ");printw(critical);
+        move(7,20);printw("\nMagic Attack: ");printw(magicPower);
+        printw("Magic Defence: ");printw(magicDefence);
+        printw("\n");
+        printw("Arrows: ");printw(Arrows);
         printw("\n");
 
     }
@@ -158,7 +211,12 @@ public:
         printw("\n");
         printw("Use the Arrow Keys to move.");
         printw("\n");
+        printw("The green lines around your character is how far directional attacks go.");
+        printw("\n");
         printw("Press 'F' to use your melee attack \n");
+        //printw("\n");
+        printw("For the Archer, press 'G' to shoot arrows.");
+        printw("\n");
         if (player1.getLevel() >= 3)
         {
             printw("Press 'R' to use your directional magic attack \n");

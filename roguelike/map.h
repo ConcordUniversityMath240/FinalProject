@@ -171,7 +171,6 @@ class Floor
             prev = NULL;
             next = NULL;
         }
-
         void setFloorLevel(int input)
         {
            floorLevel = input;
@@ -264,7 +263,7 @@ class Floor
                 {
                     if (tileArray[i][j].hasPlayer() == 1)
                         {
-                            attron (COLOR_PAIR(4));
+                            attron(COLOR_PAIR(4));
                             addch('P');
                         }
                     else if (tileArray[i][j].hasBoss() == 1)
@@ -301,6 +300,55 @@ class Floor
                         }
                     else if (tileArray[i][j].hasFloor() == 1)
                         {
+                            if(tileArray[i-4][j-4].hasPlayer() == 1)
+                            {
+
+                                attron (COLOR_PAIR(9));
+                            //    addch('-');
+                            }
+                            else if(tileArray[i+4][j-4].hasPlayer() == 1)
+                            {
+
+                                attron (COLOR_PAIR(9));
+                            //    addch('-');
+                            }
+                            else if(tileArray[i+4][j+4].hasPlayer() == 1)
+                            {
+
+                                attron (COLOR_PAIR(9));
+                            //    addch('-');
+                            }
+                            else if(tileArray[i-4][j+4].hasPlayer() == 1)
+                            {
+
+                                attron (COLOR_PAIR(9));
+                            //    addch('-');
+                            }
+                            else if(tileArray[i][j+4].hasPlayer() == 1)
+                            {
+
+                                attron (COLOR_PAIR(9));
+                                //addch('-');
+                            }
+                            else if(tileArray[i][j-4].hasPlayer() == 1)
+                            {
+
+                                attron (COLOR_PAIR(9));
+                            //    addch('-');
+                            }
+                            else if(tileArray[i+4][j].hasPlayer() == 1)
+                            {
+
+                                attron (COLOR_PAIR(9));
+                              //  addch('-');
+                            }
+                            else if(tileArray[i-4][j].hasPlayer() == 1)
+                            {
+
+                                attron (COLOR_PAIR(9));
+                                //addch('-');
+                            }
+                            else
                         attron (COLOR_PAIR(1));
                         addch('-');
                         }
@@ -312,6 +360,24 @@ class Floor
             }
             addch('\n');
         }
+
+        void Perimeter()
+        {
+            for (int i = 0; i < XSIZE; i++)
+                for (int j = 0; j < YSIZE; j++)
+                    if(tileArray[i][j].hasPlayer() == 1)
+                        if(tileArray[i][j+4].hasFloor() == 1)
+                        {
+                            attron (COLOR_PAIR(9));
+                            addch('O');
+                            cin.get();
+                            cin.ignore();
+                        }
+        }
+
+
+
+
         // Places the player, items, and enemies on the floor.
         void populateFloor()
         {
