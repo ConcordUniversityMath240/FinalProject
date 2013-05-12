@@ -1,9 +1,11 @@
 /************************************************
-inventory.h
+inventory.h - Inventory related classes header file.
+            - Item
+            - Inventory
 
 Author: MATH 240 Team
 
-Purpose:
+Purpose: These classes create items and control the player's inventory.
 *************************************************/
 
 #ifndef INVENTORY_H
@@ -17,6 +19,21 @@ using namespace std;
 
 /************************************************
 Item class
+    Item()                      Create a default Item with 0 bonuses.
+    getName                     Return the Item's name.
+    getItemType                 Return the Item's type (Armor, weapon, etc)
+    getHealthBonus()            Return the health bonus the item provides.
+    getMagicAmount_CapBonus()   Return the magic bonus the item provides.
+    getDamageBonus()            Return the damage bonus the item provides.
+    getMagicDamageBonus()       Return the magic damage bonus the item provides.
+    getDefenseBonus()           Return the defense bonus the item provides.
+    getMagicDefenseBonus()      Return the magic defense bonus the item provides.
+    getEvasionBonus()           Return the evasion bonus the item provides.
+    getCriticalBonus()          Return the critical hit bonus the item provides.
+    setCurrentFloorLevel()      Return the floor level the item is on.
+    setName()                   Set the item's name.
+    randomize()                 Randomly assign the Item's bonus stats depending on
+                                floor level it is found on.
 *************************************************/
 class Item : public Object
 {
@@ -101,6 +118,7 @@ class Item : public Object
             name = input;
         }
 
+        // Gives an item relevant random stats.
         void randomize()
         {
             itemType = rand() % 2;
@@ -130,7 +148,7 @@ class Item : public Object
 
 /***********************************************
 Inventory class
-
+    print()         Displays inventory and allows player to equip items.
 ***********************************************/
 class Inventory
 {
@@ -138,6 +156,7 @@ class Inventory
         vector <Item> storage;
         Item nullItem;
 
+        // Displays inventory and allows player to equip items.
         int print()
         {
            unsigned int counter = 0;
@@ -152,7 +171,7 @@ class Inventory
             }
 
             for (int i = 15; i < 45 ; i += 10)
-                for (int j = 5; j < 80; j += 18)
+                for (int j = 5; j < 77; j += 18)
                 {
 
                     move(i-1, j-1);

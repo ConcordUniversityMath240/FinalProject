@@ -61,7 +61,6 @@ public:
     Item equipped[5];
     Player(char inType)
     {
-        printw("HELLO");
         //Three constructors for stats for
         //each type of player, Fighter, Mage,
         //and Archer, respectively
@@ -69,10 +68,10 @@ public:
         {
             Type = 1;  //Numbers used for comparison of player types
             level = 1;
-            health = 1200;
+            health = 120;
             magicAmount = 40;
             magicAmount_Cap = 40;
-            health_cap = 1200;
+            health_cap = 120;
             damage = 8;
             magicPower = 0;
             defense = 4;
@@ -227,15 +226,15 @@ public:
     //resets experience, initiates chances to increase stats
     void levelUp()
     {
-        move(44, 0);
-        //printw("LEVEL UP!! \n");
+        move(45, 0);
+        printw("LEVEL UP!! \n");
         //randomchance is variable for randomization
         int randomChance = (rand() % 100);
         //chance to increase health cap
         if (randomChance > 29)
         {
             health_cap = (health_cap/5) + health_cap;
-            //printw("Max Health Increased! \n");
+            printw("Max Health Increased! \n");
         }
         //give full health
         health = health_cap;
@@ -245,7 +244,7 @@ public:
         if (randomChance > 29)
         {
             magicAmount_Cap = (magicAmount_Cap/5) + magicAmount_Cap;
-            //printw("Max MP increased! \n);
+            printw("Max MP increased! \n");
         }
         //give full MP
         magicAmount = magicAmount_Cap;
@@ -255,42 +254,42 @@ public:
         if (randomChance > 29)
         {
             damage++;
-            //printw("Damage Increased!\n");
+            printw("Damage Increased!\n");
         }
         //chance to increase magic damage
         randomChance = (rand() % 100);
         if (randomChance > 29)
         {
             magicPower++;
-            //printw("Magic Damage Increased!\n");
+            printw("Magic Damage Increased!\n");
         }
         //chance to increase defense
         randomChance = (rand() % 100);
         if (randomChance > 29)
         {
             defense++;
-            //printw("Defense Increased! \n");
+            printw("Defense Increased! \n");
         }
         //chance to increase magic defense
         randomChance = (rand() % 100);
         if (randomChance > 49)
         {
             magicDefense++;
-            //printw("Magic Defense Increased! \n");
+            printw("Magic Defense Increased! \n");
         }
         //chance to increase evasion
         randomChance = (rand() % 100);
         if (randomChance > 79)
         {
             evasion++;
-            //printw("Evasion Increased! \n");
+            printw("Evasion Increased! \n");
         }
         randomChance = (rand() % 100);
         //chance to increase critical
         if (randomChance > 79)
         {
             critical++;
-            //printw("Critical Increased! \n");
+            printw("Critical Increased! \n");
         }
         //Experience_Cap = Experience_Cap * 1.2;
         Experience = 0;
@@ -304,6 +303,8 @@ public:
         {
             printw("You can now use Heal magic! \n");
         }
+        nocbreak();
+        getch();
     }
     //method to determine if player will get a critical hit
     bool CritHit()
@@ -338,7 +339,7 @@ public:
     //allows player to go up or down stairs to different floors
     void useStairs(Floor*& currentFloor)
     {
-        move(44, 0);
+        move(45, 0);
         if (currentFloor -> tileArray[currentX][currentY].hasDownStairs() == 1)
         {
             currentFloor = currentFloor -> next;
@@ -355,81 +356,11 @@ public:
         }
 
     }
-    //handles all movement for the player
-    void useStairs(Floor*& currentFloor)movePlayer(char input, Floor*& floor, Enemy enemyArray[50], Item itemArray[50])
-    {
-        move(44, 0);
-        // Destination X,Y
-        int destX = currentX;
-        int destY = currentY;
-
-        // Up
-        if (input == 3)
-            destX = currentX-1;
-
-        // Left
-        else if (input == 4)
-            destY = currentY-1;
-
-        // Right
-        else if (input == 5)
-            destY = currentY+1;
-
-        // Down
-        else if (input == 2)
-            destX = currentX+1;
-
-        //if you move into a tile with an enemy
-        if (floor -> tileArray[destX][destY].hasEnemy() == 1)
-        {
-            for (int q = 0; q < 50; q++)
-            {
-            //enemy damages player
-                if ((enemyArray[q].getCurrentX() == destX) &&
-                    (enemyArray[q].getCurrentY() == destY))
-                {
-                    takeMeleeDamage(enemyArray[q].getDamage(), evade());
-                }
-            }
-        }
-
-        // Tile has an item.
-        else if (floor -> tileArray[destX][destY].hasItem() == 1)
-        {
-            for (int q = 0; q < 50; q++)
-            {
-                if ((itemArray[q].getCurrentX() == destX) && (itemArray[q].getCurrentY() == destY))
-                {
-                    // Add the new item. Remove item from map. Move player.
-                    playerInventory.storage.push_back(itemArray[q]);
-                    floor -> tileArray[destX][destY].setItem(0);
-                    floor -> tileArray[currentX][currentY].setPlayer(0);
-                    floor -> tileArray[destX][destY].setPlayer(1);
-                    currentX = destX;
-                    currentY = destY;
-                    printw("You picked up an item.\n");
-                }
-            }
-        }
-
-        // Regular movement.
-        else if (floor -> tileArray[destX][destY].hasFloor() == 1)
-        {
-            floor -> tileArray[currentX][currentY].setPlayer(0);
-            floor -> tileArray[destX][destY].setPlayer(1);
-            currentX = destX;
-            currentY = destY;
-        }
-        else
-        {
-            printw("%s", "You walked into a wall, dumbass!\n");
-        }
-    }
 
     //simple healing magic function
     void healMagic()
     {
-        move(44, 0);
+        move(45, 0);
         if (health == health_cap)
         {
             printw("You already have full HP!");
@@ -453,6 +384,7 @@ public:
     {
         if (inEvade == true)
         {
+            move(45, 0);
             printw("You dodged the enemy attack!");
         }
         else
@@ -613,6 +545,77 @@ public:
         {
             if(magicAmount != magicAmount_Cap)
             magicAmount = magicAmount + 10;
+        }
+    }
+
+    //handles all movement for the player
+    void movePlayer(char input, Floor*& floor, Enemy enemyArray[50], Item itemArray[50])
+    {
+        move(45, 0);
+        // Destination X,Y
+        int destX = currentX;
+        int destY = currentY;
+
+        // Up
+        if (input == 3)
+            destX = currentX-1;
+
+        // Left
+        else if (input == 4)
+            destY = currentY-1;
+
+        // Right
+        else if (input == 5)
+            destY = currentY+1;
+
+        // Down
+        else if (input == 2)
+            destX = currentX+1;
+
+        //if you move into a tile with an enemy
+        if (floor -> tileArray[destX][destY].hasEnemy() == 1)
+        {
+            for (int q = 0; q < 50; q++)
+            {
+            //enemy damages player
+                if ((enemyArray[q].getCurrentX() == destX) &&
+                    (enemyArray[q].getCurrentY() == destY))
+                {
+                    takeMeleeDamage(enemyArray[q].getDamage(), evade());
+                }
+            }
+        }
+
+        // Tile has an item.
+        else if (floor -> tileArray[destX][destY].hasItem() == 1)
+        {
+            for (int q = 0; q < 50; q++)
+            {
+                if ((itemArray[q].getCurrentX() == destX) && (itemArray[q].getCurrentY() == destY))
+                {
+                    // Add the new item. Remove item from map. Move player.
+                    playerInventory.storage.push_back(itemArray[q]);
+                    floor -> tileArray[destX][destY].setItem(0);
+                    floor -> tileArray[currentX][currentY].setPlayer(0);
+                    floor -> tileArray[destX][destY].setPlayer(1);
+                    currentX = destX;
+                    currentY = destY;
+                    printw("You picked up an item.\n");
+                }
+            }
+        }
+
+        // Regular movement.
+        else if (floor -> tileArray[destX][destY].hasFloor() == 1)
+        {
+            floor -> tileArray[currentX][currentY].setPlayer(0);
+            floor -> tileArray[destX][destY].setPlayer(1);
+            currentX = destX;
+            currentY = destY;
+        }
+        else
+        {
+            printw("%s", "You walked into a wall, dumbass!\n");
         }
     }
 };

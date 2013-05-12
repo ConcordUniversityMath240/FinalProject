@@ -34,11 +34,12 @@ public:
         init_pair (2, COLOR_CYAN, COLOR_BLACK); // WALLS
         init_pair (3, COLOR_RED, COLOR_BLACK);  //enemies
         init_pair (4, COLOR_WHITE, COLOR_BLACK);  //player
-        init_pair (5, COLOR_BLACK,COLOR_WHITE);
+        init_pair (5, COLOR_BLACK, COLOR_WHITE);
         init_pair (6, COLOR_YELLOW, COLOR_BLACK); //stairs
-        init_pair (7, COLOR_BLACK, COLOR_GREEN);
-        init_pair (8, COLOR_BLACK, COLOR_RED);
+        init_pair (7, COLOR_GREEN, COLOR_BLACK);
+        init_pair (8, COLOR_RED, COLOR_BLACK);
         init_pair (9, COLOR_GREEN, COLOR_BLACK);
+        init_pair (10, COLOR_MAGENTA, COLOR_BLACK);
         attron (A_BOLD);
     }
 
@@ -48,6 +49,7 @@ public:
     }
     void drawOver(Player& player)
     {
+        clearUpper();
         //change ints to char arrays for printing to screen
         attron (COLOR_PAIR(4));
         char health[10]= {0};
@@ -83,42 +85,52 @@ public:
         move(0,0);
         printw("Name   : Filburt");
         move(0,20);
-        printw("Class    : ");
+        printw("Class: ");
+        if (player.getType() == 1)
+            printw("Fighter");
+        else if (player.getType() == 2)
+            printw("Mage");
+        else if (player.getType() == 3)
+            printw("Archer");
+
+        // Level/Experience
         move(1,0);
         printw("Level  : ");
         printw(level);
-        move(1,20);
+        move(2,0);
+        printw("Exp    : ");
+        printw(experience);
+        printw("/");
+        printw(experience_Cap);
+        move(2,20);
         printw("[");
         int tempFill = ((player.getExperience() * 10) / player.getExperience_Cap());
-
-
-        //int temp = 10 - tempFill; //player.getExperience()/10;
-        attron (COLOR_PAIR(5));
+        attron (COLOR_PAIR(10));
         for (int i=0; i<tempFill; i++)
         {
-                addch(219);
-                addch(219);
+            addch(219);
+            addch(219);
         }
+
         attron (COLOR_PAIR(4));
         for (int i = 10; i > tempFill; i--)
         {
             addch(219);
             addch(219);
         }
-        printw("]\n");
-        printw("Exp    : "); printw(experience);printw("/");printw(experience_Cap);
+        printw("]");
 
-        printw("\nHealth : ");
-        printw(health);printw("/");printw(maxHealth);
+
+        // Health + Health Bar
+        move(3,0);
+        printw("Health : ");
+        printw(health);
+        printw("/");
+        printw(maxHealth);
         move(3,20);
         printw("[");
         tempFill = ((player.getHealth() * 10 ) / player.getHealthCap());
-       // temp = 10 - tempFill;
 
-
-        //char Temp[10]= {0};  123 4567 891
-        //sprintf(Temp,"%i",tempFill);
-        //printw("TEMPFIL = ");printw(Temp);
         if (tempFill > 7)
             attron (COLOR_PAIR(7)); // green if > 70%
         if (tempFill < 4)
@@ -128,8 +140,8 @@ public:
 
         for (int i=0; i<tempFill; i++)
         {
-                addch(219);
-                addch(219);
+            addch(219);
+            addch(219);
         }
         attron (COLOR_PAIR(4));
         for (int i = 10; i > tempFill; i--)
@@ -139,19 +151,14 @@ public:
         }
 
 
-        //magic meter
+        // Magic Meter
         printw("]\n");
-        printw("Mana : ");
+        printw("Mana   : ");
         printw(Mana);printw("/");printw(ManaCap);
         move(4,20);
         printw("[");
         tempFill = ((player.getMagicAmount() * 10 ) / player.getMagicAmount_Cap());
-       // temp = 10 - tempFill;
 
-
-        //char Temp[10]= {0};  123 4567 891
-        //sprintf(Temp,"%i",tempFill);
-        //printw("TEMPFIL = ");printw(Temp);
         if (tempFill > 7)
             attron (COLOR_PAIR(2)); // green if > 70%
         if (tempFill < 4)
@@ -161,8 +168,8 @@ public:
 
         for (int i=0; i<tempFill; i++)
         {
-                addch(219);
-                addch(219);
+            addch(219);
+            addch(219);
         }
         attron (COLOR_PAIR(4));
         for (int i = 10; i > tempFill; i--)
@@ -170,23 +177,31 @@ public:
             addch(219);
             addch(219);
         }
-
-
-
-
-
-
         printw("]");
-        move(5,20);printw("\nAttack : ");printw(attack);
-        printw("Defense : ");printw(defense);
-        move(6,20);printw("\nEvade  : ");printw(evade);
-        printw("Critical: ");printw(critical);
-        move(7,20);printw("\nMagic Attack: ");printw(magicPower);
-        printw("Magic Defence: ");printw(magicDefence);
-        printw("\n");
-        printw("Arrows: ");printw(Arrows);
-        printw("\n");
 
+        // Other Stats
+        move(6,0);
+        printw("Attack: ");
+        printw(attack);
+        move(6,20);
+        printw("Defense : ");
+        printw(defense);
+        move(7,0);
+        printw("Evade: ");
+        printw(evade);
+        move(7,20);
+        printw("Critical: ");
+        printw(critical);
+        move(8,0);
+        printw("Magic Attack: ");
+        printw(magicPower);
+        move(8,20);
+        printw("Magic Defense: ");
+        printw(magicDefence);
+        move(9,0);
+        printw("Arrows: ");
+        printw(Arrows);
+        printw("\n");
     }
 
     void drawHelp(Player player1)
@@ -234,8 +249,6 @@ public:
 
     void clearLower()
     {
-        move(44, 0);
-        clrtoeol();
         move(45, 0);
         clrtoeol();
         move(46, 0);
@@ -248,22 +261,52 @@ public:
         clrtoeol();
         move(50, 0);
         clrtoeol();
+        move(51, 0);
+        clrtoeol();
+        move(52, 0);
+        clrtoeol();
+        move(53, 0);
+        clrtoeol();
+    }
+
+    void clearUpper()
+    {
+        move(0, 0);
+        clrtoeol();
+        move(1, 0);
+        clrtoeol();
+        move(2, 0);
+        clrtoeol();
+        move(3, 0);
+        clrtoeol();
+        move(4, 0);
+        clrtoeol();
+        move(5, 0);
+        clrtoeol();
+        move(6, 0);
+        clrtoeol();
+        move(7, 0);
+        clrtoeol();
+        move(8, 0);
+        clrtoeol();
+        move(9, 0);
+        clrtoeol();
     }
 
     void drawUnder()
     {
-      //  printw("(h)elp add more stuff here\n");
-//printw("@@@@@@@    @@@@@@    @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@@@   @@@  @@@  @@@  @@@\n");
-//printw("@@@@@@@@  @@@@@@@@  @@@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@@@@  @@@  @@@@ @@@  @@@\n");
-//printw("@@!  @@@  @@!  @@@  !@@        @@!  @@@  @@!       @@! @@! @@!  @@!  @@!@!@@@  @@!\n");
-//printw("!@!  @!@  !@!  @!@  !@!        !@!  @!@  !@!       !@! !@! !@!  !@!  !@!!@!@!  !@!\n");
-//printw("@!@!!@!   @!@  !@!  !@! @!@!@  @!@  !@!  @!!!:!    @!! !!@ @!@  !!@  @!@ !!@!  !!@\n");
-//printw("!!@!@!    !@!  !!!  !!! !!@!!  !@!  !!!  !!!!!:    !@!   ! !@!  !!!  !@!  !!!  !!!\n");
-//printw("!!: :!!   !!:  !!!  :!!   !!:  !!:  !!!  !!:       !!:     !!:  !!:  !!:  !!!  !!:\n");
-//printw(":!:  !:!  :!:  !:!  :!:   !::  :!:  !:!  :!:       :!:     :!:  :!:  :!:  !:!  :!:\n");
-//printw("::   :::  ::::: ::   ::: ::::  ::::: ::   :: ::::  :::     ::    ::   ::   ::   ::\n");
-// printw(":   : :   : :  :    :: :: :    : :  :   : :: ::    :      :    :    ::    :   :\n");
-}
+        //printw("(h)elp add more stuff here\n");
+        //printw("@@@@@@@    @@@@@@    @@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@@@   @@@  @@@  @@@  @@@\n");
+        //printw("@@@@@@@@  @@@@@@@@  @@@@@@@@@  @@@  @@@  @@@@@@@@  @@@@@@@@@@@  @@@  @@@@ @@@  @@@\n");
+        //printw("@@!  @@@  @@!  @@@  !@@        @@!  @@@  @@!       @@! @@! @@!  @@!  @@!@!@@@  @@!\n");
+        //printw("!@!  @!@  !@!  @!@  !@!        !@!  @!@  !@!       !@! !@! !@!  !@!  !@!!@!@!  !@!\n");
+        //printw("@!@!!@!   @!@  !@!  !@! @!@!@  @!@  !@!  @!!!:!    @!! !!@ @!@  !!@  @!@ !!@!  !!@\n");
+        //printw("!!@!@!    !@!  !!!  !!! !!@!!  !@!  !!!  !!!!!:    !@!   ! !@!  !!!  !@!  !!!  !!!\n");
+        //printw("!!: :!!   !!:  !!!  :!!   !!:  !!:  !!!  !!:       !!:     !!:  !!:  !!:  !!!  !!:\n");
+        //printw(":!:  !:!  :!:  !:!  :!:   !::  :!:  !:!  :!:       :!:     :!:  :!:  :!:  !:!  :!:\n");
+        //printw("::   :::  ::::: ::   ::: ::::  ::::: ::   :: ::::  :::     ::    ::   ::   ::   ::\n");
+        //printw(":   : :   : :  :    :: :: :    : :  :   : :: ::    :      :    :    ::    :   :\n");
+    }
 };
 
 #endif

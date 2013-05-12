@@ -33,6 +33,8 @@ Member functions:
     setupFloors()           Creates, orders, and links the Floor objects.
     populateEnemyList()     Creates an ordered array of Enemies and assigns
                             their coordinates.
+    populateItemList()      Creates an ordered array of Items and assigns their
+                            coordinates.
 *************************************************/
 class Game
 {
@@ -42,12 +44,11 @@ private:
 
 public:
 
-    Enemy enemyArray[51];
+    Enemy enemyArray[50];
     Item itemArray[50];
 
-    Game()
-    {
-    }
+    // Construct a default Game object.
+    Game(){}
 
     // Start and run the game.
     void run()
@@ -87,7 +88,6 @@ public:
         // player input
         char input;
         char Player_Choice;
-
         string option;
 
         cout<<"Please enter Load(L) to load or anything else to begin a new game ";
@@ -97,6 +97,7 @@ public:
             load = 1;
         }
 
+        // If the player loads a game, assign stats from the database to the player.
         if (load) {
             // loop through each column for the user id
             for (int i = 0; i < 15; i++) {
@@ -106,40 +107,42 @@ public:
                 //cout<<s_att[i]<<" "<<attr[i]<<endl;
             }
         }
+        // Otherwise start a new game by allowing the player to choose a class.
         else
         {
+                bool Check = false;  //check for if Player put in good information
+                while(Check != true)
                 {
-                    printf("Enter F for fighter, M for mage, or A for archer: ");
-                    cin >> Player_Choice;  //gets player choice
+                    //gets player choice
+                    cout << "Enter F for fighter, M for mage, or A for archer: ";
+                    cin >> Player_Choice;
 
+                    // Error Checking
                     if((Player_Choice == 'F') || (Player_Choice == 'M') || (Player_Choice == 'A'))
                     {
-                        Check = 0;
+                        Check = true;
                     }
                     else
                     {
-                        Check = 1;
+                        Check = false;
                     }
                     clear(); //clears the screen of the choice selection, so game can be printed
                 }
+        }
 
-        if (load) {
+        // Construct the Player object with DB stats if a game was loaded or with default class stats if not.
+        if (load)
             // load the attributes from db
             Player player1(attr[0], attr[1], attr[2], attr[3], attr[4], attr[5], attr[6], attr[7], attr[8],
                            attr[9], attr[10], attr[11], attr[12], attr[13], attr[14]);
-        }
-        else {
+        else
             Player player1(Player_Choice);
-        }
-        // moved here from main, don't erase :P
+
+        // Initialize Curses
         srand(time(NULL));
-        /* Start curses mode */
         initscr();
-        /* Line buffering disabled	*/
         raw();
-        /* We get KEYS*/
         keypad(stdscr, TRUE);
-        /* Don't echo() while we do getch won't work otherwise */
         noecho();
 
         //color and interface init
@@ -156,7 +159,6 @@ public:
         updatePlayerLocation(player1, currentFloor);
         populateEnemyList(floorArray);
         populateItemList(floorArray);
-
         int toEquip;
 
         // Get Input
@@ -300,6 +302,14 @@ public:
                 getch();
                 exit(1);
             }
+
+            // Win Test
+            if (currentFloor -> getNumEnemies() == 0 && currentFloor -> getFloorLevel() == LAST_FLOOR)
+            {
+                printw(" You are victorious! \n Game Over!! \n Press any key to exit...");
+                getch();
+                exit(1);
+            }
         }
         endwin();
     }
@@ -340,16 +350,6 @@ public:
             for (int x = 0; x < XSIZE; x++)
                 for (int y = 0; y < YSIZE; y++)
                 {
-                    /*if (floorArray[i].tileArray[x][y].hasBoss() == 1)
-                    {
-                        enemyArray[50].setBoss(1);
-                        enemyArray[counter].setCurrentFloorLevel(i+1);
-                        enemyArray[counter].setCurrentX(x);
-                        enemyArray[counter].setCurrentY(y);
-                        enemyArray[50].setHealth(500);
-                        counter++;
-                    }*/
-
                     if (floorArray[i].tileArray[x][y].hasEnemy() == 1)
                     {
                         enemyArray[counter].setCurrentFloorLevel(i+1);

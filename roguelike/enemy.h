@@ -31,7 +31,6 @@ class Enemy: public Character
 {
 protected:
     int currentFloorLevel;
-    bool isBoss;
     bool attackPlayerNow;
 public:
 
@@ -46,9 +45,7 @@ public:
         magicDefense = level + 4;
         evasion = level + 4;
         critical = level + 4;
-
         currentFloorLevel = 0;
-        isBoss = 0;
         attackPlayerNow = false;
     }
 
@@ -295,7 +292,7 @@ public:
                     moved = 1;
                 }
                 // 6% chance of moving up right
-                else if (randomChance > 51 && randomChance < 57)
+                else if (randomChance > 50 && randomChance < 57)
                 {
                     destX = currentX - 1;
                     destY = currentY + 1;
