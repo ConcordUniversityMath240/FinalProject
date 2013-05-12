@@ -70,56 +70,44 @@ public:
             //sql.dbCommand("CREATE TABLE attributes (id integer primary key, pid integer, level integer, health integer, health_cap integer, magicAmount integer, magicAmount_cap integer, damage integer, magicPower integer, defence integer, magicDefence integer, evasion integer,critical integer, experience integer, experience_cap integer);");
             //sql.dbCommand("INSERT INTO attributes (id, pid, level, health, health_cap, magicAmount, magicAmount_cap, damage, magicPower, defence, magicDefence, evasion, critical, experience, experience_cap) VALUES (NULL, 1, 1, 100, 100, 80, 80, 5, 5, 5, 5, 5, 5, 0, 100);");
         */
-        // player attributes
-        // location of objects
 
+        // username's name
         string username = "Filburt";
+        // search for user id
         sql.dbCommand("SELECT id FROM users WHERE user = '"+string(username)+"';", "READ");
+        // store returned user id
         string userid = sql.returnRead();
+        // column names from the db
         string s_att[15] = {"level", "health", "health_cap", "magicAmount", "magicAmount_cap", "damage",
                                 "magicPower", "defence", "magicDefence", "evasion", "critical",
                                 "experience", "experience_cap", "type", "arrow"};
+        // holds attributes returned from db
         int attr[15];
+
+        // player input
         char input;
         char Player_Choice;
 
         string option;
-        //while (option != "L" || option != "N") {
-            cout<<"Please enter Load(L) to load or anything else to begin a new game ";
-            cin >> option;
-        //}
+
+        cout<<"Please enter Load(L) to load or anything else to begin a new game ";
+        cin >> option;
 
         if (option == "L") {
             load = 1;
         }
 
         if (load) {
+            // loop through each column for the user id
             for (int i = 0; i < 15; i++) {
                 sql.dbCommand("SELECT "+s_att[i]+" FROM attributes WHERE pid = '"+userid+"';", "READ");
+                // store attributes
                 attr[i] = atoi(sql.returnRead().c_str());
-                cout<<s_att[i]<<" "<<attr[i]<<endl;
+                //cout<<s_att[i]<<" "<<attr[i]<<endl;
             }
         }
-       /* else
-        {
-//            attr[0] = 1; attr[1] = 100; attr[2] = 100; attr[3] = 80; attr[4] = 80; attr[5] = 5;
-//            attr[6] = 5; attr[7] = 5; attr[8] = 5; attr[9] = 5; attr[10] = 5; attr[11] = 0;
-//            attr[12] = 100;
-
-        }*/
-
-        if (load)
-            Player player1(attr[0], attr[1], attr[2], attr[3], attr[4], attr[5], attr[6], attr[7], attr[8],
-                           attr[9], attr[10], attr[11], attr[12], attr[13], attr[14]);
         else
         {
-
-            Player player1(Player_Choice);
-        }
-
-                bool Check = 1;  //check for if Player put in good information
-
-                while(Check != 0)
                 {
                     printf("Enter F for fighter, M for mage, or A for archer: ");
                     cin >> Player_Choice;  //gets player choice
@@ -135,9 +123,14 @@ public:
                     clear(); //clears the screen of the choice selection, so game can be printed
                 }
 
-
-
-
+        if (load) {
+            // load the attributes from db
+            Player player1(attr[0], attr[1], attr[2], attr[3], attr[4], attr[5], attr[6], attr[7], attr[8],
+                           attr[9], attr[10], attr[11], attr[12], attr[13], attr[14]);
+        }
+        else {
+            Player player1(Player_Choice);
+        }
         // moved here from main, don't erase :P
         srand(time(NULL));
         /* Start curses mode */
@@ -278,7 +271,9 @@ public:
                 erase();
                 refresh();
             }
+            // save game
             if (input == 's' || input == 'S') {
+                // get values to update database
                 string health = sql.convertInt(player1.getHealth());
                 string damage = sql.convertInt(player1.getDamage());
                 string defence = sql.convertInt(player1.getDefense());
@@ -294,7 +289,7 @@ public:
                 string experience_cap = sql.convertInt(player1.getExperience_Cap());
                 string type = sql.convertInt(player1.getType());
                 string arrow = sql.convertInt(player1.getArrows());
-
+                // update the database
                 sql.dbCommand("UPDATE attributes SET health = "+string(health)+", damage = "+string(damage)+", defence = "+string(defence)+", level = "+string(level)+", health_cap = "+string(health_cap)+", magicAmount = "+string(magicAmount)+", magicAmount_cap = "+string(magicAmount_cap)+", magicPower = "+string(magicPower)+", magicDefence = "+string(magicDefence)+", critical = "+string(critical)+", evasion = "+string(evasion)+", experience = "+string(experience)+", experience_cap = "+string(experience_cap)+", type = "+string(type)+", arrow = "+string(arrow)+" WHERE pid = '"+userid+"';");
             }
 
