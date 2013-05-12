@@ -113,6 +113,7 @@ public:
         evasion = inEvasion;
         critical = inCritical;
         Experience = inExperience;
+
         //player reaches lvl 2 with 100 experience
         Experience_Cap = inExperience_Cap;
         Type = inType;
@@ -554,6 +555,7 @@ public:
 
             }
     }
+
     //sets the arrow starting amount
     void setArrowAmount(int inAmount)
     {
@@ -572,7 +574,6 @@ public:
             magicAmount = magicAmount + 10;
         }
     }
-
 };
 
 

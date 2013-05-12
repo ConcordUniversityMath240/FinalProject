@@ -1,49 +1,58 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="combat.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="combat.h" open="1" top="1" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9959" topLine="101" />
+			<Cursor1 position="14706" topLine="215" />
+		</Cursor>
+		<Folding>
+			<Collapse line="251" />
+		</Folding>
+	</File>
+	<File name="interface.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2453" topLine="70" />
 		</Cursor>
 	</File>
-	<File name="enemy.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="12173" topLine="313" />
+			<Cursor1 position="107" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="game.h" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="map.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2820" topLine="69" />
+			<Cursor1 position="6028" topLine="204" />
 		</Cursor>
 	</File>
-	<File name="interface.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="object.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="305" topLine="5" />
+			<Cursor1 position="2437" topLine="65" />
+		</Cursor>
+		<Folding>
+			<Collapse line="37" />
+			<Collapse line="42" />
+			<Collapse line="47" />
+			<Collapse line="52" />
+		</Folding>
+	</File>
+	<File name="player.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="583" topLine="30" />
 		</Cursor>
 	</File>
-	<File name="inventory.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="enemy.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5886" topLine="178" />
+			<Cursor1 position="944" topLine="37" />
 		</Cursor>
+		<Folding>
+			<Collapse line="37" />
+			<Collapse line="41" />
+			<Collapse line="76" />
+		</Folding>
 	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="game.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="318" topLine="3" />
-		</Cursor>
-	</File>
-	<File name="map.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="object.h" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2627" topLine="72" />
-		</Cursor>
-	</File>
-	<File name="player.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4265" topLine="126" />
+			<Cursor1 position="4869" topLine="123" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

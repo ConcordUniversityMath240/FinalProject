@@ -83,6 +83,7 @@ protected:
     int XPgained;
     int damage;
     int magicPower;
+    int arrows; //amount of arrows in player inventory
     int defense;
     int arrows; //amount of arrows in player inventory
     int magicDefense;

@@ -233,6 +233,14 @@ public:
                 interface.clearLower();
                 combat1.playerDirMagicAtk(currentFloor, player1, enemyArray);
             }
+
+            // Fire Arrows
+            if (input == 'g' || input == 'G')
+            {
+                erase();
+                refresh();
+                combat1.playerArrowAtk(currentFloor, player1, enemyArray);
+            }
             // Help Screen
             if (input == 'h' || input == 'H')
             {
