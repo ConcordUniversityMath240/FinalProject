@@ -55,21 +55,6 @@ public:
         // create db object
         int load = NULL;
         sqlite sql;
-        /*
-            // don't re run commands, this is just something to keep track on the commands used so far
-            // creates table users
-            sql.dbCommand("CREATE TABLE users (id integer primary key, user varchar(64));");
-            // adds good ol' Filburt
-            sql.dbCommand("INSERT INTO users (id, user) VALUES (NULL, 'Filburt');");
-            // reading our previous insert
-            sql.dbCommand("SELECT id FROM users WHERE user = 'Filburt';", "READ");
-            // create table map
-            sql.dbCommand("CREATE TABLE maps (id integer primary key, name varchar(64), content text);");
-            //sql.dbCommand("drop table if exists maps");3
-            //sql.dbCommand("CREATE TABLE attributes (id integer primary key, pid integer, level integer, health integer, health_cap integer, magicAmount integer, magicAmount_cap integer, damage integer, magicPower integer, defence integer, magicDefence integer, evasion integer,critical integer, experience integer, experience_cap integer);");
-            //sql.dbCommand("INSERT INTO attributes (id, pid, level, health, health_cap, magicAmount, magicAmount_cap, damage, magicPower, defence, magicDefence, evasion, critical, experience, experience_cap) VALUES (NULL, 1, 1, 100, 100, 80, 80, 5, 5, 5, 5, 5, 5, 0, 100);");
-        */
-
         // username's name
         string username = "Filburt";
         // search for user id
@@ -101,13 +86,12 @@ public:
                 sql.dbCommand("SELECT "+s_att[i]+" FROM attributes WHERE pid = '"+userid+"';", "READ");
                 // store attributes
                 attr[i] = atoi(sql.returnRead().c_str());
-                //cout<<s_att[i]<<" "<<attr[i]<<endl;
             }
         }
         else
         {
-
-                bool Check = false;  //check for if Player put in good information
+                //check for if Player put in good information
+                bool Check = false;
                 while(Check != true)
                 {
                     cout << "Enter F for fighter, M for mage, or A for archer: ";
