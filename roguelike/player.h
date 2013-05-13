@@ -1,3 +1,9 @@
+/************************************************
+Player.h
+
+Purpose: Handles the types of players, actions, and leveling.
+*************************************************/
+
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <iostream>
@@ -7,10 +13,7 @@
 using namespace std;
 
 /************************************************
-Player.h
-
-Handles the types of players, actions, and leveling.
-
+Player class
     Player()                          Three different ones, for each player type. Sets stats.
     getLevel()                        Gets the Player level.
     getHealth()                       Gets the Player's health.
@@ -43,9 +46,6 @@ Handles the types of players, actions, and leveling.
     setArrowAmount(int inAmount)      Returns the arrow amount.
     getArrowAmount()                  Gets the arrow amount.
     Recover_Magic()                   Player has chance to recover magic with every step.
-
-
-
 *************************************************/
 class Player : public Character
 {
@@ -73,7 +73,7 @@ public:
             magicAmount_Cap = 40;
             health_cap = 120;
             damage = 8;
-            magicPower = 0;
+            magicPower = 3;
             defense = 4;
             magicDefense = 2;
             evasion = 3;
@@ -163,8 +163,6 @@ public:
     {
         return level;
     }
-
-    //Adds experience after killing an enemy
     int getHealth()
     {
         return health;
@@ -209,6 +207,16 @@ public:
     int getArrows() {
         return arrows;
     }
+    int getXPgained()
+    {
+        return XPgained;
+    }
+    int getDamageTkn()
+    {
+        return damageTkn;
+    }
+
+    //Adds experience after killing an enemy
     void gainExperience(int inEnemyLevel)
     {
         XPgained = inEnemyLevel * 10;
@@ -219,10 +227,7 @@ public:
             levelUp();
         }
     }
-    int getXPgained()
-    {
-        return XPgained;
-    }
+
     //resets experience, initiates chances to increase stats
     void levelUp()
     {
@@ -303,6 +308,7 @@ public:
         {
             printw("You can now use Heal magic! \n");
         }
+        Experience_Cap = Experience_Cap + 20;
         nocbreak();
         getch();
     }
@@ -400,11 +406,7 @@ public:
         }
     }
 
-    int getDamageTkn()
-    {
-        return damageTkn;
-    }
-
+    // Equips an item passed by the Inventory.print() method.
     void equipItem(int newItem)
     {
         int oldItem = playerInventory.storage[newItem].getItemType();
@@ -429,7 +431,7 @@ public:
 
 
     }
-    //adds/removes stats of items when things are equipped/dequipped
+    //removes stats of items when things are equipped/dequipped
     void  removeStats(Item oldItem)
     {
         health_cap = health_cap - oldItem.getHealthBonus();
@@ -441,7 +443,7 @@ public:
         evasion = evasion - oldItem.getEvasionBonus();
         critical = critical - oldItem.getCriticalBonus();
     }
-
+    //adds stats of items when things are equipped
     void addStats(Item newItem)
     {
         health_cap = health_cap + newItem.getHealthBonus();
@@ -453,8 +455,9 @@ public:
         evasion = evasion + newItem.getEvasionBonus();
         critical = critical + newItem.getCriticalBonus();
     }
-        //printing for inventory screen
-        void printEquipped()
+
+    //printing for inventory screen
+    void printEquipped()
     {
         int counter = 0;
         attron (COLOR_PAIR(6));
@@ -543,7 +546,7 @@ public:
         //check if mana is already full
         if(Recover < 25)
         {
-            if(magicAmount != magicAmount_Cap)
+            if(magicAmount < magicAmount_Cap)
             magicAmount = magicAmount + 10;
         }
     }

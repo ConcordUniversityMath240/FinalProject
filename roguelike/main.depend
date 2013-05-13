@@ -112,7 +112,7 @@
 	<stdlib.h>
 	<time.h>
 
-1368334347 c:\users\admin\documents\github\finalproject\roguelike\player.h
+1368485389 c:\users\admin\documents\github\finalproject\roguelike\player.h
 	<iostream>
 	<ctime>
 	<cstdlib>
@@ -276,7 +276,7 @@
 	<stdlib.h>
 	<time.h>
 
-1368334070 c:\users\admin\documents\github\finalproject\roguelike\combat.h
+1368484517 c:\users\admin\documents\github\finalproject\roguelike\combat.h
 	<iostream>
 	<fstream>
 	<ctime>
