@@ -8,6 +8,7 @@ Purpose: Main game method and other related methods.
 #include <curses.h>
 #ifndef GAME_H
 #define GAME_H
+#include <fstream>
 #include <iostream>
 #include <ctime>
 #include <stdio.h>
@@ -35,6 +36,9 @@ Member functions:
                             their coordinates.
     populateItemList()      Creates an ordered array of Items and assigns their
                             coordinates.
+    printTitle()            prints the title screen
+    printDefeat()           prints a game over message
+    printVictory()          prints a message when a player wins the game
 *************************************************/
 class Game
 {
@@ -53,24 +57,10 @@ public:
     // Start and run the game.
     void run()
     {
-       // printw("Enter F for fighter, M for mage, or A for archer: ");
+        printTitle();
         // create db object
         int load = 0;
         sqlite sql;
-        /*
-            // don't re run commands, this is just something to keep track on the commands used so far
-            // creates table users
-            sql.dbCommand("CREATE TABLE users (id integer primary key, user varchar(64));");
-            // adds good ol' Filburt
-            sql.dbCommand("INSERT INTO users (id, user) VALUES (NULL, 'Filburt');");
-            // reading our previous insert
-            sql.dbCommand("SELECT id FROM users WHERE user = 'Filburt';", "READ");
-            // create table map
-            sql.dbCommand("CREATE TABLE maps (id integer primary key, name varchar(64), content text);");
-            //sql.dbCommand("drop table if exists maps");3
-            //sql.dbCommand("CREATE TABLE attributes (id integer primary key, pid integer, level integer, health integer, health_cap integer, magicAmount integer, magicAmount_cap integer, damage integer, magicPower integer, defence integer, magicDefence integer, evasion integer,critical integer, experience integer, experience_cap integer);");
-            //sql.dbCommand("INSERT INTO attributes (id, pid, level, health, health_cap, magicAmount, magicAmount_cap, damage, magicPower, defence, magicDefence, evasion, critical, experience, experience_cap) VALUES (NULL, 1, 1, 100, 100, 80, 80, 5, 5, 5, 5, 5, 5, 0, 100);");
-        */
 
         // username's name
         string username = "Filburt";
@@ -298,7 +288,8 @@ public:
             // Death Test
             if (player1.getHealth() < 1)
             {
-                printw("  You were killed!! \n  Game Over!! \n Press any key to exit...");
+                printDefeat();
+                printw("  You were killed!! How embarrasing...\n Game Over!! \n Press any key to exit...");
                 getch();
                 exit(1);
             }
@@ -306,6 +297,7 @@ public:
             // Win Test
             if (currentFloor -> getNumEnemies() == 0 && currentFloor -> getFloorLevel() == LAST_FLOOR)
             {
+                printVictory();
                 printw(" You are victorious! \n Game Over!! \n Press any key to exit...");
                 getch();
                 exit(1);
@@ -382,6 +374,50 @@ public:
                             return;
                     }
                 }
+    }
+
+    // Print the title screen.
+    void printTitle()
+    {
+        ifstream title("title.txt");
+        title.unsetf(ios_base::skipws);
+        char temp;
+        while(!title.eof())
+        {
+            title >> temp;
+            cout << temp;
+        }
+        cout << endl;
+    }
+
+    // Print victory screen.
+    void printVictory()
+    {
+        erase();
+        ifstream victory("victory.txt");
+        victory.unsetf(ios_base::skipws);
+        char temp;
+        while(!victory.eof())
+        {
+            victory >> temp;
+            addch(temp);
+        }
+        addch('\n');
+    }
+
+    // Print game over screen.
+    void printDefeat()
+    {
+        erase();
+        ifstream defeat("defeat.txt");
+        defeat.unsetf(ios_base::skipws);
+        char temp;
+        while(!defeat.eof())
+        {
+            defeat >> temp;
+            addch(temp);
+        }
+        addch('\n');
     }
 };
 
